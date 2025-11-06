@@ -1,0 +1,120 @@
+# XGES Algorithm Profile
+
+## 1. Best Use Cases
+
+XGES (Extremely Greedy Equivalence Search) is an enhanced version of the popular GES algorithm, optimized for:
+
+- **Sparse Causal Networks**: Excels with sparser graph structures
+- **Moderate to Large Sample Sizes**: Performs well with datasets of 500+ samples
+- **Time-Sensitive Applications**: When computational efficiency is critical without sacrificing accuracy
+- **Causal Discovery in Clean Data**: Especially effective with continuous variables and minimal missing values
+
+**Optimal Domains**:
+- Gene regulatory networks in biomedicine
+- Climate science and environmental data analysis
+- Economic and financial causal modeling
+- Brain connectivity analysis in neuroscience
+
+**Not Recommended For**:
+- Datasets with significant missing values (>15%)
+- Systems with hidden confounders or latent variables
+- Very small sample sizes (<100)
+- Very large-scale problems (>100 variables) due to computational constraints
+
+## 2. Hyperparameter Sensitivity
+
+XGES has minimal hyperparameter tuning requirements, making it accessible to non-experts:
+
+- **Number of Hyperparameters**: One primary parameter (alpha)
+- **Default Performance**: The default alpha value (2) works well in most scenarios
+- **Tuning Difficulty**: Low; alpha has an intuitive interpretation as a penalty term in BIC score
+- **Tuning Impact**: Small changes to alpha can control the sparsity of the learned graph:
+  - Lower alpha (<1): Detects more complex/denser structures
+  - Higher alpha (>2): Favors sparser graphs with fewer edges
+
+This minimal parameter set makes XGES significantly more approachable than algorithms requiring extensive tuning.
+
+## 3. Assumptions
+
+XGES relies on several critical assumptions that users must consider:
+
+- **Causal Sufficiency**: All relevant variables are measured (no unmeasured confounders)
+- **Markov Property**: Variables are conditionally independent of non-descendants given parents
+- **Faithfulness**: Independence relationships in data reflect the underlying causal structure
+- **Linearity**: Default implementation assumes linear relationships between variables
+- **Acyclicity**: The true causal structure contains no cycles or feedback loops
+
+Violations of causal sufficiency or faithfulness dramatically reduce accuracy. XGES is moderately tolerant of some departures from linearity but struggles with strongly non-linear relationships.
+
+## 4. Data Handling Capabilities
+
+XGES demonstrates nuanced performance across data types:
+
+- **Variable Types**: 
+  - Primarily designed for continuous variables
+  - Can handle some discrete variables (up to 20% of total variables)
+  - Less effective with predominantly categorical data
+
+- **Relationship Complexity**:
+  - Excels with linear relationships and moderately handle non-linear relationships
+
+- **Noise Tolerance**:
+  - Performs well with Gaussian and uniform noise
+  - Moderate resilience to low levels of noise
+  - Performance degrades with heavy-tailed or highly skewed noise distributions
+
+## 5. Robustness & Scalability
+
+XGES shows important strengths and limitations in robustness and scaling:
+
+- **Missing Data Tolerance**: 
+  - Moderate performance with up to 10% missing values
+  - Not recommended when missing data exceeds 15%
+
+- **Measurement Error Resilience**:
+  - Handles moderate measurement error (up to 30%)
+  - Performance drops with higher error rates
+
+- **Scalability Characteristics**:
+  - Variable Scaling: Efficiently handles up to 100 variables
+  - Sample Scaling: Excellent performance with larger sample sizes
+  - Approximately 10x faster than traditional GES implementation
+  - Not suitable for very large-scale problems (>100 variables) due to exponential computational complexity
+  - For problems with >100 variables, consider GPU-accelerated alternatives
+
+## 6. Computational Complexity
+
+Understanding XGES's computational requirements helps determine feasibility:
+
+- **Theoretical Time Complexity**: O(n² * 2ᵏ * m), where:
+  - n = number of variables
+  - k = maximum number of neighbors for any node
+  - m = number of samples
+
+- **Practical Runtime**: 
+  - 10x faster than standard GES implementation
+  - C++ implementation significantly outperforms Python version
+  - Can analyze 25-variable problems in seconds on standard hardware
+  - Becomes computationally prohibitive with datasets containing >100 variables
+  - Runtime increases exponentially with the number of variables
+
+- **Memory Requirements**:
+  - Moderate memory usage, scales with number of variables
+  - Less demanding than many constraint-based alternatives
+  - Memory consumption becomes significant with large-scale problems (>100 variables)
+
+## 7. Interpretability
+
+The interpretability of XGES results varies by user expertise:
+
+- **Output Format**: 
+  - Produces a Partially Directed Acyclic Graph (PDAG) or completed PDAG
+  - Can provide a single DAG representative of the equivalence class
+  - Available in multiple formats including adjacency matrices and network objects
+
+- **Limitations**:
+  - Ambiguous edge directions in equivalence class can be challenging to interpret
+  - No built-in confidence or uncertainty measures for individual edges
+  - No native explanation for why specific causal relationships were inferred
+  
+XGES demonstrates particularly strong overall performance when causal relationships are moderately sparse and primarily linear, with clean, continuous data of sufficient sample size. However, users should carefully consider computational constraints when working with datasets containing more than 100 variables, as the algorithm's efficiency decreases dramatically at larger scales.

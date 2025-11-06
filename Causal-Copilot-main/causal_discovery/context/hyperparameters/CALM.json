@@ -1,0 +1,18 @@
+{
+  "algorithm_name": "CALM",
+  "lambda_1": {
+    "meaning": "L1 regularization parameter for sparsity",
+    "available_values": [0.01, 0.1, 0.001],
+    "expert_suggestion": "Use 0.01 as default. 0.1 for more sparse graphs (average degree 1), 0.001 for more dense graphs (average degree 15)."
+  },
+  "alpha": {
+    "meaning": "Desired significance level in (0, 1)",
+    "available_values": [0.05, 0.1, 0.01],
+    "expert_suggestion": "Use 0.05 as default. Adjust based on sample size, more conservative (lower) values for larger samples. If < 500, use 0.1; Else if 500-10000 (<10000 but >500), use 0.05; Else if > 10000, using 0.01."
+  },
+  "subproblem_iter": {
+    "meaning": "Maximum number of sub-optimization steps during optimization",
+    "available_values": [10000, 5000, 40000],
+    "expert_suggestion": "Use 10000 as default. Increase for more complex graphs and functional relationships, while more iterations is much more time-consuming."
+  }
+} 

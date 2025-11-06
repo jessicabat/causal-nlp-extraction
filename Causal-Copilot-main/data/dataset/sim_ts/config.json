@@ -1,0 +1,10 @@
+{
+    "num_nodes": 3,
+    "lag": 3,
+    "degree_inter": 1.0,
+    "degree_intra": 1.0,
+    "w_min_intra": 0.04,
+    "w_max_intra": 0.04,
+    "w_min_inter": 0.02,
+    "w_max_inter": 0.02
+}

@@ -1,0 +1,46 @@
+# NOTEARSLinear Algorithm
+
+## Executive Summary
+- **Optimal for**: Linear continuous-variable problems with sparse to moderate graph density (≤0.3); medium-sized networks (<200 variables); domains needing complete DAG structure
+- **Alternatives**: GES for better scalability; CDNOD with RCIT for nonlinear relationships; PC with KCI for mixed data types
+
+## 1. Assumptions
+- True causal structure is a DAG (no cycles or feedback loops)
+- Causal sufficiency (no unmeasured confounders)
+- Linear relationships between variables
+- Independent noise terms
+- Continuous variables only
+
+## 2. Data Handling Capabilities
+- **Variable Types**: Designed exclusively for continuous variables; no native support for discrete/categorical data
+- **Functional Complexity**: Limited to linear relationships; cannot capture nonlinear effects without extensions
+- **Noise Characteristics**: Performs well with Gaussian noise; moderately robust to other noise distributions
+
+## 3. Robustness & Scalability
+- **Missing Data**: Requires pre-processing with imputation; no built-in handling of missing values
+- **Measurement Error**: Moderate tolerance to random noise; performance degrades with structured measurement errors
+- **Network Density**: Excels with sparse to moderate causal graphs (edge probability ≤0.3)
+- **Variable Scaling**: Practical for networks with up to a few hundred variables; performance stable from 5-200 nodes
+- **Multi-Domain Data**: Limited native support for heterogeneous or multi-domain data
+
+## 4. Computational Complexity
+- **Time Complexity**: O(d³) where d is number of variables; prohibitive beyond 1000 variables
+- **Memory Usage**: O(d²) for storing adjacency matrix; efficient for medium-sized networks
+- **Implementation Efficiency**: Leverages numerical optimization libraries; supports GPU acceleration for matrix operations
+
+## 5. Hyperparameters
+- **Key Parameters**: lambda1 (λ1) for sparsity control; w_threshold for edge pruning; loss_type for model specification
+- **Default Performance**: Default values (λ1=0.01, w_threshold=0.3) provide reasonable results in standard scenarios
+- **Tuning Difficulty**: Straightforward compared to many causal algorithms; λ1 tuning provides clear feedback signal
+- **Incorrect Settings Impact**: Overly high λ1 prunes legitimate edges; too low creates dense graphs with false positives
+
+## 6. Real-World Applications
+- **Best Use Cases**: Gene regulatory networks with linear relationships; financial market analysis for sparse causal networks; Earth science time series with moderate dimensions
+- **Limitations**: Poor performance on systems with strong nonlinear interactions; unsuitable for very large networks (>1000 variables); underperforms with feedback loops or cyclic causation
+
+## 7. Interpretability
+- **Output Format**: Fully oriented weighted adjacency matrix representing a complete DAG
+- **Confidence Measures**: No built-in statistical significance or uncertainty quantification
+- **Ambiguity Handling**: Produces definitive edge directions without representing uncertainty
+- **User Accessibility**: Direct interpretation of causal strengths via edge weights
+- **Validation Methods**: Requires external validation approaches (bootstrap, intervention data)

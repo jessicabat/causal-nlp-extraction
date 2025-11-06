@@ -1,0 +1,111 @@
+# CDNOD: Constraint-based Causal Discovery from Nonstationary/Heterogeneous Data
+
+## Executive Summary
+- **Optimal use scenarios**: Nonstationary/heterogeneous data across multiple domains; mixed data types; nonlinear causal relationships; moderate to large networks (up to 100+ variables with GPU acceleration)
+- **Alternative recommendations**: Consider XGES for general-purpose causal discovery when heterogeneity is not present
+
+## 1. Real-World Applications
+- **Best Use Cases**: 
+  - Neuroscience: Analysis of task-fMRI data with changing brain connectivity (Zhang et al., 2017)
+  - Financial Markets: Identifying time-varying causal relationships between assets (Huang et al., 2020)
+  - Climate Science: Detecting nonstationary causal relationships in climate systems (Mian et al., 2023)
+  - Gene Regulatory Networks: Inferring changes under different experimental conditions (Huang et al., 2020)
+
+- **Limitations**:
+  - Less suitable for extremely high-dimensional data without GPU acceleration
+  - Computational demands may prohibit use with extremely large datasets on CPU-only systems
+  - Requires EXPLICIT heterogenity indicator (domain index feature) to provide the heterogenity supervision signal
+
+## 2. Assumptions
+- **Core theoretical assumptions**:
+  - Markov and faithfulness conditions
+  - Distribution shifts are caused by changes in causal mechanisms (not confounding the entire system)
+  - No specific functional form assumptions required
+
+- **Effects of assumption violations**:
+  - Performance degrades if distribution changes arise from system-wide confounding
+  - Still reasonably robust when faithfulness is weakly violated
+
+## 3. Data Handling Capabilities
+- **Performance across data types**:
+  - Strong with continuous, discrete, and mixed data types
+  - Handles up to 20% discrete variables in mixed datasets
+  - Adapts through appropriate independence test selection
+
+- **Handling of relationship complexity**:
+  - Excels with both linear and nonlinear relationships using appropriate tests
+  - Top performer for nonlinear functions among constraint-based methods
+  - Not restricted to specific functional forms
+
+- **Noise tolerance**:
+  - Functions with both Gaussian and non-Gaussian noise
+  - No strict distributional assumptions about noise
+
+## 4. Robustness & Scalability
+- **Missing data tolerance**:
+  - Handles up to 15% missing values effectively
+  - Requires appropriate preprocessing for missing data
+
+- **Measurement error resilience**:
+  - Strong performance with moderate to high levels of measurement error
+
+- **Network density performance**:
+  - Functions well with varying graph densities
+  - Best performance with edge probability 0.1-0.3
+
+- **Variable and sample scaling**:
+  - With CPU-based tests: Practical performance up to approximately 25-50 variables
+  - With GPU-accelerated tests: Can handle 50-100+ variables efficiently
+  - Effective with sample sizes from 500 to 10,000+ (GPU tests excel with larger samples >5000)
+  - Performance can be optimized by adjusting depth parameter based on network size
+
+- **Multi-domain data handling**:
+  - Specifically designed for multi-domain data
+  - Leading performance with up to 10 domains
+  - Leverages distribution changes to improve causal orientation
+
+## 5. Computational Complexity
+- **Theoretical time complexity**:
+  - O(n^p) where n is number of variables and p is maximum node degree
+  - Independence tests add O(m³) complexity for kernel-based tests where m is sample size
+
+- **Practical runtime characteristics**:
+  - Heavily influenced by chosen independence test and depth parameter
+  - GPU-accelerated tests (fisherz_gpu, chisq_gpu, cmiknn_gpu) provide significant speedup for large datasets
+  - Limiting depth to 3-4 for large networks significantly improves runtime
+
+- **Parallelization potential**:
+  - GPU acceleration provides substantial parallelization benefits
+
+## 6. Hyperparameters
+- **Key hyperparameters**:
+  - `alpha`: Significance level for independence tests (default: 0.05)
+  - `indep_test`: Choice of independence test method
+  - `depth`: Maximum depth for skeleton search (default: -1 for unlimited)
+
+- **Default performance**:
+  - Default settings provide satisfactory performance for many scenarios
+
+- **Tuning difficulty**:
+  - Clear heuristics make tuning straightforward
+  - Alpha adjusts based on sample size: 0.1 for <500 samples, 0.05 for 500-10,000, 0.01 for >10,000
+  - Independence test selection follows hardware and data characteristics:
+    - CPU tests: "fisherz_cpu" for linear data, "chisq_cpu" for discrete data, "kci_cpu"/"fastkci_cpu"/"rcit_cpu" for nonlinear data
+    - GPU tests: "fisherz_gpu"/"chisq_gpu" for large datasets (>50 variables, >7500 samples), "cmiknn_gpu" for nonlinear data with >25 variables or >3000 samples
+  - Depth parameter should be adjusted based on network size and test type:
+    - For CPU tests: depth 6 for <10 nodes, depth 5 for 10-25 nodes, depth 4 for 25-50 nodes, depth 3 for >50 nodes
+    - For GPU tests: unlimited depth (-1) for <50 nodes, depth 5 for 50-100 nodes, depth 4 for >100 nodes
+
+- **Impact of incorrect settings**:
+  - Too large alpha increases false positives
+  - Too small alpha increases false negatives
+  - Incorrectly chosen independence test can miss important relationships
+
+## 7. Interpretability
+- **Output format**:
+  - Produces directed acyclic graph (DAG) or partially directed acyclic graph (PDAG)
+  - Identifies variables with changing causal mechanisms across domains
+
+- **Ambiguity handling**:
+  - Some edges may remain undirected due to insufficient evidence
+  - Explicitly identifies which causal mechanisms change across domains

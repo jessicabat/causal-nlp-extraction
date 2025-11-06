@@ -1,0 +1,13 @@
+{
+  "algorithm_name": "ICALiNGAM",
+  "random_state": {
+    "meaning": "Seed used by the random number generator",
+    "available_values": [null, 42],
+    "expert_suggestion": "Use null as default. Set to null for random behavior, or a fixed integer for reproducible results."
+  },
+  "max_iter": {
+    "meaning": "Maximum number of iterations for FastICA",
+    "available_values": [1000, 500, 2000],
+    "expert_suggestion": "Use 1000 as default. Increase for potentially better results at the cost of longer computation time."
+  }
+} 

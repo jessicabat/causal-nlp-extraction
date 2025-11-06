@@ -1,0 +1,119 @@
+# DirectLiNGAM Algorithm Profile
+
+## 1. Best Use Cases
+
+DirectLiNGAM (Direct Linear Non-Gaussian Acyclic Model) is optimized for:
+
+- **Linear Causal Systems**: Excels in domains where causal relationships can be reasonably approximated by linear functions
+- **Non-Gaussian Data**: Particularly effective when error distributions are non-Gaussian (e.g., skewed, heavy-tailed)
+- **Complete Causal Discovery**: Identifies unique causal structures (not just equivalence classes) when assumptions are met
+- **Moderate-Sized Problems**: Works efficiently with datasets containing up to 50-100 variables
+
+**Optimal Domains**:
+- Healthcare data analysis (e.g., health indices relationships)
+- Econometrics and financial time series with non-Gaussian characteristics
+- Industrial process optimization with linear dependencies
+- Bioinformatics for gene regulatory network discovery
+
+**Not Recommended For**:
+- Systems with hidden confounders or latent variables
+- Data with predominantly Gaussian error distributions
+- Highly non-linear causal relationships
+- Cyclic causal structures or feedback loops
+- Very high-dimensional problems (>100 variables) without GPU acceleration
+
+## 2. Hyperparameter Sensitivity
+
+DirectLiNGAM has minimal hyperparameter requirements, making it accessible to non-experts:
+
+- **Number of Hyperparameters**: Two primary parameters (independence measure and GPU acceleration)
+- **Default Performance**: Default settings (using "pwling" measure) perform well in most scenarios
+- **Tuning Difficulty**: Low; straightforward parameter selection with clear impact on results
+- **Tuning Impact**: 
+  - "pwling" (pairwise likelihood) is efficient for most cases
+  - "kernel" measure may provide better results for certain data types but at higher computational cost
+  - GPU acceleration dramatically improves performance for large datasets without affecting results
+
+This minimal parameter set makes DirectLiNGAM significantly more approachable than algorithms requiring extensive tuning.
+
+## 3. Assumptions
+
+DirectLiNGAM relies on several critical assumptions that users must consider:
+
+- **Linearity**: Assumes linear relationships between variables
+- **Non-Gaussianity**: Requires non-Gaussian error distributions (except for at most one variable)
+- **Acyclicity**: The true causal structure must contain no cycles or feedback loops
+- **Causal Sufficiency**: All common causes are measured (no unmeasured confounders)
+- **Independence of Error Terms**: Error terms must be independent of each other
+
+Violations of linearity or non-Gaussianity dramatically reduce accuracy. DirectLiNGAM is particularly sensitive to hidden confounders and cyclic relationships, which fundamentally violate its core assumptions.
+
+## 4. Data Handling Capabilities
+
+DirectLiNGAM demonstrates specific capabilities across data types:
+
+- **Variable Types**: 
+  - Primarily designed for continuous variables
+  - Limited support for ordinal variables
+  - Poor performance with categorical variables unless properly encoded
+
+- **Relationship Complexity**:
+  - Excellent with linear relationships
+  - Significantly degraded performance with non-linear relationships
+  - Cannot capture complex interactions or threshold effects
+
+- **Noise Tolerance**:
+  - Performs well with non-Gaussian noise (key strength)
+  - Robust to moderate levels of noise in data
+  - Performance improves with increased non-Gaussianity in error terms
+  - Less effective when noise approaches Gaussian distribution
+
+## 5. Robustness & Scalability
+
+DirectLiNGAM shows important strengths and limitations in robustness and scaling:
+
+- **Missing Data Tolerance**: 
+  - Can handle missing data through imputation techniques
+  - Performance depends on quality of imputation method
+  - Not recommended when missing data exceeds 20%
+
+- **Sample Size Requirements**:
+  - Performs reasonably well with moderate sample sizes (500+)
+  - Performance improves with larger sample sizes
+  - Not recommended for very small samples (<200)
+
+- **Scalability Characteristics**:
+  - Efficiently handles up to 50-100 variables
+  - O(np³) complexity limits application to very high-dimensional data
+  - GPU acceleration can provide up to 32x speedup for large datasets
+  - Not suitable for extremely large-scale problems without specialized implementations
+
+## 6. Computational Complexity
+
+Understanding DirectLiNGAM's computational requirements helps determine feasibility:
+
+- **Theoretical Time Complexity**: O(np³), where:
+  - n = number of samples
+  - p = number of variables
+
+- **Practical Runtime**: 
+  - More efficient than ICA-LiNGAM (original algorithm)
+  - Moderately fast for problems with fewer than 50 variables
+  - Runtime increases significantly with variable count
+  - GPU acceleration dramatically improves performance for larger problems
+
+## 7. Interpretability
+
+The interpretability of DirectLiNGAM results is a key strength:
+
+- **Output Format**: 
+  - Produces a unique Directed Acyclic Graph (DAG) rather than an equivalence class
+  - Quantifies the strength of causal connections
+  - Provides a clear causal ordering of variables
+
+- **Strengths**:
+  - Unambiguous edge directions (unlike constraint-based methods)
+  - Clear quantification of causal effect strengths
+  - Results can be easily visualized as a directed graph
+
+DirectLiNGAM demonstrates particularly strong overall performance when data has linear relationships with non-Gaussian error distributions and no hidden confounders. Its unique ability to identify a complete causal structure (not just an equivalence class) makes it valuable in domains where the assumptions can be reasonably satisfied.

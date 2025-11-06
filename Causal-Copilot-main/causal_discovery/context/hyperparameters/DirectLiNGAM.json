@@ -1,0 +1,13 @@
+{
+  "algorithm_name": "DirectLiNGAM",
+  "measure": {
+    "meaning": "Measure to evaluate independence",
+    "available_values": ["pwling", "kernel"],
+    "expert_suggestion": "Use pwling as default. Use 'pwling' for pairwise likelihood-based measure, or 'kernel' for kernel-based measure."
+  },
+  "gpu": {
+      "meaning": "Whether to use GPU acceleration.",
+      "available_values": [false, true],
+    "expert_suggestion": "Use false as default. If GPU is available, set gpu=True to use GPU acceleration. It is recommended to use GPU acceleration for large datasets."
+  }
+} 

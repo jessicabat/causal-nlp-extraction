@@ -1,0 +1,33 @@
+# NTS-NOTEARS
+
+## Hyperparameters Sensitivity
+- **Number of Hyperparameters**: High (8-10 key parameters)
+- **Default Performance**: Requires careful tuning for good performance
+- **Tuning Difficulty**: High - neural network and regularization parameters need dataset-specific tuning
+
+## Robustness & Scalability
+- **Data Quality Tolerance**: More robust to various noise distributions than linear methods
+- **Scalability**: Moderate - handles medium-sized networks but with high computational cost
+- **Computational Cost**: O(n² log n) complexity with significant constants due to neural network training
+
+## Mixed Data & Complex Functions
+- **Functional Assumptions**: Captures nonlinear causal relationships via neural networks
+- **Noise Assumptions**: Flexible - handles non-Gaussian noise well
+- **Data Type Handling**: Primarily for continuous data, extensions needed for categorical variables
+
+## Interpretability
+- **Output Format**: Time-lagged directed graph with edge strengths
+- **Edge Meanings**: Edge strengths reflect complex nonlinear relationships
+- **Uncertainty Metrics**: Limited support for uncertainty quantification
+
+## Assumptions
+- **Critical Assumptions**: Acyclicity within time slices, causal sufficiency, stationarity
+- **Robustness to Violations**: More robust to functional form violations than linear methods
+- **Requirement Level**: Core acyclicity assumption cannot be relaxed
+
+## Real-World Applications
+- **Successful Domains**: Sports analytics (ice hockey event analysis), manufacturing process analysis
+- **Performance Limitations**: Requires substantial data for reliable neural network training
+- **Scientific Evidence**: Validated on professional ice hockey game data and ceramic substrate manufacturing process data
+
+These profiles highlight the distinctive characteristics of each algorithm to help an LLM agent select the most appropriate one based on data characteristics and application requirements.

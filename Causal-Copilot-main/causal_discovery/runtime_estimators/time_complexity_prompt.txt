@@ -1,0 +1,51 @@
+You are given the source code for algorithm [algorithm_name] below. We aim to determine its computational time complexity terms that will be used to estimate runtime costs empirically. Rather than deriving exact theoretical complexity, we want to identify key computational terms that contribute significantly to the runtime. These terms will be used to train a runtime prediction model.
+
+The goal is to break down the algorithm's operations into meaningful complexity terms that can be used as features for runtime prediction. The coefficients for these terms will be learned from empirical benchmarking data to create an accurate runtime estimator.
+
+Please provide the complexity breakdown in the following JSON format:
+
+{
+    "terms": [
+        {"name": "<term_name>", "expression": "<Python expression using N, p, etc.>"}
+    ],
+    "log_transform": <true or false>,
+    "param_calculations": {
+        "<parameter_name>": {"type": "<type>", "expression": "<Python expression>"}
+    }
+}
+
+The terms should capture the key computational components that affect runtime. For example:
+- Main algorithmic loops and iterations
+- Matrix operations
+- Graph traversals
+- Data preprocessing steps
+
+You are only allowed to use following variables and operations in the expressions, otherwise the expression will be invalid:
+
+Variables:
+- N: number of samples
+- p: number of variables 
+- M: rank of the matrix
+- d: degree of the graph
+- E: number of edges
+
+Safe operations:
+- Basic math: +, -, *, /, **, ()
+- log: natural logarithm (np.log)
+- exp: exponential (np.exp)
+- pow: power function
+- sqrt: square root (np.sqrt)
+- sum: summation
+- range: range function
+- comb: combinations (scipy.special.comb)
+- min/max: minimum/maximum
+
+Use natural logarithm as 'log'. The provided JSON should be valid and formatted consistently with our existing complexity terms. The terms will be used to fit a linear model that predicts actual runtime based on empirical measurements.
+
+Here are some examples of the JSON format:
+
+[example_json]
+
+Here is the source code to analyze:
+
+[code]

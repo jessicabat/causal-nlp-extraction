@@ -1,0 +1,386 @@
+# Causal Discovery Algorithm Tagging
+
+## CRITICAL: Performance Ratings Are Conditional
+⚠️ **All performance ratings assume appropriate data property matching**
+⚠️ **An algorithm with "Strong" rating will perform POORLY on mismatched data**
+⚠️ **Data property alignment MUST take precedence over performance ratings**
+
+## Selection Priority (VARIES BY PROBLEM SCALE)
+
+### For Small to Medium-Scale Problems (< 50 variables)
+1. Graph density match (Sparse/Dense)
+2. Functional form match (Linear/Nonlinear)
+3. Noise assumptions match (Gaussian/NonGaussian)
+4. Empirical Performance (when data properties matched) (only after matches verified)
+5. Efficiency/Scalability
+
+### For Large-Scale Problems (≥ 50 variables)
+1. Scalability/Efficiency (must be able to complete in reasonable time)
+2. Graph density match (Sparse/Dense)
+3. Functional form match (Linear/Nonlinear)
+4. Noise assumptions match (Gaussian/NonGaussian)
+5. Empirical Performance (when data properties matched) (only after all above verified)
+
+### For Very Large-Scale Problems (≥ 100 variables)
+1. Scalability (must support target variable count)
+2. Efficiency (runtime must be feasible with available resources)
+3. Graph density match (if algorithm can handle the scale)
+4. Other compatibility factors (as feasible)
+
+## Algorithm Tag Categories
+
+1. **Availability**: Available, Unavailable
+
+2. **Method Type**: Constraint-based, Score-based, Functional Model-based, Hybrid, MB-based, Continuous-optimization
+
+3. **Functional Form**: 
+   - Linear: Optimized for linear relationships
+   - Nonlinear: Optimized for non-linear relationships
+   - Flexible: Handles both linear and non-linear relationships effectively
+
+4. **Noise**: 
+   - Gaussian: Performance drops with non-Gaussian noise
+   - NonGaussian: Performance improves with non-Gaussian noise
+   - Flexible: Similar performance between Gaussian and non-Gaussian noise
+
+5. **Latent Variable Tolerance**: 
+   - Robust: Maintains high performance with latent variables
+   - Moderate: Maintains moderate performance with latent variables
+
+6. **Distribution Shift**: 
+   - Heterogeneous: Maintains high performance under heterogeneity
+   - Homogenous: Performance drops under heterogeneity
+
+7. **Scalability & Efficiency**: 
+   - >100 vars: Handles up to more than 100 variables
+   - 50-100 vars: Handles up to 100 variables
+   - 20-50 vars: Handles up to 50 variables
+   - 10-20 vars: Handles up to 20 variables
+   - <10 vars: Limited to <10 variables or runtime >60 min
+   - Poor: Extremely long runtime (>4 hours)
+
+8. **Empirical Performance (when data properties matched)**: Based on overall benchmark score
+   - 80-100%: High accuracy with matched data properties
+   - 60-80%: Good accuracy with matched data properties
+   - 40-60%: Average accuracy with matched data properties
+   - 20-40%: Below average accuracy
+   - <20%: Low accuracy
+   NOTE: Empirical Performance is solely computed with accuracy metrics, not regarding efficiency.
+
+9. **Output Format**: DAG, CPDAG, PAG
+
+10. **Graph Density**:
+   - Sparse: Algorithm performs significantly better on sparse graphs
+   - Dense: Algorithm performs significantly better on dense graphs
+   - Robust: Algorithm maintains consistent performance across different graph densities
+
+11. **Domain Knowledge Injection**:
+   - Yes: Algorithm implementation supports domain knowledge injection
+   - No: Algorithm implementation does not support domain knowledge injection
+
+## Algorithm Listings (key are the algorithm names)
+
+XGES: {
+    Full Name: "eXtremely Greedy Equivalence Search",
+    Availability: Available,
+    Method Type: Score-based,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 50-100 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+GRaSP: {
+    Full Name: "Greedy Relaxations of the Sparsest Permutation",
+    Availability: Available,
+    Method Type: Score-based,
+    Functional Form: Linear,
+    Noise: Non-Gaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+
+GOLEM: {
+    Full Name: "Gradient-based Optimization of dag-penalized Likelihood for learning linEar dag Models",
+    Availability: Available,
+    Method Type: Continuous-optimization,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 10-20 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+FCI: {
+    Full Name: "Fast Causal Inference",
+    Availability: Available,
+    Method Type: Constraint-based,
+    Functional Form: Flexible, 
+    Noise: Flexible,
+    Latent Variable Tolerance: Robust,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: PAG,
+    Graph Density: Sparse,
+    Critical Notes: "Best choice when latent confounders are suspected",
+    Domain Knowledge Injection: Yes
+}
+
+IAMBnPC: {
+    Full Name: "Incremental Association Markov Blanket with PC algorithm",
+    Availability: Available,
+    Method Type: Hybrid,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+PC: {
+    Full Name: "Peter-Clark Algorithm",
+    Availability: Available,
+    Method Type: Constraint-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: >100 vars,
+    Empirical Performance (when data properties matched): 60-80%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: Yes
+}
+
+CDNOD: {
+    Full Name: "Constraint-based causal Discovery from Nonstationary/heterogeneous Data",
+    Availability: Available,
+    Method Type: Constraint-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Scalability & Efficiency: >100 vars,
+    Empirical Performance (when data properties matched): 60-80%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Distribution Shift: Heterogeneous,
+    Domain Knowledge Injection: Yes,
+    Critical Notes: "Requires EXPLICIT 'domain_index' column in the data indicating different environments/domains to analyze, NEVER use it when there is no 'domain_index' column or it is None even when the data is heterogeneous. Note that domain knowledge/expertise/prior is not enough for this algorithm, a numerical column of exactly 'domain_index' is required to run this algorithm."
+    }
+
+FGES: {
+    Full Name: "Fast Greedy Equivalence Search",
+    Availability: Available,
+    Method Type: Score-based,
+    Functional Form: Linear,
+    Noise: Gaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: >100 vars,
+    Empirical Performance (when data properties matched): 60-80%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No,
+    Critical Notes: "Fastest algorithm for large-scale linear sparse graphs problems"
+}
+
+GES: {
+    Full Name: "Greedy Equivalence Search",
+    Availability: Available,
+    Method Type: Score-based,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 60-80%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+NOTEARSLinear: {
+    Full Name: "Nonlinear Optimization with Trace Exponential and Augmented lagRangian for Structure learning (Linear)",
+    Availability: Available,
+    Method Type: Continuous-optimization,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 80-100%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+DirectLiNGAM: {
+    Full Name: "Direct Linear Non-Gaussian Acyclic Model",
+    Availability: Available,
+    Method Type: Functional Model-based,
+    Functional Form: Linear,
+    Noise: NonGaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 50-100 vars,
+    Empirical Performance (when data properties matched): 40-60%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No,
+    Critical Notes: "Exceptional on linear non-Gaussian data, but poor otherwise"
+}
+
+InterIAMB: {
+    Full Name: "Interleaved Incremental Association Markov Blanket",
+    Availability: Available,
+    Method Type: MB-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 20-40%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+BAMB: {
+    Full Name: "Bootstrap Augmented Markov Blanket",
+    Availability: Available,
+    Method Type: MB-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Robust,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 20-40%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+MBOR: {
+    Full Name: "Markov Blanket OR",
+    Availability: Available,
+    Method Type: MB-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 20-50 vars,
+    Empirical Performance (when data properties matched): 20-40%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+HITONMB: {
+    Full Name: "HITON Markov Blanket",
+    Availability: Unavailable,
+    Method Type: MB-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 10-20 vars,
+    Empirical Performance (when data properties matched): 20-40%,
+    Output Format: CPDAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}
+
+CALM: {
+    Full Name: "Causal Additive Linear Model",
+    Availability: Unavailable,
+    Method Type: Continuous-optimization,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: <10 vars,
+    Empirical Performance (when data properties matched): 40-60%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+CORL: {
+    Full Name: "Causal discovery with Ordering-based Reinforcement Learning",
+    Availability: Unavailable,
+    Method Type: Continuous-optimization,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: <10 vars,
+    Empirical Performance (when data properties matched): 40-60%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+NOTEARSNonlinear: {
+    Full Name: "Nonlinear Optimization with Trace Exponential and Augmented lagRangian for Structure learning (Nonlinear)",
+    Availability: Unavailable,
+    Method Type: Continuous-optimization,
+    Functional Form: Nonlinear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: 10-20 vars,
+    Empirical Performance (when data properties matched): 40-60%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+ICALiNGAM: {
+    Full Name: "Independent Component Analysis Linear Non-Gaussian Acyclic Model",
+    Availability: Unavailable,
+    Method Type: Functional Model-based,
+    Functional Form: Linear,
+    Noise: NonGaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: <10 vars,
+    Empirical Performance (when data properties matched): 20-40%,
+    Output Format: DAG,
+    Graph Density: Robust,
+    Domain Knowledge Injection: No
+}
+
+Hybrid: {
+    Full Name: "Hybrid Causal Structure Learning",
+    Availability: Unavailable,
+    Method Type: Hybrid,
+    Functional Form: Flexible,
+    Noise: Gaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability & Efficiency: <10 vars,
+    Empirical Performance (when data properties matched): 40-60%,
+    Output Format: DAG,
+    Graph Density: Sparse,
+    Domain Knowledge Injection: No
+}

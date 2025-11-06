@@ -1,0 +1,84 @@
+# Greedy Equivalence Search (GES) Algorithm Profile
+
+## Executive Summary
+- **Optimal Use Scenarios:** Small to medium-sized networks (5-50 variables) with primarily linear relationships, sparse connectivity, sufficient samples (>1000), and continuous data with Gaussian-like distributions.
+- **Alternative Recommendations:** Consider XGES for improved performance on denser graphs, constraint-based algorithms with specialized tests for nonlinear relationships, or FCI family algorithms when hidden confounders are suspected.
+
+## 1. Real-World Applications
+- **Best Use Cases:**
+  - Gene regulatory networks with moderate dimensionality (<50 genes) and linear relationships
+  - Brain connectivity analysis from fMRI data with Gaussian noise
+  - Economic data with continuous variables and linear dependencies
+  - Social science research with moderate sample sizes and sparse graphs
+  - Clinical studies with well-measured variables and minimal missing data
+
+- **Limitations:**
+  - Not suitable for genomic datasets with high dimensionality (>100 variables)
+  - Poor performance on financial time series with feedback loops
+  - Struggles with ecological data containing complex nonlinear interactions
+  - Ineffective for IoT/sensor networks with dense connectivity
+  - Not recommended for heterogeneous healthcare data with significant missing values
+
+## 2. Assumptions
+- **Core Theoretical Assumptions:**
+  - Causal Sufficiency: All common causes must be measured
+  - Acyclicity: No feedback loops or cyclic relationships
+  - Faithfulness: True causal structure reflected in conditional independence relationships
+  - I.I.D. Data: Observations independently and identically distributed
+
+- **Effects of Assumption Violations:**
+  - Violations of causal sufficiency lead to incorrect edge orientations
+  - Violations of acyclicity produce meaningless or unstable results
+  - Unfaithful distributions can cause missing crucial causal relationships
+
+## 3. Data Handling Capabilities
+- **Performance Across Data Types:**
+  - Continuous Data: Strong performance with Gaussian BIC scoring
+  - Discrete Data: Requires specialized BDeu scoring; moderate performance
+  - Mixed Data Types: Struggles without specialized scoring functions
+
+- **Handling of Relationship Complexity:**
+  - Linear Relationships: Excellent performance with BIC scoring function
+  - Non-Linear Relationships: Poor performance compared to constraint-based algorithms
+
+- **Noise Tolerance:**
+  - Gaussian Noise: Excellent performance with default settings
+  - Non-Gaussian Noise: Moderate performance, outperformed by specialized algorithms
+
+## 4. Robustness & Scalability
+- **Missing Data Tolerance:** Moderate (up to ~15% missing values)
+- **Measurement Error Resilience:** Good resilience to moderate measurement error (<30%)
+- **Network Density Performance:** Strong on sparse networks (edge probability ≤0.2); tends to get stuck in local optima for dense graphs
+- **Variable and Sample Scaling:** Efficient for small to medium networks (5-50 variables); requires moderate to large sample sizes (>1000 observations preferred)
+- **Multi-Domain Data Handling:** Poor performance on heterogeneous data without domain-specific adaptations
+
+## 5. Computational Complexity
+- **Theoretical Time Complexity:** O(n * 2^(n-1)) in worst case
+- **Practical Runtime Characteristics:** Efficient for small networks; prohibitive for large networks
+- **Memory Usage:** Moderate; scales with both number of variables and samples
+- **Hardware Requirements:** Standard CPU for small/medium problems; multi-core systems beneficial for larger problems
+
+## 6. Hyperparameters
+- **Key Hyperparameters:** 
+  - Scoring function (BIC, BDeu)
+  - Maximum number of parents per node (maxP)
+
+- **Default Performance:** Generally good with default BIC scoring and unconstrained maxP for small networks
+
+- **Tuning Difficulty:** Moderate
+  - Scoring function selection straightforward based on data type
+  - MaxP typically requires experimentation for optimal setting
+  - For networks with <25 nodes: maxP=3-5 typically sufficient
+  - For larger networks: restricting maxP critical for computational feasibility
+
+- **Impact of Incorrect Settings:**
+  - Inappropriate scoring function can miss important relationships
+  - Too restrictive maxP can miss true edges
+  - Too permissive maxP exponentially increases runtime
+
+## 7. Interpretability
+- **Output Format:** Completed Partially Directed Acyclic Graph (CPDAG) representing the Markov equivalence class
+- **Confidence Measures:** Standard implementation doesn't provide edge confidence measures
+- **Ambiguity Handling:** Clearly distinguishes between definite and possible causal directions
+- **User Accessibility:** Output structure directly interpretable as causal graph
+- **Validation Methods:** Bootstrap resampling can be applied post-hoc to assess stability

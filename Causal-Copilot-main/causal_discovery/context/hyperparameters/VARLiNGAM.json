@@ -1,0 +1,23 @@
+{
+    "algorithm_name": "VARLiNGAM",
+    "lags": {
+      "meaning": "Number of lags.",
+      "available_values": [1],
+      "expert_suggestion": "Use 1 as default. Number of past time lags to search"
+    },
+    "criterion": {
+      "meaning": "Criterion to decide the best lags within lags. Searching the best lags is disabled if criterion is none.",
+      "available_values": ["bic"],
+      "expert_suggestion": "Use bic as default. aic - Prioritizes capturing all causal relationships, even at the risk of overfitting, fpe - Aims to fit data as closely as possible, but may overfit, hqic - Balances complexity and fit, bic - More conservative, avoids overfitting by penalizing model complexity."
+    },
+    "prune": {
+      "meaning": "Whether to prune the adjacency matrix of lags.",
+      "available_values": [true, false],
+      "expert_suggestion": "Use true as default. If the dataset is noisy or high-dimensional, set prune=True to prevent overfitting, reduce false positives, improving interpretability."
+    },
+    "gpu": {
+      "meaning": "Whether to use GPU acceleration.",
+      "available_values": [false, true],
+      "expert_suggestion": "Use false as default. If GPU is available, set gpu=True to use GPU acceleration. It is recommended to use GPU acceleration for large datasets."
+    }
+} 

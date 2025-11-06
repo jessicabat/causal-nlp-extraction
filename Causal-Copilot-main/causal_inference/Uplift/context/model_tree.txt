@@ -1,0 +1,11 @@
+Available tree-based algorithms from scikit-learn:
+
+-   RandomForestRegressor:  A versatile ensemble method that combines multiple decision trees.  Good for handling non-linear relationships and interactions.  Key hyperparameters include `n_estimators` (number of trees), `max_depth` (maximum depth of trees), `min_samples_split`, `min_samples_leaf`, and `max_features`.
+
+-   GradientBoostingRegressor:  Another powerful ensemble method that builds trees sequentially, with each tree correcting errors from previous trees.  Key hyperparameters include `n_estimators`, `learning_rate`, `max_depth`, `min_samples_split`, and `min_samples_leaf`.
+
+-   DecisionTreeRegressor:  A single decision tree.  Can be prone to overfitting, but useful for interpretability and as a base learner in ensemble methods.  Key hyperparameters include `max_depth`, `min_samples_split`, and `min_samples_leaf`.
+
+-   ExtraTreesRegressor: Similar to Random Forest, but uses a more randomized tree-building process.
+
+Consider the dataset size, potential for non-linear relationships, and the need for interpretability when choosing a model and its hyperparameters.

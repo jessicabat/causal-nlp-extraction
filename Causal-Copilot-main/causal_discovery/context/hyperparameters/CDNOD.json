@@ -1,0 +1,23 @@
+{
+  "algorithm_name": "CDNOD",
+  "alpha": {
+    "meaning": "Significance level in (0, 1)",
+    "available_values": [0.05, 0.1, 0.01],
+    "expert_suggestion": "Use 0.05 as default. Adjust based on sample size, more conservative (lower) values for larger samples. If < 500, use 0.1; Else if 500-10000 (<10000 but >500), use 0.05; Else if > 10000, using 0.01."
+  },
+  "indep_test": {
+    "meaning": "Independence test method",
+    "available_values": ["fisherz_cpu", "fisherz_gpu", "chisq_cpu", "chisq_gpu", "kci_cpu", "cmiknn_gpu", "fastkci_cpu", "rcit_cpu"],
+    "expert_suggestion": "Use fisherz_cpu as default (for linear data). Choose based on data type and hardware. DON'T use nonlinear/non-parametric tests for linear/discrete data.\n\nLINEAR/DISCRETE (PARAMETRIC) TESTS:\n- 'fisherz_cpu': For linear continuous data (default choice for linear data)\n- 'fisherz_gpu': GPU version for linear continuous data (only if variable size > 150 and sample size > 7500)\n- 'chisq_cpu': For discrete data only\n- 'chisq_gpu': GPU version for discrete data (only if variable size > 150 and sample size > 7500)\n\nNONLINEAR/NON-PARAMETRIC TESTS:\n- 'kci_cpu': For nonlinear data (very slow, ONLY use if variable size < 10 and sample size < 1500)\n- 'rcit_cpu': Fastest approximation of kci (use only if variable size < 100 and sample size < 10000)\n- 'fastkci_cpu': Divide-and-conquer version of kci, faster than kci but less accurate (use only if variable size < 20 and sample size < 3000)\n- 'cmiknn_gpu': GPU accelerated nonlinear test (use only if data is nonlinear, and variable size > 50 or sample size > 3000)\n\nFor nonlinear data, as long as variable and sample size constraints are fulfilled, choose in order of accuracy: KCI > RCIT > FastKCI >= CMiKNN. For smaller datasets, use CPU tests for better accuracy even if GPU is available. You MUST use GPU tests for large datasets (variable size > 150) if GPU is available."
+  },
+  "depth": {
+    "meaning": "Maximum depth for skeleton search",
+    "available_values": [-1, 6, 5, 4, 3],
+    "expert_suggestion": "Use -1 as default. Use -1 for unlimited depth. For large graphs, limiting depth (e.g., 2-4) can significantly speed up the algorithm with a minor trade-off in accuracy. For CPU-based independence tests: A graph with node number < 10, use depth 6; A graph with node number 10-25, use depth 5; A graph with node number 25-50, use depth 4; A graph with node number > 50, use depth 3. For GPU-accelerated independence tests: A graph with node number < 50, use depth -1; A graph with node number 50-100, use depth 5; A graph with node number > 100, use depth 4."
+  },
+  "background_knowledge": {
+    "meaning": "Domain expertise constraints on causal structure for heterogeneous data",
+    "available_values": [null],
+    "expert_suggestion": "Use null as default when no domain knowledge is available. When user provides explicit causal constraints, the LLM will automatically format them as a JSON object with the following structure:\n\n**FORBIDDEN EDGES**: When user specifies edges that should NOT exist\n- Format: {\"forbidden_edges\": [[\"var1\", \"var2\"], [\"var3\", \"var4\"]]}\n- Example: User says 'X cannot influence Y' → {\"forbidden_edges\": [[\"X\", \"Y\"]]}\n\n**REQUIRED EDGES**: When user specifies edges that MUST exist  \n- Format: {\"required_edges\": [[\"var1\", \"var2\"], [\"var3\", \"var4\"]]}\n- Example: User says 'A must cause B' → {\"required_edges\": [[\"A\", \"B\"]]}\n\n**TIER CONSTRAINTS**: When user specifies variable ordering/hierarchy\n- Format: {\"tiers\": {\"var1\": 0, \"var2\": 1, \"var3\": 1, \"var4\": 2}}\n- Example: User says 'Demographics → Behaviors → Outcomes' → {\"tiers\": {\"Age\": 0, \"Education\": 0, \"Exercise\": 1, \"Diet\": 1, \"Health\": 2}}\n\n**MIXED CONSTRAINTS**: Combine multiple constraint types when user provides complex domain knowledge\n- Format: {\"forbidden_edges\": [...], \"required_edges\": [...], \"tiers\": {...}}\n\n**IMPORTANT FOR CDNOD**: This algorithm is designed for heterogeneous/nonstationary data with domain shifts. Background knowledge should consider that relationships may vary across domains while structural constraints remain consistent. Only use when domain constraints are explicitly or clearly implied in user query. The LLM should extract constraint information from user input and format it as a structured JSON object."
+  }
+} 

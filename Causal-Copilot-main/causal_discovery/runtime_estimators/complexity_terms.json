@@ -1,0 +1,584 @@
+{
+    "DirectLiNGAM": {
+        "terms": [
+            {
+                "name": "np3m2_term",
+                "expression": "N * p**3 * M**2"
+            },
+            {
+                "name": "p4m3_term",
+                "expression": "p**4 * M**3"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": false,
+        "param_calculations": {
+            "M": {
+                "type": "rank",
+                "expression": "max(int(log(min(N, p))/log(2)), 2)"
+            }
+        }
+    },
+    "AcceleratedLiNGAM": {
+        "terms": [
+            {
+                "name": "np3m2_term",
+                "expression": "N * p**3 * M**2"
+            },
+            {
+                "name": "p4m3_term",
+                "expression": "p**4 * M**3"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": false,
+        "param_calculations": {
+            "M": {
+                "type": "rank",
+                "expression": "max(int(log(min(N, p))/log(2)), 2)"
+            }
+        }
+    },
+    "PC": {
+        "terms": [
+            {
+                "name": "log_p",
+                "expression": "log(p)"
+            },
+            {
+                "name": "log_d",
+                "expression": "log(d)"
+            },
+            {
+                "name": "log_exp_d",
+                "expression": "d * log(2)"
+            },
+            {
+                "name": "log_N",
+                "expression": "log(N)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "int(density * (p - 1))"
+            }
+        }
+    },
+    "GES": {
+        "terms": [
+            {
+                "name": "log_p2",
+                "expression": "log(p * p)"
+            },
+            {
+                "name": "log_exp_k",
+                "expression": "k * log(2)"
+            },
+            {
+                "name": "log_score",
+                "expression": "log(N)"
+            },
+            {
+                "name": "log_iter",
+                "expression": "log(E)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "E": {
+                "type": "edges",
+                "expression": "int((p * (p - 1)) / 2 * density)"
+            },
+            "k": {
+                "type": "derived",
+                "expression": "int(log(E)/log(2)) if E > 0 else 0"
+            }
+        }
+    },
+    "CDNOD": {
+        "terms": [
+            {
+                "name": "log_p",
+                "expression": "log(p + 1)"
+            },
+            {
+                "name": "log_d",
+                "expression": "log(d)"
+            },
+            {
+                "name": "log_exp_d",
+                "expression": "d * log(2)"
+            },
+            {
+                "name": "log_N",
+                "expression": "log(N)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "int(density * (p - 1))"
+            }
+        }
+    },
+    "FCI": {
+        "terms": [
+            {
+                "name": "log_p2",
+                "expression": "log(p * p)"
+            },
+            {
+                "name": "log_exp_n",
+                "expression": "p * log(2)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "E": {
+                "type": "edges",
+                "expression": "int((p * (p - 1)) / 2 * density)"
+            }
+        }
+    },
+    "XGES": {
+        "terms": [
+            {
+                "name": "log_p2",
+                "expression": "log(p * p)"
+            },
+            {
+                "name": "log_exp_k",
+                "expression": "k * log(2)"
+            },
+            {
+                "name": "log_score",
+                "expression": "log(N)"
+            },
+            {
+                "name": "log_iter",
+                "expression": "log(E)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "E": {
+                "type": "edges",
+                "expression": "int((p * (p - 1)) / 2 * density)"
+            },
+            "k": {
+                "type": "derived",
+                "expression": "int(log(E)/log(2)) if E > 0 else 0"
+            }
+        }
+    },
+    "FGES": {
+        "terms": [
+            {
+                "name": "p2_term",
+                "expression": "log(p * p)"
+            },
+            {
+                "name": "exp_p_term",
+                "expression": "log(2 ** p)"
+            },
+            {
+                "name": "score_term",
+                "expression": "log(N)"
+            },
+            {
+                "name": "iteration_term",
+                "expression": "log(E)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {
+            "E": {
+                "type": "edges",
+                "expression": "int((p * (p - 1)) / 2 * density)"
+            }
+        }
+    },
+    "NOTEARSLinear": {
+        "terms": [
+            {
+                "name": "log_n",
+                "expression": "log(N)"
+            },
+            {
+                "name": "log_p2",
+                "expression": "log(p * p)"
+            },
+            {
+                "name": "log_iter",
+                "expression": "log(N)"
+            }
+        ],
+        "min_runtime": 60,
+        "log_transform": true,
+        "param_calculations": {}
+    },
+    "AcceleratedPC": {
+        "terms": [
+            {
+                "name": "ci_tests_term",
+                "expression": "N * p * d * (2 ** d)"
+            },
+            {
+                "name": "edge_permutations_term",
+                "expression": "p * (p - 1)"
+            },
+            {
+                "name": "missingness_index_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "covariance_term",
+                "expression": "N * p**2"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "max(1, int(p / 5))"
+            }
+        },
+        "min_runtime": 60
+    },
+    "BAMB": {
+        "terms": [
+            {
+                "name": "initial_ci_tests_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "candidate_ci_tests_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "spouse_refinement_term",
+                "expression": "N * p**3"
+            },
+            {
+                "name": "sorting_overhead_term",
+                "expression": "p * log(p)"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {},
+        "min_runtime": 60
+    },
+    "GOLEM": {
+        "terms": [
+            {
+                "name": "tensor_conversion_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "forward_backward_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "dag_constraint_term",
+                "expression": "p**3"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {},
+        "min_runtime": 60
+    },
+    "GRaSP": {
+        "terms": [
+            {
+                "name": "order_init_term",
+                "expression": "p"
+            },
+            {
+                "name": "initial_score_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "dfs_overhead_term",
+                "expression": "p**3"
+            },
+            {
+                "name": "score_update_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "graph_construction_term",
+                "expression": "p**2"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "max(1, int(p/5))"
+            },
+            "E": {
+                "type": "edges",
+                "expression": "int(p * (p - 1) / 2)"
+            }
+        },
+        "min_runtime": 60
+    },
+    "IAMBnPC": {
+        "terms": [
+            {
+                "name": "forward_phase_tests",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "shrinking_phase_tests",
+                "expression": "N * p * comb(p, 3)"
+            },
+            {
+                "name": "forward_sorting_overhead",
+                "expression": "p**2 * log(p)"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {},
+        "min_runtime": 60
+    },
+    "InterIAMB": {
+        "terms": [
+            {
+                "name": "growing_phase_tests_term",
+                "expression": "N * p**3"
+            },
+            {
+                "name": "shrinking_phase_tests_term",
+                "expression": "N * p**3"
+            },
+            {
+                "name": "list_overhead_term",
+                "expression": "p**2"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {},
+        "min_runtime": 60
+    },
+    "MBOR": {
+        "terms": [
+            {
+                "name": "pcs_ci_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "sps_ci_term",
+                "expression": "N * p**3"
+            },
+            {
+                "name": "mbtopc_ci_term",
+                "expression": "N * p**4"
+            },
+            {
+                "name": "mbor_extra_ci_term",
+                "expression": "N * p**5"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {},
+        "min_runtime": 60
+    },
+    "PCParallel": {
+        "terms": [
+            {
+                "name": "data_preprocessing_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "ci_tests_term",
+                "expression": "N * p**2 * (2 ** d)"
+            },
+            {
+                "name": "orientation_term",
+                "expression": "p**3"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "max(1, int(p/5))"
+            }
+        },
+        "min_runtime": 60
+    },
+    "VARLiNGAM": {
+        "terms": [
+            {
+                "name": "data_validation_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "var_coefficient_estimation_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "residuals_computation_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "B_matrix_computation_term",
+                "expression": "p**3"
+            },
+            {
+                "name": "bootstrap_ar_prediction_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "total_effect_estimation_term",
+                "expression": "p**2"
+            },
+            {
+                "name": "pruning_regression_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "error_independence_test_term",
+                "expression": "p**2"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "d": {
+                "type": "degree",
+                "expression": "max(1, int(p/5))"
+            }
+        },
+        "min_runtime": 60
+    },
+    "NTSNOTEARS": {
+        "terms": [
+            {
+                "name": "data_preprocessing_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "conv1d_term",
+                "expression": "N * p * M"
+            },
+            {
+                "name": "fc2_term",
+                "expression": "N * p * M"
+            },
+            {
+                "name": "h_expm_term",
+                "expression": "p**3"
+            },
+            {
+                "name": "adj_conversion_term",
+                "expression": "p**2 * M"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "M": {
+                "type": "rank",
+                "expression": "max(int(log(p)/log(2)), 1)"
+            }
+        },
+        "min_runtime": 60
+    },
+    "DYNOTEARS": {
+        "terms": [
+            {
+                "name": "data_scaling_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "adjacency_learning_term",
+                "expression": "T * p**3"
+            },
+            {
+                "name": "acyclicity_constraint_term",
+                "expression": "T * p**2"
+            },
+            {
+                "name": "optimization_term",
+                "expression": "T * p**3"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "T": {
+                "type": "timesteps",
+                "expression": "int(N / p)"
+            }
+        },
+        "min_runtime": 60
+    },
+    "GrangerCausality": {
+        "terms": [
+            {
+                "name": "data_scaling_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "var_fit_term",
+                "expression": "N * p**2 * l"
+            },
+            {
+                "name": "forecast_term",
+                "expression": "N * p**2"
+            },
+            {
+                "name": "mvgc_inner_loop_term",
+                "expression": "N * p**3"
+            },
+            {
+                "name": "granger_test_term",
+                "expression": "N * l * p**2"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "l": {
+                "type": "lag",
+                "expression": "int(N / (10 * p**2))"
+            }
+        },
+        "min_runtime": 60
+    },
+    "PCMCI": {
+        "terms": [
+            {
+                "name": "data_scaling_term",
+                "expression": "N * p"
+            },
+            {
+                "name": "independence_tests_term",
+                "expression": "p**2 * l * N"
+            },
+            {
+                "name": "condition_set_growth_term",
+                "expression": "p**3 * l * N"
+            },
+            {
+                "name": "graph_pruning_term",
+                "expression": "p**2 * l"
+            }
+        ],
+        "log_transform": false,
+        "param_calculations": {
+            "l": {
+                "type": "lag",
+                "expression": "int(N / (10 * p**2))"
+            }
+        },
+        "min_runtime": 60
+    }
+}

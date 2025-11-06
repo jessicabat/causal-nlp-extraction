@@ -1,0 +1,23 @@
+{
+  "algorithm_name": "NOTEARSNonlinear",
+  "lambda_1": {
+    "meaning": "L1 regularization parameter for sparsity",
+    "available_values": [0.01, 0.1, 0.001],
+    "expert_suggestion": "Use 0.01 as default. 0.1 for more sparse graphs (average degree 1), 0.001 for more dense graphs (average degree 15)."
+  },
+  "lambda2": {
+    "meaning": "L2 regularization parameter for implicit sparsity",
+    "available_values": [0.01, 0.1, 0.001],
+    "expert_suggestion": "Use 0.01 as default. Controls overfitting of neural network weights, implicitly add sparsity by shrinking the weights."
+  },
+  "max_iter": {
+    "meaning": "Maximum number of dual ascent steps during optimization",
+    "available_values": [100, 500, 1000],
+    "expert_suggestion": "Use 100 as default. Increase for more complex graphs and functional relationships."
+  },
+  "w_threshold": {
+    "meaning": "Threshold for edge weights in adjacency matrix",
+    "available_values": [0.3, 0.5, 0.1],
+    "expert_suggestion": "Use 0.3 as default. Higher values lead to sparser graphs by pruning weak connections, which is a kind of implicit sparsity."
+  }
+} 

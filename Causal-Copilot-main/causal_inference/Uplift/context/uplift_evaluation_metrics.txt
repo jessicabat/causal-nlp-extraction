@@ -1,0 +1,22 @@
+Metrics for evaluating uplift models:
+
+1. Qini Coefficient: Measures the area between the uplift curve and a random targeting baseline.
+   - Higher values indicate better discrimination of treatment effects
+   - Range: [-1, 1] with positive values indicating a model better than random
+
+2. Uplift by Decile: Measures the average treatment effect within each decile of predicted uplift
+   - Monotonically decreasing trend indicates good model performance
+
+3. AUUC (Area Under the Uplift Curve): Similar to Qini but uses a different normalization
+   - Higher values indicate better model performance
+
+4. Cumulative Gain: Shows the cumulative incremental outcome when targeting individuals sorted by predicted uplift
+   - Steeper initial slope indicates better targeting efficiency
+
+5. Expected Response with Random Targeting (ERRT): The baseline random policy performance
+   - Used as a reference point for other metrics
+
+When evaluating uplift models, focus on:
+1. Model stability (consistent performance across validation folds)
+2. Business relevance (targeting cost vs benefit)
+3. Calibration (predicted uplift vs observed uplift)

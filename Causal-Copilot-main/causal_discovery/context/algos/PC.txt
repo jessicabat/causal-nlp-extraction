@@ -1,0 +1,56 @@
+# PC Algorithm Profile
+
+## Executive Summary
+PC is a constraint-based causal discovery algorithm that excels in accurately reconstructing moderate-sized sparse causal networks with primarily linear relationships, producing interpretable partially directed graphs. It's best suited for exploratory causal analysis with adequate sample sizes where causal sufficiency can be reasonably assumed. With GPU acceleration, it can also efficiently handle much larger networks (>1000 nodes).
+
+## 1. Real-World Applications
+- **Best Use Cases**
+  - **Genomics**: Effectively identifies gene regulatory networks from expression data. Research by Le et al. demonstrated PC's effectiveness in reconstructing gene regulatory networks from microarray data, particularly with smaller gene sets (<50 genes).
+  - **Neuroscience**: Applied to neural time series data with modified variants. Runge et al. developed time-lagged extensions of PC for identifying causal connections between brain regions from fMRI data.
+  - **Clinical Research**: Used for identifying causal factors in disease progression. Smith et al. applied PC to identify causal relationships between biomarkers and disease outcomes in longitudinal clinical studies.
+  - **Small to Medium-Scale Networks**: Performs reliably with networks under 50 variables when relationships are primarily linear.
+  - **Large-Scale Networks**: With GPU acceleration (fisherz_gpu, cmiknn_gpu), can efficiently handle networks with over 1000 variables.
+
+- **Limitations**
+  - **Large-Scale Networks with CPU**: Performance significantly deteriorates with networks exceeding 100 variables when using CPU-based implementations.
+  - **Highly Connected Systems**: Accuracy drops sharply with densely connected causal structures.
+  - **Systems with Feedback Loops**: Cannot model cyclic causal relationships due to acyclicity assumption.
+  - **Data with Hidden Confounders**: Produces misleading results when unmeasured common causes exist.
+
+## 2. Assumptions
+- **Causal Sufficiency**: Assumes all common causes are measured. When violated, produces spurious edges and incorrect orientations.
+- **Faithfulness**: Requires conditional independencies in data to correspond to graph separations. Violations occur with deterministic relationships or balanced causal pathways.
+- **Acyclicity**: Cannot handle feedback loops or cyclic causality, making it inappropriate for systems with known feedback mechanisms.
+- **I.I.D. Data**: Assumes independently and identically distributed samples, limiting usefulness with time series or clustered data.
+- **Markov Property**: Assumes conditional independence of non-adjacent variables given their parents, fundamental to constraint-based methods.
+
+## 3. Data Handling Capabilities
+- **Variable Types**: Suited for continuous data with Fisher Z test; can handle discrete data with chi-square test; can also handle mixed data types with non-parametric conditional independence tests.
+- **Sample Size Requirements**: Requires substantial sample sizes (≥1000 for moderate confidence); accuracy deteriorates with smaller samples.
+- **Relationship Complexity**: Flexibily support linear/non-linear relationships with various conditional independence tests; some specialized kernel-based tests for non-linear relationships requires significant computational cost.
+- **Noise Tolerance**: Handles Gaussian noise well but performance degrades with non-Gaussian or heteroscedastic noise.
+- **Heterogeneity**: Limited ability to handle heterogeneous data with varying distributions or relationships across subpopulations.
+
+## 4. Robustness & Scalability
+- **Missing Data Tolerance**: Poor tolerance for missing values; performance degrades rapidly with missingness above 5%.
+- **Measurement Error Resilience**: Highly sensitive to measurement error, leading to both false positives and false negatives.
+- **Network Density Performance**: Optimal for sparse graphs (edge probability ≤0.1); accuracy decreases sharply as graph density increases.
+- **Variable Scaling**: CPU implementation handles up to 50 variables well with appropriate depth settings; GPU-accelerated variants can efficiently process networks with 1000+ variables.
+- **Multi-Domain Data**: No built-in mechanism for handling data from multiple domains or contexts; requires domain-specific adaptations.
+
+## 5. Computational Complexity
+- **Theoretical Time Complexity**: Worst-case O(n^(k+2)), where n is the number of variables and k is the maximum degree in the true graph.
+- **Practical Runtime Characteristics**: For sparse graphs (<50 nodes), CPU runtime remains reasonable but grows exponentially in denser graphs. GPU-accelerated implementations (fisherz_gpu, cmiknn_gpu) dramatically reduce runtime for large networks.
+- **Hardware Requirements**: CPU-based tests are more accurate but slower; GPU-accelerated tests provide speed advantages and handle much larger scale at some cost to precision.
+
+## 6. Hyperparameters
+- **Number of Hyperparameters**: Only three key hyperparameters (alpha, independence test, depth), making tuning more manageable than algorithms with numerous parameters.
+- **Default Performance**: Often performs adequately with default parameters (alpha=0.05, fisherz test, unlimited depth) in ideal conditions.
+- **Alpha Sensitivity**: Highly sensitive to significance level (alpha); small changes can substantially alter discovered structure.
+- **Tuning Difficulty**: Moderate difficulty; requires domain knowledge to select appropriate independence tests, but alpha follows established statistical principles.
+- **Impact of Incorrect Settings**: Incorrect independence test selection can lead to complete failure with non-linear data; inappropriate alpha values cause either excessive false positives (high alpha) or missed edges (low alpha).
+
+## 7. Interpretability
+- **Output Format**: Produces a Completed Partially Directed Acyclic Graph (CPDAG) that clearly distinguishes definite causal edges from undetermined relationships.
+- **Confidence Measures**: Can provide p-values for independence tests that led to edge removal decisions.
+- **Ambiguity Handling**: Explicitly represents causal ambiguity through undirected edges, avoiding false certainty.

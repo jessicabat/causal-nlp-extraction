@@ -1,0 +1,28 @@
+{
+    "algorithm_name": "PCMCI",
+    "indep_test": {
+        "meaning": "Independence tests",
+        "available_values": ["parcorr", "robustparcorr", "gpdc", "gsq", "regression", "cmi"],
+        "expert_suggestion": "Use parcorr as default. Choose based on data type.\n\nLINEAR/DISCRETE (PARAMETRIC) TESTS:\n- 'parcorr': For linear continuous data (default choice)\n- 'robustparcorr': Robust partial correlation for linear data with outliers\n- 'gsq': For categorical/discrete data only\n\nNONLINEAR/NON-PARAMETRIC TESTS:\n- 'gpdc': For nonlinear continuous data\n- 'cmi': Conditional mutual information for nonlinear data (more accurate but much slower)\n- 'regression': For mixed data types (continuous and discrete)"
+    },
+    "tau_min": {
+        "meaning": "Minimum time lag to consider",
+        "available_values": [0, 1],
+        "expert_suggestion": "Use 0 as default. Adjust if results are required for a specific time window"
+    },
+    "tau_max": {
+        "meaning": "Maximum time lag",
+        "available_values": [1, 5, 10],
+        "expert_suggestion": "Use 1 as default. Usually adjusted based on pre-processing results"
+    },
+    "pc_alpha": {
+        "meaning": "Significance level of PC algorithm.",
+        "available_values": [0.05, 0.1, 0.01],
+        "expert_suggestion": "Use 0.05 as default. Adjust based on sample size, more conservative (lower) values for larger samples. If < 500, use 0.1; Else if 500-10000 (<10000 but >500), use 0.05; Else if > 10000, using 0.01."
+    },
+    "link_assumptions": {
+        "meaning": "Temporal causal assumptions for time-series data",
+        "available_values": [null],
+        "expert_suggestion": "Use null as default when no temporal domain knowledge is available. When user provides temporal causal constraints, the LLM will automatically format them as a JSON object with the following structure:\n\n**NO_CONTEMPORANEOUS**: When user specifies no instantaneous causal effects\n- Format: {\"no_contemporaneous\": true}\n- Example: User says 'No same-time causation' → {\"no_contemporaneous\": true}\n\n**NO_LAGGED**: When user specifies only contemporaneous effects (rare)\n- Format: {\"no_lagged\": true}\n- Example: User says 'Only instantaneous effects' → {\"no_lagged\": true}\n\n**CUSTOM_ASSUMPTIONS**: When user provides specific temporal constraints\n- Format: {\"forbidden_lagged\": {\"var1\": [\"var2\"], \"var3\": [\"var4\"]}, \"required_lagged\": {\"var1\": [\"var3\"]}}\n- Example: User says 'Temperature at t cannot affect Humidity at t+1, but must affect Pressure at t+1' → {\"forbidden_lagged\": {\"Temperature\": [\"Humidity\"]}, \"required_lagged\": {\"Temperature\": [\"Pressure\"]}}\n\n**MIXED_TEMPORAL**: Combine multiple temporal constraint types\n- Format: {\"no_contemporaneous\": true, \"forbidden_lagged\": {...}, \"required_lagged\": {...}}\n\nIMPORTANT: Only use when temporal domain constraints are explicitly mentioned in user query. Improper temporal assumptions can significantly hurt time-series causal discovery. The LLM should extract temporal constraint information from user input and format it as a structured JSON object."
+    }
+}       

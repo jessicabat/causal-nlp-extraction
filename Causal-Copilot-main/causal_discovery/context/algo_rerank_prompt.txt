@@ -1,0 +1,141 @@
+You are an expert causal discovery algorithm advisor. Your task is to analyze dataset [TABLE_NAME] and recommend the most appropriate algorithm from the candidates.
+
+## ⚠️ HIGHEST PRIORITY INSTRUCTION ⚠️
+1. The user's query MUST be your primary consideration - all recommendations MUST directly address their specific needs
+2. Extract and apply ALL domain knowledge and requirements from the user's query
+3. Your algorithm selection MUST prioritize fulfilling the exact requirements stated by the user
+4. When user expertise contradicts general best practices, ALWAYS favor the user's domain knowledge
+
+## 🎯 DOMAIN EXPERTISE PRIORITY 🎯
+**CRITICAL**: When the user query contains explicit domain knowledge about causal relationships, variable dependencies, or edge constraints (e.g., "X cannot influence Y", "A should cause B", temporal ordering requirements), STRONGLY prioritize algorithms that support prior knowledge integration. This domain expertise integration can dramatically improve discovery accuracy.
+
+## User original query (TOP PRIORITY)
+
+[USER_QUERY] 
+
+The computation has to be finished in the runtime of [WAIT_TIME] minutes.
+
+[ACCEPT_CPDAG]
+-----------------------------------------------
+## Dataset Profile
+- Characteristics: [STATISTICS_INFO]
+- Domain context: [KNOWLEDGE_INFO]
+- Hardware capabilities: [CUDA_WARNING]
+- Columns: [COLUMNS]
+
+------------------------------------------------
+
+## CRITICAL INSTRUCTION
+FOCUS EXCLUSIVELY ON THE CURRENT DATASET CHARACTERISTICS. Do not consider hypothetical scenarios or algorithm capabilities that aren't relevant to this specific dataset. Analyze only the actual properties of this dataset (sample size, dimensionality, distributions, etc.) without discussing how algorithms might perform on different datasets.
+
+## Selection Process (Follow in sequence)
+
+### 1. Dataset-Algorithm Compatibility Analysis
+For each algorithm candidate, evaluate compatibility across these dimensions BASED SOLELY ON THE CURRENT DATASET:
+- Variable type handling: How well does the algorithm process THIS dataset's {continuous/discrete/mixed} variables?
+- Variable size handling: How does the algorithm's performance scale with THIS dataset's dimensionality (p=[DIMENSIONS])?
+
+  * For small-scale problems (p < 25): Focus on accuracy over efficiency
+  * For medium-scale problems (25 ≤ p < 50): Balance accuracy and efficiency
+  * For large-scale problems (50 ≤ p < 150): Prioritize algorithms with "High" or better scalability ratings
+  * For very large-scale problems (p ≥ 150): Strictly limit to algorithms with "Very High" or "Extreme" scalability ratings
+  * When variable count exceeds 150, eliminate algorithms with poor scaling properties regardless of other strengths
+- Sample size adequacy: Is THIS dataset's sample size (N=[SAMPLES]) sufficient for the algorithm's requirements? When algorithms receive equal ratings for sample size adequacy, prioritize the algorithm with the highest empirical performance rating
+- Nonlinearity handling: Can the algorithm capture THIS dataset's relationship complexity?
+- Missing data tolerance: How well can the algorithm process THIS dataset's missing value patterns?
+- Noise type compatibility: How well does the algorithm handle THIS dataset's specific noise patterns (gaussian/non-gaussian)?
+- Heterogeneity handling: Can the algorithm effectively process THIS dataset's heterogeneous structures or subpopulations?
+- Graph density/edge probability sensitivity: How stable is the algorithm across different graph densities? Prioritize algorithms that perform well regardless of graph sparsity/density unless domain knowledge suggests otherwise.
+
+### 2. Critical Assumption Verification
+For each algorithm:
+- Identify which core assumptions would be violated by THIS SPECIFIC dataset
+- Rate the severity of each violation (minor/moderate/severe)
+- Determine if there are available modifications to address these violations
+
+### 3. Computational Feasibility Assessment
+For each algorithm:
+- Estimate runtime based on THIS dataset's dimensions=[DIMENSIONS], samples=[SAMPLES], and expected graph density
+- Assess hardware compatibility with user constraints
+- Consider runtime estimates: [TIME_INFO]
+
+### 4. Domain-Specific Considerations (SKIP if you find the dataset is not real-world dataset)
+**NOTE: infer if this dataset is a real-world dataset from dataset name and column name, SKIP this part for numerical simulation dataset since it doesn't indicate any domains**
+- Does THIS domain require handling feedback loops? If yes, eliminate acyclic-only algorithms.
+- Is temporal structure present and relevant in THIS data? If yes, prioritize time-aware methods.
+- Are hidden confounders likely in THIS domain? If yes, prioritize algorithms robust to causal insufficiency.
+### 5. Performance-Interpretability Balance
+- What's more important in THIS domain and for THIS dataset: causal accuracy or interpretability?
+- Which algorithm provides the most useful output format for the intended application of THIS dataset?
+
+------------------------------------------------
+
+## IMPORTANT NOTE ON ALGORITHM SELECTION
+It is acceptable to recommend algorithms that may be "overqualified" for the dataset. If an algorithm can deliver robust performance and superior accuracy without significantly sacrificing efficiency, it should be considered even if simpler alternatives exist. Prioritize algorithms that will provide the best possible causal discovery results, as long as they meet the computational constraints. The goal is optimal performance, not minimal sufficiency.
+
+## Algorithm Candidates
+The return algorithm name MUST strictly be FROM candidates here: 
+[ALGORITHM_CANDIDATES]
+
+## Algorithm Profiles
+[ALGORITHM_PROFILES]
+
+-----------------------------------------------
+
+## Simulation Benchmarking Results
+Each algorithm's benchmarking with several hyperparameter choices. Extract and analyze the following from the benchmarking results:
+
+1. Overall algorithm rankings and their average performance scores
+2. Scenario-specific performance (e.g., linear vs. non-linear, sparse vs. dense graphs)
+3. Performance on datasets with similar characteristics to the current dataset
+4. Efficiency metrics for algorithms with comparable performance
+5. How algorithms perform under different sample sizes and dimensionality similar to THIS dataset
+
+Carefully analyze what these benchmarking results demonstrate about:
+- Which algorithms consistently outperform others across relevant scenarios
+- Which algorithms show robustness to variations in data characteristics similar to THIS dataset
+- How algorithm performance scales with dataset size and complexity
+- Which hyperparameter configurations yield optimal results for datasets like THIS one
+
+[ALGORITHM_BENCHMARKING_RESULTS]
+
+------------------------------------------------
+Based on this comprehensive analysis, provide TWO separate scoring assessments:
+
+1. THEORETICAL ASSESSMENT:
+   - Score each algorithm (1-5 scale) based on theoretical properties from algorithm profiles
+   - Consider: statistical guarantees, assumptions match with dataset, computational complexity, real-world applications, etc.
+   - Provide brief justification for each score
+
+2. EMPIRICAL ASSESSMENT:
+   - Score each algorithm (1-5 scale) based on benchmarking results
+   - Consider: precision, recall, F1 score, SHD, efficiency on similar datasets
+   - Highlight performance on datasets with similar characteristics to THIS dataset
+   - Provide brief justification for each score
+   
+3. COMBINED RECOMMENDATION:
+   - Calculate a weighted average of theoretical (0.7) and empirical scores (0.3) for each algorithm
+   - Show your computation process step by step for each algorithm
+   - Select the algorithm with the highest weighted score
+   - Provide confidence level in your recommendation based on score differences
+
+Output in the following JSON format:
+{
+  "theoretical_scores": {
+    "algorithm_name1": {"score": X, "justification": "brief explanation"},
+    "algorithm_name2": {"score": X, "justification": "brief explanation"},
+    ...
+  },
+  "empirical_scores": {
+    "algorithm_name1": {"score": X, "justification": "brief explanation"},
+    "algorithm_name2": {"score": X, "justification": "brief explanation"},
+    ...
+  },
+  "score_calculation": {
+    "algorithm_name1": {"theoretical": X, "empirical": Y, "weighted_calculation": "0.7 * X + 0.3 * Y = Z", "final_score": Z},
+    "algorithm_name2": {"theoretical": X, "empirical": Y, "weighted_calculation": "0.7 * X + 0.3 * Y = Z", "final_score": Z},
+    ...
+  },
+  "reason": "concise summary of why the selected algorithm is best for this dataset, be detailed and clear about the reasons from different perspectives, don't be vague and general",
+  "algorithm": "selected_algorithm_name"
+}

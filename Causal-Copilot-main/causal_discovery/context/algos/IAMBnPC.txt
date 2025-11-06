@@ -1,0 +1,77 @@
+# IAMBnPC Algorithm Profile
+
+## Executive Summary
+- **Optimal Use**: Targeted Markov Blanket discovery for specific variables in sparse causal networks with moderate dimensionality and sufficient sample size
+- **Alternatives**: PC or GES for discovering complete causal structures
+
+## 1. Real-World Applications
+- **Best Use Cases**: 
+  - Biomedical gene regulatory network discovery with limited variables
+  - Healthcare risk factor identification in clinical datasets
+  - Feature selection for predictive modeling with identified target variables
+- **Limitations**: 
+  - Struggles with high-dimensional genomics data (>1000 variables)
+  - Poor performance with dense causal structures
+  - Ineffective for systems with significant latent confounders
+
+## 2. Assumptions
+- **Core Theoretical Assumptions**:
+  - Causal Sufficiency: No unmeasured confounders affecting observed variables
+  - Faithfulness: Conditional independencies in data are represented in the graph
+  - Markov Condition: Causal structure encodes all conditional independencies
+- **Effects of Assumption Violations**:
+  - Highly sensitive to violations of causal sufficiency
+  - Moderate sensitivity to violations of faithfulness
+  - Fails in the presence of selection bias
+
+## 3. Data Handling Capabilities
+- **Performance Across Data Types**:
+  - Continuous data: Excellent with fisherz test
+  - Discrete data: Good with chisq test (requires purely discrete data)
+  - Mixed data: Moderate performance with appropriate test selection
+- **Handling of Relationship Complexity**:
+  - Linear relationships: Strong with fisherz test
+  - Nonlinear relationships: Capable with kci/fastkci/rcit tests (at increased computational cost)
+- **Noise Tolerance**:
+  - Moderate tolerance to Gaussian noise
+  - More sensitive to non-Gaussian noise distributions
+
+## 4. Robustness & Scalability
+- **Missing Data Tolerance**: Poor (lacks specialized handling mechanisms)
+- **Measurement Error Resilience**: Moderate sensitivity
+- **Network Density Performance**: 
+  - Excels with sparse structures
+  - Performance degrades with increasing density
+- **Variable and Sample Scaling**:
+  - Handles up to hundreds of variables adequately
+  - Sample size requirements grow exponentially with Markov Blanket size
+- **Multi-domain Data Handling**: Limited built-in capabilities for heterogeneous datasets
+
+## 5. Computational Complexity
+- **Theoretical Time Complexity**: O(|MB(T)| × N), where |MB(T)| is the Markov Blanket size and N is the number of variables
+- **Practical Runtime**:
+  - Fast for sparse networks with small Markov Blankets
+  - Becomes prohibitively slow for dense networks or large Markov Blankets
+- **Memory Usage**: Moderate; scales with number of variables and sample size
+- **Parallelization Potential**: Limited to independence test parallelization
+- **Hardware Requirements**: Standard CPU-based computation; no specialized hardware needed
+
+## 6. Hyperparameters
+- **Key Hyperparameters**:
+  - Significance level (α) for independence testing
+  - Independence test selection (indep_test)
+- **Default Performance**: Reasonable with defaults (α = 0.05, indep_test = fisherz) for standard datasets
+- **Tuning Difficulty**: Moderate to easy
+  - α can be selected based on sample size
+  - Test selection based on data types and relationship complexity
+- **Impact of Incorrect Settings**:
+  - Too high α: Increased false positives (spurious edges)
+  - Too low α: Increased false negatives (missing edges)
+  - Inappropriate test: Failure to detect true dependencies
+
+## 7. Interpretability
+- **Output Format**: Markov Blanket for target variables (parents, children, and spouses)
+- **Confidence Measures**: P-values from independence tests indicate confidence in edge absence
+- **Ambiguity Handling**: Limited built-in capabilities for resolving edge direction ambiguities
+- **User Accessibility**: Results directly identify relevant predictors and causal factors
+- **Validation Methods**: Cross-validation or hold-out testing for predictive accuracy of identified Markov Blanket

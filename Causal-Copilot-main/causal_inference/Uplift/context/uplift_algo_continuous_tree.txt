@@ -1,0 +1,23 @@
+Available algorithms for estimating heterogeneous treatment effects (uplift modeling) with a *continuous* treatment, focusing on tree-based methods and meta-learners with tree-based base estimators:
+
+1.  **S-Learner (Single Model) with Tree-Based Base Learner:**
+    -   Uses a single tree-based model (e.g., Random Forest, Gradient Boosting) to predict the outcome, including the *continuous* treatment variable as a feature.
+    -   Simple, and works well with continuous treatments.
+
+2.  **T-Learner (Two Models):**
+    -   Generally *not recommended* for continuous treatments without discretization (which can lose information).
+
+3. **X-Learner with Tree-Based Base Learners:**
+    -  Uses tree-based models (e.g., Random Forest) in its two-stage process.
+    -   Often performs well and is more robust than T-Learner.
+
+4. **R-Learner with Tree-Based Base Learners**
+   - Uses a tree-based learner (e.g., Random Forest) to estimate the CATE by residualizing both treatment and outcome with respect to covariates.
+
+5. **Doubly Robust Learner with Tree-Based Base Learners:**
+- Uses a tree-based learner in the two-model approach to be resistant to model misspecification.
+
+6.  **Causal Forest:**
+    -   A tree-based method specifically designed for heterogeneous treatment effect estimation.  Can handle continuous treatments well.
+
+When choosing, consider the complexity of the relationships. If the causal graph suggests strong confounding, prioritize X-Learner, R-Learner or Causal Forests.  S-Learner is a good baseline. Avoid T-Learner with continuous treatments unless you have a strong reason to discretize.

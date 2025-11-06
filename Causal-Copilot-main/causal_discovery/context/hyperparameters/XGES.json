@@ -1,0 +1,8 @@
+{
+    "algorithm_name": "XGES",
+    "alpha": {
+        "meaning": "The penalty term for the model complexity in BIC score",
+        "available_values": [2, 1],
+        "expert_suggestion": "Use 2 as default. Use alpha = 2 for standard BIC and some sparsity and simplicity."
+    }
+}

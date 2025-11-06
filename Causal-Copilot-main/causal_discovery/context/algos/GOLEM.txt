@@ -1,0 +1,43 @@
+# GOLEM Algorithm
+
+## Executive Summary
+- **Optimal Use**: Medium-sized networks (5-50 variables) with primarily linear relationships, continuous data, and sufficient sample sizes
+- **Alternatives**: Consider PC or CDNOD for non-linear relationships; FGES for missing data; GRaSP for discrete variables
+
+## 1. Data Handling Capabilities
+- **Variable Types**: Specialized for continuous data; limited capability for discrete variables
+- **Relationship Complexity**: Primarily designed for linear relationships; significantly underperforms with non-linear causal mechanisms
+- **Noise Tolerance**: Good performance with both Gaussian and non-Gaussian noise; offers GOLEM-NV variant for handling non-equal noise variances
+
+## 2. Assumptions
+- **Core Assumptions**: Requires relationships to form a DAG; assumes linear dependencies; assumes causal sufficiency (no unmeasured confounders); assumes independent noise terms
+- **Violation Effects**: Performance deteriorates with hidden confounders; accuracy decreases significantly with non-linear relationships; may recover partial structure with mild assumption violations
+
+## 3. Real-World Applications
+- **Best Uses**: Gene regulatory network inference with approximately linear relationships; economic systems with moderate dimensionality; financial data with primarily linear dependencies
+- **Limitations**: Ineffective for highly non-linear systems; poor performance with time-series data; unsuitable when substantial unmeasured confounding exists
+
+## 4. Robustness & Scalability
+- **Missing Data**: Limited built-in capability; requires preprocessing/imputation
+- **Measurement Error**: Moderately robust to noise and measurement errors
+- **Network Density**: Handles varying densities when appropriately tuned via λ₁ and threshold
+- **Variable Scaling**: Performance decreases with increasing variables (>50); strong performance for small to medium networks
+- **Heterogeneity**: Performs well on heterogeneous data according to benchmarks
+
+## 5. Computational Complexity
+- **Time Complexity**: O(d² × n × α) where d=variables, n=samples, α=optimization overhead
+- **Runtime Characteristics**: Efficiency decreases substantially with increasing variables
+- **Memory Usage**: Scales with the square of variable count
+- **Hardware Requirements**: Standard CPU sufficient for small networks; larger networks benefit from additional memory
+
+## 6. Hyperparameters
+- **Key Parameters**: λ₁ (L1 regularization), num_iter (optimization iterations), graph_thres (edge pruning threshold)
+- **Default Performance**: Reasonable results with defaults (λ₁=0.01, num_iter=10,000, graph_thres=0.3)
+- **Tuning Difficulty**: Moderate to high; continuous optimization parameters lack clear heuristics; performance highly sensitive to λ₁
+- **Incorrect Settings**: Too large λ₁ removes important causal links; too small λ₁ produces overly dense graphs; insufficient iterations can prevent convergence
+
+## 7. Interpretability
+- **Output Format**: Weighted adjacency matrix converted to DAG via threshold
+- **Confidence Measures**: No built-in statistical tests or confidence intervals
+- **Validation Methods**: Edge strength values indicate relative importance but lack formal significance tests
+- **User Accessibility**: Straightforward interpretation of weighted causal edges

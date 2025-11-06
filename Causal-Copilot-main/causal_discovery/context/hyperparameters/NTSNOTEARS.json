@@ -1,0 +1,18 @@
+{
+    "algorithm_name": "NTSNOTEARS",
+    "lambda1": {
+      "meaning": "lambdas for convolutional parameters in each time step. In the order of ..., lag2, lag1, instantaneous. E.g. [0.02, 0.01]",
+      "suggested_values": [1e-3, 1e-4, 1e-2],
+      "reasoning": "Use 1e-3 as default. Higher values promote sparser graphs, lower values allow more connections."
+    },
+    "lambda2": {
+      "meaning": "smoothness over time for causal relations",
+      "suggested_values": [1e-3, 1e-2, 1e-5],
+      "reasoning": "Use 1e-3 as default. A higher value results in more stable causal graphs over time, while a lower value allows more dynamic changes in causal relationships."
+    },
+    "w_threshold": {
+      "meaning": "list of w_thresholds for convolutional parameters in each time step",
+      "suggested_values": [5, 7, 2],
+      "reasoning": "Use 5 as default. Higher values lead to sparser graphs by pruning weak connections - higher value for less no of nodes and short lag"
+    }
+} 

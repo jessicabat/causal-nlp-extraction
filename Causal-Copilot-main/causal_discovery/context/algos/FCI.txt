@@ -1,0 +1,81 @@
+# FCI (Fast Causal Inference) Algorithm Profile
+
+## Executive Summary
+- **Optimal use scenarios**: Problems where latent confounders (unobserved common causes) are a primary concern; linear datasets with fewer than 100 variables; non-linear datasets with fewer than 50 variables; sufficient sample size (>1000 observations); domains like genomics, climate science, and healthcare where unmeasured variables are common.
+- **Alternative recommendations**: XGES or FGES for better computational efficiency when latent confounders aren't a concern; PC for similar constraint-based approach without latent confounder handling.
+
+## 1. Real-World Applications
+- **Best Use Cases**: 
+  - Gene regulatory networks where many factors remain unobserved
+  - Climate science for discovering causal relationships with hidden variables
+  - Medical studies with potential unmeasured confounders
+  - Social science research with complex hidden factors
+
+- **Limitations**:
+  - Not suitable for high-dimensional data (>100 variables) without computational optimizations
+  - Less effective with strong non-linear relationships without appropriate independence tests
+  - Struggles with very small sample sizes relative to graph complexity
+
+## 2. Assumptions
+- **Core theoretical assumptions**:
+  - Acyclicity (no feedback loops in causal structure)
+  - Markov condition (d-separation in graph implies conditional independence)
+  - Faithfulness (all independencies in data reflect graph structure)
+  - Does NOT assume causal sufficiency (key distinguishing feature)
+
+- **Effects of assumption violations**:
+  - Cyclic relationships lead to inconsistent causal orientations
+  - Faithfulness violations produce misleading independence patterns and incorrect edges
+  - Extreme violations of linear relationship assumptions reduce accuracy when using linear tests
+
+## 3. Data Handling Capabilities
+- **Performance across data types**:
+  - Continuous data: Strong with appropriate test (Fisher Z for linear, KCI/FastKCI/RCIT for non-linear)
+  - Discrete data: Moderate with chi-square test (requires sufficient data per category)
+  - Mixed data: Can be handled with the non-parameteric/non-linear tests
+
+- **Handling of relationship complexity**:
+  - Linear relationships: Well-handled with default Fisher Z test
+  - Non-linear relationships: Requires specialized tests (KCI, RCIT, fastKCI)
+  - Complex dependencies: Less competitive than specialized non-linear algorithms
+
+- **Noise tolerance**:
+  - Gaussian noise: Well-handled
+  - Non-Gaussian noise: Moderate performance, depends on independence test choice
+
+## 4. Robustness & Scalability
+- **Missing data tolerance**: Moderate; can handle missing data if independence test supports it
+- **Measurement error resilience**: Moderate stability with moderate noise levels
+- **Network density performance**: Strong in sparse networks; computational burden increases drastically with dense connections
+- **Variable and sample scaling**: 
+  - Linear tests (fisherz): Practical limit of ~50-100 variables with appropriate depth settings
+  - Non-linear tests: Limited to ~30 variables with kci/fastkci/rcit due to computational demands
+- **Multi-domain data handling**: No specific multi-domain optimization in standard implementation
+
+## 5. Computational Complexity
+- **Theoretical time complexity**: Exponential relative to variable count (O(2^n))
+- **Practical runtime characteristics**: Highly variable based on graph sparsity, independence test choice, and depth parameter
+- **Hardware requirements**: CPU-focused; no specialized GPU optimization in standard versions
+
+## 6. Hyperparameters
+- **Key hyperparameters**: 
+  - Significance level (α)
+  - Independence test selection
+  - Depth parameter for skeleton search
+
+- **Default performance**: Suboptimal in complex scenarios; default parameters rarely sufficient for reliable results
+
+- **Tuning difficulty**: Moderate to high
+  - α requires careful selection based on sample size
+  - Independence test must match data characteristics
+  - Depth parameter dramatically affects computational complexity
+
+- **Impact of incorrect settings**:
+  - Too liberal α (high value): Increases false positives (spurious edges)
+  - Too conservative α (low value): Increases false negatives (missing edges)
+  - Inappropriate test: Completely misses certain relationship types
+  - Too restrictive depth: Misses important conditional independencies
+
+## 7. Interpretability
+- **Output format**: Partial Ancestral Graph (PAG) representing possible causal structures
+- **Ambiguity handling**: Explicitly represents causal uncertainty with partial edge orientations

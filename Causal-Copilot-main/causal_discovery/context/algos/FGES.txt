@@ -1,0 +1,59 @@
+# FGES (Fast Greedy Equivalence Search) Algorithm
+
+## Executive Summary
+- **Optimal use scenarios**: High-dimensional data (hundreds to thousands of variables) with missing values, where computational efficiency is important, the underlying structure is expected to be sparse, and all relevant variables are measured. In large-scale graph scenarios (variable sizes > 100), it can achieve better performance than constraint-based methods (e.g., PC) with comparable efficiency, and this advantage increases as the graph becomes more sparse.
+- **Alternative recommendations**: When hidden confounders are suspected, consider FCI; for highly non-linear relationships. Consider XGES for general-purpose causal discovery if the scale is not very large (< 100 variables). Consider PC/FCI with KCI/fast/KCIRCIT independence test.
+
+## 1. Real-World Applications
+- **Best Use Cases**:
+  - Genomics research for gene regulatory network discovery with thousands of variables
+  - Neuroscience for causal relationships between brain regions from fMRI data
+  - Social sciences with large-scale economic datasets requiring efficient processing
+- **Limitations**:
+  - Ineffective for systems with feedback loops or cyclic relationships
+  - Performance degrades with highly non-linear causal relationships
+  - Not recommended when hidden confounders are expected
+
+## 2. Assumptions
+- **Core theoretical assumptions**:
+  - Causal Sufficiency: All relevant variables are measured (no hidden confounders)
+  - Acyclicity: True causal structure is a directed acyclic graph (no feedback loops)
+  - Faithfulness: Observed independencies faithfully represent underlying causal structure
+  - Default assumption of linear-Gaussian relationships for continuous data
+- **Effects of assumption violations**:
+  - Hidden confounders lead to incorrect edge orientations and spurious connections
+  - Cyclic relationships cannot be modeled, resulting in misspecified structures
+  - Violations of faithfulness reduce reliability of discovered structures
+
+## 3. Data Handling Capabilities
+- **Performance across data types**:
+  - Handles continuous, discrete, and mixed data types
+  - Uses Conditional Gaussian scoring for mixed data
+  - Alternative Degenerate Gaussian scoring available for mixed data
+- **Handling of relationship complexity**:
+  - Best suited for linear relationships
+  - Limited effectiveness with complex non-linear causal relationships
+- **Noise tolerance**:
+  - Moderate tolerance to noise, particularly with larger sample sizes
+  - Performance remains usable with large samples even with substantial noise
+
+## 4. Robustness & Scalability
+- **Missing data tolerance**: Exceptional performance with high rates of missing data; ranks #1 in benchmarks for handling missing values
+- **Measurement error resilience**: Moderate tolerance to measurement error; performance declines with error rates above 17%
+- **Network density performance**: Most effective with sparse networks; less efficient with densely connected variables
+- **Variable and sample scaling**: Successfully scales to thousands of variables; can handle up to 1 million variables for sparse graphs
+- **Multi-domain data handling**: Reasonably effective across varied data sources when merged into a single dataset
+
+## 5. Computational Complexity
+- **Theoretical time complexity**: Polynomial, significantly better than exponential worst-case of constraint-based methods
+- **Practical runtime characteristics**: Processes hundreds of variables rapidly; approximately 10x faster than original GES
+
+## 6. Hyperparameters
+- **Key hyperparameters**: Single primary parameter - sparsity (penalty discount factor)
+- **Default performance**: Default value of 1 performs well in many scenarios
+- **Tuning difficulty**: Relatively straightforward; lower values (1-2) produce denser graphs, higher values (3-4) produce sparser graphs
+- **Impact of incorrect settings**: Too low creates spurious edges; too high misses true relationships; clear visual feedback makes adjustment intuitive
+
+## 7. Interpretability
+- **Output format**: Produces partially directed acyclic graph (PDAG) or Completed PDAG
+- **Ambiguity handling**: Some edges remain undirected when direction cannot be determined from data

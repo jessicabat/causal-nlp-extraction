@@ -1,0 +1,216 @@
+
+# Causal Discovery Algorithm Selection Guide
+
+## 1. Practical Algorithm Selection Workflow
+
+1. **Assess data dimensions and sample size**
+   - If small sample (≤500): PC with KCI independence test on CPU
+   - If medium/large sample: Continue to step 2
+
+2. **Evaluate relationship linearity**
+   - If primarily linear: CDNOD with Fisher Z independence test on GPU
+   - If non-linear: CDNOD with RCIT independence test
+   - If uncertain: Continue to step 3
+
+3. **Check for data quality issues**
+   - If significant measurement error: GRaSP with BIC scoring function
+   - If high missing data: FGES with sparsity parameter set to 10
+   - If both: XGES
+   - If neither: Continue to step 4
+
+4. **Assess heterogeneity and variable types**
+   - If highly heterogeneous: CDNOD with RCIT independence test
+   - If discrete variables present: GRaSP with BIC scoring function
+   - If continuous only: Continue to step 5
+
+5. **Consider graph density expectations**
+   - If sparse graph expected: GRaSP with BIC scoring function
+   - If dense graph expected: CDNOD with Fisher Z independence test on CPU
+   - If unknown: XGES (best general-purpose option)
+
+6. **Apply computational constraints**
+   - If efficiency critical: Select highest efficiency variant from options
+   - If accuracy paramount: Prioritize performance over efficiency
+
+## 2. Critical Data Assessment Questions
+
+When selecting from 30+ algorithms, the LLM should first determine:
+
+1. **Data Dimensionality**: Number of variables/nodes (5-100)
+2. **Sample Size**: Available observations (500-5000)
+3. **Expected Graph Density**: Sparse or dense causal relationships
+4. **Data Completeness**: Presence and extent of missing values
+5. **Variable Types**: Continuous, discrete, or mixed
+6. **Relationship Types**: Linear or non-linear functional relationships
+7. **Error Characteristics**: Measurement error presence and magnitude
+8. **Computational Constraints**: Available processing time/resources
+
+## 3. Decision Matrix for Key Data Characteristics
+
+### Sample Size
+| Sample Size | Best Algorithm | Alternative |
+|-------------|----------------|------------|
+| Small (≤500) | PC with KCI independence test on CPU | PC with RCIT independence test on CPU |
+| Medium (1000) | GRaSP with BIC scoring function | NOTEARSLinear |
+| Large (≥2500) | GRaSP with BIC scoring function | GES with BIC scoring function |
+
+### Graph Density
+| Density | Best Algorithm | Alternative |
+|---------|----------------|------------|
+| Sparse (≤0.1) | GRaSP with BIC scoring function | PC with CMIKNN independence test on GPU |
+| Medium (0.2) | CDNOD with Fisher Z independence test on CPU | PC with Fisher Z independence test on GPU |
+| Dense (≥0.3) | CDNOD with Fisher Z independence test on CPU | PC with Fisher Z independence test on GPU |
+
+### Functional Relationships
+| Relationship Type | Best Algorithm | Alternative |
+|-------------------|----------------|------------|
+| Linear | CDNOD with Fisher Z independence test on GPU | NOTEARSLinear |
+| Non-linear | CDNOD with RCIT independence test | FCI with Fisher Z independence test |
+
+### Data Quality Issues
+| Issue | Best Algorithm | Alternative |
+|-------|----------------|------------|
+| Measurement Error | GRaSP with BIC scoring function | PC with CMIKNN independence test on GPU |
+| Missing Values (Low) | GRaSP with BIC scoring function | PC with CMIKNN independence test on GPU |
+| Missing Values (High) | FGES with sparsity parameter set to 10 | XGES |
+
+### Variable Types
+| Variable Mix | Best Algorithm | Alternative |
+|--------------|----------------|------------|
+| Continuous Only | CDNOD with Fisher Z independence test on GPU | XGES |
+| Discrete Variables | GRaSP with BIC scoring function | GES with BIC scoring function |
+| Highly Heterogeneous | CDNOD with RCIT independence test | CDNOD with FastKCI independence test |
+
+### Noise Characteristics
+| Noise Type | Best Algorithm | Alternative |
+|------------|----------------|------------|
+| Gaussian | CDNOD with Fisher Z independence test on CPU | GRaSP with BIC scoring function |
+| Non-Gaussian | CDNOD with Fisher Z independence test on CPU | PC with CMIKNN independence test on GPU |
+
+## 4. Top Overall Performers
+
+1. **XGES** (Overall Rank: 8.43) - Excellent general-purpose algorithm with strong composite performance
+2. **GRaSP with BIC scoring** (Overall Rank: 9.58) - Strong across diverse scenarios
+3. **CDNOD with RCIT independence test** (Overall Rank: 9.85) - Particularly good for heterogeneous data
+4. **FCI with Fisher Z independence test** (Overall Rank: 10.02) - Well-balanced performance in most scenarios
+5. **CDNOD with Fisher Z independence test on CPU** (Overall Rank: 10.92) - Strong for both Gaussian and non-Gaussian noise
+
+## 5. Efficiency-Performance Trade-offs
+
+| Priority | Best Algorithm | Performance | Efficiency |
+|----------|----------------|-------------|------------|
+| Balanced | CDNOD with Fisher Z independence test on GPU | 7.55 | 3.08 |
+| Performance-focused | CDNOD with RCIT independence test | 7.36 | 2.37 |
+| Efficiency-focused | FGES with sparsity parameter set to 10 | 6.82 | 3.17 |
+| Large-scale data | PC with Fisher Z independence test on GPU | 6.98 | 3.10 |
+
+## 6. Algorithm Selection for Specific Real-world Scenarios
+
+1. **Healthcare/Genomics Data**
+   - Characteristics: High-dimensional, potential non-linearity, heterogeneous
+   - Recommendation: CDNOD with RCIT independence test or CDNOD with FastKCI independence test
+
+2. **Economic/Financial Data**
+   - Characteristics: Mixed variables, potential measurement error, missing values
+   - Recommendation: GRaSP with BIC scoring function or XGES
+
+3. **Sensor/IoT Data**
+   - Characteristics: Time-sensitive, potentially large-scale, measurement error
+   - Recommendation: PC with Fisher Z independence test on GPU for efficiency
+
+4. **Social Science Data**
+   - Characteristics: Sparse relationships, mixed variables, potential missing data
+   - Recommendation: GRaSP with BIC scoring function
+
+5. **High-throughput Biological Data**
+   - Characteristics: Very high-dimensional, sparse network, potentially non-linear
+   - Recommendation: CDNOD with RCIT independence test for non-linearity
+
+## 7. Algorithm Family Performance Analysis
+
+### Score-Based Algorithms
+
+**GES Family**
+- **GES with BIC scoring function** (Rank: 11.72)
+  - Strengths: Excels with measurement error (Rank: 8.3), Gaussian noise (Rank: 7.0)
+  - Best use cases: Clean data with Gaussian distribution
+
+- **GRaSP with BIC scoring function** (Rank: 9.58)
+  - Strengths: Top performer for sparse graphs (Rank: 1.0), discrete variables (Rank: 1.5)
+  - Best use cases: Discrete data, sparse networks, measurement errors
+
+- **XGES Variants** (Rank range: 8.43-17.95)
+  - Base XGES (Rank: 8.43): Best overall general-purpose algorithm
+  - Best use cases: When data characteristics are uncertain/mixed
+
+- **FGES Variants** (Rank range: 12.75-17.94)
+  - FGES with sparsity parameter set to 10 (Rank: 15.86): Top performer for high missing data (Rank: 1.0)
+  - Best use cases: Missing data scenarios
+
+### Constraint-Based Algorithms
+
+**PC Family**
+- **PC with Fisher Z independence test** (GPU/CPU) (Rank: 12.85/15.92)
+  - Strengths: Excellent for dense graphs (GPU Rank: 2.0)
+  - Best use cases: Homogeneous data with dense relationships
+
+- **PC with KCI independence test** (Rank: 17.55)
+  - Strengths: Best for sample scaling (Rank: 5.3)
+  - Best use cases: Small to medium samples with mixed variable types
+
+- **PC with CMIKNN independence test** (Rank: 14.07)
+  - Strengths: Excellent with measurement error (Rank: 2.0)
+  - Best use cases: Data with significant measurement error or missing values
+
+**FCI Family**
+- **FCI with Fisher Z independence test** (Rank: 10.02)
+  - Strengths: Good for variable scaling (Rank: 7.5), balanced performance
+  - Best use cases: General purpose when latent confounders are suspected
+
+- **FCI with KCI independence test** (Rank: 11.87)
+  - Strengths: Top performer for noise type (Rank: 1.0)
+  - Best use cases: Data with complex noise patterns
+
+**CDNOD Family**
+- **CDNOD with Fisher Z independence test** (GPU/CPU) (Rank: 11.34/10.92)
+  - Strengths: GPU version is #1 for linear functions (Rank: 1.0)
+  - Best use cases: Linear relationships with GPU acceleration
+
+- **CDNOD with RCIT independence test** (Rank: 9.85)
+  - Strengths: #1 for non-linear functions (Rank: 1.0), best for heterogeneity (Rank: 1.3)
+  - Best use cases: Non-linear relationships, heterogeneous data
+
+- **CDNOD with FastKCI independence test** (Rank: 17.17)
+  - Strengths: Excellent for heterogeneous data (Rank: 2.3)
+  - Best use cases: Complex heterogeneous data
+
+### Hybrid/Specialized Algorithms
+
+**NOTEARSLinear** (Rank: 13.09)
+- Strengths: Good for linear relationships (Rank: 2.0)
+- Best use cases: Primarily linear data with sufficient sample size
+
+## 8. Performance Stability Analysis
+
+Algorithms with lowest standard deviation (most stable):
+1. FGES with sparsity parameter set to 5 (SD: 1.74) - Consistent across scenarios
+2. XGES (SD: 2.21) - Reliable general-purpose choice
+3. FCI with FastKCI independence test (SD: 2.10) - Stable performance
+
+Algorithms with highest standard deviation (context-dependent):
+1. PC with RCIT independence test on CPU (SD: 2.90) - Varies greatly by scenario
+2. PC with KCI independence test on CPU (SD: 2.96) - Context-sensitive
+3. CDNOD with CMIKNN independence test on GPU (SD: 3.07) - Variable performance
+
+## 9. Low-Performing Algorithms to Avoid
+
+Unless specific domain knowledge indicates otherwise, these algorithms generally underperform:
+
+1. **DirectLiNGAM variants** (Rank range: 30.69-37.37)
+   - Only competitive for specific non-Gaussian scenarios
+
+2. **BAMB, IAMBnPC, InterIAMB, MBOR Families** (Rank range: 25.20-27.12)
+   - Limited practical applicability except in specific niche cases
+
+3. **PC with FastKCI independence test on CPU** (Rank: 22.70)
+   - Consistently poor performance across most scenarios

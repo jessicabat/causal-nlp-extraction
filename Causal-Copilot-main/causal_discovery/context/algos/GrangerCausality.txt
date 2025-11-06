@@ -1,0 +1,31 @@
+# Granger Causality
+
+## Hyperparameters Sensitivity
+- **Number of Hyperparameters**: Low (2-3 key parameters)
+- **Default Performance**: Simple to implement with reasonable performance on well-behaved data
+- **Tuning Difficulty**: Low - lag selection is the main challenge but can be automated with information criteria
+
+## Robustness & Scalability
+- **Data Quality Tolerance**: Highly sensitive to noise and non-normality
+- **Scalability**: Limited to small/medium systems (<30 variables)
+- **Computational Cost**: O(d³p²) for multivariate version, O(d²p) for pairwise version
+
+## Mixed Data & Complex Functions
+- **Functional Assumptions**: Strictly linear relationships only
+- **Noise Assumptions**: Assumes Gaussian noise distributions
+- **Data Type Handling**: Designed for continuous variables only
+
+## Interpretability
+- **Output Format**: Simple directed graph showing predictive relationships. Only provides summary graph
+- **Edge Meanings**: Edges represent statistical predictability, not necessarily causation
+- **Uncertainty Metrics**: Provides p-values but no effect size estimates
+
+## Assumptions
+- **Critical Assumptions**: Linearity, Gaussian errors, stationarity, no instantaneous effects
+- **Robustness to Violations**: Very sensitive to assumption violations
+- **Requirement Level**: Core linearity assumption cannot be relaxed in standard implementation
+
+## Real-World Applications
+- **Successful Domains**: Economics (simple financial indicators), neuroscience (basic connectivity analysis)
+- **Performance Limitations**: Poor performance on nonlinear systems or data with hidden confounders
+- **Scientific Evidence**: Widely used in financial markets analysis (e.g., studying relationships between trading volume and price volatility)

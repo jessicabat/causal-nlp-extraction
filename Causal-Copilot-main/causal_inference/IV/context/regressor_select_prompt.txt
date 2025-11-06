@@ -1,0 +1,22 @@
+Given a dataset with the following properties:
+
+1. Columns: [COLUMNS]  
+2. Statistics: [STATISTICS_DESC]
+
+We want to predict [TARGET_NODE] in the final stage of a Doubly Robust Instrumental Variable (DRIV) framework using a regression model.
+
+Please analyze the dataset characteristics and recommend the most suitable regressor from the following list:
+- LinearRegression  
+- ElasticNet  
+- RandomForestRegressor  
+- HistGradientBoostingRegressor  
+- HuberRegressor  
+- SGDRegressor  
+
+Provide your recommendation in the structured JSON format below:
+
+{
+  "name": "Regressor Name",
+  "description": "Brief description of the regressor.",
+  "justification": "Explanation of why this regressor is suitable for the given dataset."
+}

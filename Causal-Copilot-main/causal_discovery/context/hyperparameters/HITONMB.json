@@ -1,0 +1,13 @@
+{
+  "algorithm_name": "HITONMB",
+  "alpha": {
+    "meaning": "Desired significance level in (0, 1)",
+    "available_values": [0.05, 0.1, 0.01],
+    "expert_suggestion": "Use 0.05 as default. Adjust based on sample size, more conservative (lower) values for larger samples. If < 500, use 0.1; Else if 500-10000 (<10000 but >500), use 0.05; Else if > 10000, using 0.01."
+  },
+  "indep_test": {
+    "meaning": "Independence test method",
+    "available_values": ["fisherz", "chisq", "kci", "fastkci", "rcit"],
+    "expert_suggestion": "Use fisherz as default. DON'T use nonlinear/non-parametric tests for linear/discrete data.\n\nLINEAR/DISCRETE (PARAMETRIC) TESTS:\n- 'fisherz': For linear continuous data (default choice for linear data)\n- 'chisq': For discrete data only (applied only for pure discrete data)\n\nNONLINEAR/NON-PARAMETRIC TESTS:\n- 'kci': For nonlinear data (very slow, use only if variable size < 15 and sample size < 1500)\n- 'rcit': Fastest approximation of kci for non-linear data (use only if variable size < 100 and sample size < 10000)\n- 'fastkci': Faster version of kci for non-linear data (use only if variable size < 20 and sample size < 3000)\n\nFor nonlinear data, as long as variable and sample size constraints are fulfilled, choose in order of accuracy: KCI > RCIT > FastKCI."
+  }
+} 

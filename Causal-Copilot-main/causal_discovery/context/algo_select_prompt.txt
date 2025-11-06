@@ -1,0 +1,85 @@
+User original query (TOP PRIORITY):
+[USER_QUERY]
+
+The computation has to be finished in the runtime of [WAIT_TIME] minutes.
+
+-----------------------------------------------
+
+## ⚠️ CRITICAL USER PRIORITY DIRECTIVE ⚠️
+1. User query overrides ALL other considerations
+2. Extract expertise, constraints, and requirements from user query FIRST 
+3. Prioritize fulfilling user's specific needs over general algorithm metrics
+4. User-provided domain knowledge supersedes general best practices
+5. EVERY recommendation MUST be directly traceable to the user's requirements
+
+## 🎯 DOMAIN EXPERTISE CONSIDERATION 🎯
+**IMPORTANT**: If the user query contains explicit domain knowledge about causal relationships (e.g., "X cannot cause Y", "A must precede B", "certain variables should be connected"), prioritize algorithms that support prior knowledge integration. These constraints can significantly improve causal discovery accuracy when properly incorporated.
+
+For the dataset [TABLE_NAME] that have the following variables:
+[COLUMNS]
+
+And the following statistics:
+[STATISTICS_DESC]
+
+And the relevant domain knowledge:
+[DOMAIN_KNOWLEDGE]
+-----------------------------------------------
+All candidate algorithms, their descriptions and tags:
+[ALGO_CONTEXT]
+-----------------------------------------------
+At the same time, be careful about the current device availability for GPU/CUDA acceleration:
+
+[CUDA_WARNING]
+
+[ACCEPT_CPDAG].
+-----------------------------------------------
+## ⚠️ CRITICAL SELECTION REQUIREMENT ⚠️
+When ALL data properties match between algorithms, you MUST strictly adhere to the performance rating hierarchy (Robust > Strong > Moderate > Limited > Poor) from the tagging information. Never select a lower-rated algorithm over a higher-rated one with matching properties. Reflect if the choosen algorithm is the BEST on performance.
+
+I need you to carefully analyze and select the most suitable causal discovery algorithms (up to [TOP_K]) through a comprehensive multi-step reasoning and decision process as follow:
+
+## Primary Analysis: Data and Requirements Assessment
+1. **User Goal Analysis**:
+   - What is the primary causal question the user is trying to answer?
+   - Is the focus on prediction, explanation, or intervention?
+   - What degree of interpretability is required?
+   - What additional expert knowledge from user that would be relevant for causal structure learning? (e.g. domain-specific data properties)
+
+2. **Data Characteristics Analysis**:
+   - Sample size (n): Is it sufficient for statistical power? (small: <500, medium: 500-5000, large: >5000)
+   - Variable count (p): How many variables need to be considered? Consider these thresholds:
+     * Small scale (<25 variables): Most algorithms perform well
+     * Medium scale (25-50 variables): Requires "High" or better scalability rating
+     * Large scale (50-110 variables): Requires "Very High" or better scalability rating
+     * Very large scale (>110 variables): Requires "Extreme" scalability rating
+   - Data structure: Tabular or time-series? Are there temporal dependencies?
+   - Missing data: What percentage of values are missing? How are they distributed?
+   - Variable types: Continuous, discrete, categorical, mixed? What proportion of each?
+   - Distribution characteristics: Evidence of Gaussian or non-Gaussian distributions?
+   - Relationship patterns: Any evidence of non-linear relationships?
+   - Potential confounders: Are there likely unmeasured confounding variables?
+   - Graph density: Is the graph underlying this data/domain likely to be a dense graph or a sparse graph?
+
+3. **Resource Constraints**:
+   - Computational resources: GPU availability, memory limitations, time constraints
+   - Output format requirements: Is a DAG, CPDAG, or PAG preferred or required?
+-----------------------------------------------
+## REQUIRED: Extensive Reasoning Process
+You MUST provide comprehensive reasoning at each step, explicitly connecting dataset characteristics to algorithm selection decisions. Include detailed analysis of why certain algorithms are superior for THIS SPECIFIC dataset while others are unsuitable.
+
+## CRITICAL DIVERSITY INSTRUCTION
+FOCUS EXCLUSIVELY ON THE CURRENT DATASET CHARACTERISTICS. PRIORITIZE ALGORITHMIC DIVERSITY by selecting algorithms from different methodological families (e.g., score-based, constraint-based, continous-optimization-based...) when multiple algorithms are equally compatible with the requirements.
+
+Your final response should include the complete reasoning process, for each algorithm, include justification, description, and selected algorithm in a JSON object.
+
+{
+  "reasoning": "Detailed step-by-step reasoning process",
+  "algorithms": [
+    {
+      "justification": "Comprehensive explanation connecting THIS dataset's specific characteristics to algorithm strengths and showing why this algorithm outperforms alternatives for this particular use case.",
+      "description": "Concise description of the algorithm's approach and capabilities.", 
+      "name": "Algorithm Name (Key name of candidates, not full name)",
+    },
+    ...
+  ]
+}

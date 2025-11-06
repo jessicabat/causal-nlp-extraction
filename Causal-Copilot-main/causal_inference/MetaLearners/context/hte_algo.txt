@@ -1,0 +1,122 @@
+## Available Algorithms
+
+Current available algorithms implemented for usage for Metalearners:
+
+These are the Metalearners algorithms implemented for estimating Heterogeneous Treatment Effects (HTE) under a Metalearners framework:
+- SLearner
+- TLearner
+- XLearner
+- DomainAdaptationLearner
+
+## Domain Knowledge about Algorithm Selection
+
+### Priority Selection Guide
+1. **For balanced datasets (40-60% treatment ratio):**
+   - Start with TLearner for basic heterogeneity
+   - Use SLearner if computational simplicity is critical
+
+2. **For imbalanced datasets (10-40% treated):**
+   - First choice: XLearner
+   - Alternative: DomainAdaptationLearner if cross-domain data exists
+
+3. **For extreme imbalance (<10% treated):**
+   - DomainAdaptationLearner (mandatory for cross-domain settings)
+   - XLearner with strong regularization
+
+4. **For continuous treatments:**
+   - SLearner (native support)
+   - XLearner with treatment binning
+
+## Algorithms Description 
+
+### SLearner
+
+- **Description**:  
+  Single-model approach that treats treatment assignment as an input feature to estimate potential outcomes.
+
+- **Assumptions**:  
+  1. Additive treatment effects  
+  2. Linear treatment-covariate interactions  
+
+- **Advantages**:  
+  1. Simplest implementation  
+  2. Low computational requirements  
+  3. Natural handling of continuous treatments  
+
+- **Limitations**:  
+  1. Poor performance with complex heterogeneity  
+  2. Treatment effect dilution in high dimensions  
+
+- **Suitable Cases**:  
+  1. Randomized controlled trials (RCTs)  
+  2. Exploratory analysis phases  
+  3. Continuous treatment variables  
+
+### TLearner
+
+- **Description**:  
+  Separate models for treatment and control groups with CATE calculated as model difference.
+
+- **Assumptions**:  
+  1. Comparable group sizes (>30% overlap)  
+  2. Similar covariate distributions  
+
+- **Advantages**:  
+  1. Basic heterogeneity detection  
+  2. Clear counterfactual comparison  
+  3. Medium sample efficiency  
+
+- **Limitations**:  
+  1. Fails with <20% treatment ratio  
+  2. No cross-group learning  
+
+- **Suitable Cases**:  
+  1. Balanced observational studies  
+  2. Medium datasets (1k-50k samples)  
+  3. Binary treatment scenarios  
+
+### XLearner
+
+- **Description**:  
+  Enhanced TLearner using cross-imputation between groups with propensity weighting.
+
+- **Assumptions**:  
+  1. Adequate overlap (positivity)  
+  2. Smooth treatment effect surfaces  
+
+- **Advantages**:  
+  1. Robust to 15-30% treatment ratios  
+  2. Improved precision through imputation  
+  3. High-dimensional compatibility  
+
+- **Limitations**:  
+  1. 3× compute cost vs TLearner  
+  2. Propensity model sensitivity  
+
+- **Suitable Cases**:  
+  1. Observational studies with imbalance  
+  2. Precision-critical applications  
+  3. Datasets with >50 covariates  
+
+### DomainAdaptationLearner
+
+- **Description**:  
+  Aligns feature distributions across domains using representation learning.
+
+- **Assumptions**:  
+  1. Domain-invariant treatment effects  
+  2. Shared causal mechanisms  
+
+- **Advantages**:  
+  1. Cross-domain generalizability  
+  2. Covariate shift robustness  
+  3. Temporal/spatial variation handling  
+
+- **Limitations**:  
+  1. Requires explicit domain labels  
+  2. High computational overhead  
+
+- **Suitable Cases**:  
+  1. Multi-site clinical trials  
+  2. Temporal drift scenarios  
+  3. Geographically distributed data  

@@ -1,0 +1,23 @@
+Based on the following information, select the most appropriate uplift modeling algorithm, prioritizing tree-based methods or meta-learners with tree-based base estimators.
+
+Dataset Columns:
+[COLUMNS]
+
+Dataset Statistics:
+[STATISTICS_DESC]
+
+[QUESTION]
+
+Causal Graph:
+[CAUSAL_GRAPH]
+
+Available Algorithms:
+[ALGO_CONTEXT]
+
+Provide your response in JSON format:
+  {
+    "name": "Algorithm name (e.g., 'S-Learner', 'X-Learner')",
+    "description": "Brief description of the algorithm",
+    "justification": "Explanation of why this algorithm is appropriate for this data"
+  }
+

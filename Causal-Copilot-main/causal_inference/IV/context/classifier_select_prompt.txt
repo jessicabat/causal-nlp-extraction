@@ -1,0 +1,21 @@
+Given a dataset with the following properties:
+
+1. Columns: [COLUMNS]  
+2. Statistics: [STATISTICS_DESC]
+
+We want to predict [TARGET_NODE] for the nuisance component within a Doubly Robust Instrumental Variable (DRIV) framework using a classification model.
+
+Please analyze the dataset characteristics and recommend the most suitable classifier. You can only choose from the following (exact names):
+- LogisticRegression  
+- RandomForestClassifier  
+- HistGradientBoostingClassifier  
+- SVC  
+- SGDClassifier  
+
+Provide your recommendation in the structured JSON format below:
+
+{
+  "name": "Classifier Name",
+  "description": "Brief description of the classifier.",
+  "justification": "Explanation of why this classifier is suitable for the given dataset."
+}

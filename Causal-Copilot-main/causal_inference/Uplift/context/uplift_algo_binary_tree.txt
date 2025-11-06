@@ -1,0 +1,27 @@
+Available algorithms for estimating heterogeneous treatment effects (uplift modeling) with a binary treatment, focusing on tree-based methods and meta-learners with tree-based base estimators:
+
+1.  **S-Learner (Single Model) with Tree-Based Base Learner:**
+    -   Uses a single tree-based model (e.g., Random Forest, Gradient Boosting) to predict the outcome, including the treatment variable as a feature.
+    -   Simple to implement.
+    -   Good for capturing general trends and interactions.
+
+2.  **T-Learner (Two Models) with Tree-Based Base Learners:**
+    -   Trains two separate tree-based models: one for the treatment group and one for the control group.
+    -   The uplift is estimated as the difference in predictions.
+    -   Can capture different relationships in treatment and control groups.
+
+3.  **X-Learner with Tree-Based Base Learners:**
+    -  Uses tree-based models (e.g., Random Forest) in its two-stage process.
+    -   Often performs well and is more robust than T-Learner.
+
+4. **R-Learner with Tree-Based Base Learners**
+    - Uses a tree-based learner (e.g., Random Forest) to estimate the CATE by residualizing both treatment and outcome with respect to covariates.
+
+5.  **Uplift Tree/Random Forest:**
+    -   Directly optimizes for uplift during tree construction (splitting criteria based on treatment effect differences).
+    -   Specifically designed for uplift; interpretable.
+
+6. **Doubly Robust Learner with Tree-Based Base Learners:**
+- Uses a tree-based learner in the two-model approach to be resistant to model misspecification.
+
+When choosing, consider the complexity of the relationships in your data and the importance of interpretability.  If the causal graph suggests strong confounding, prioritize X-Learner or R-Learner. If interpretability is key, consider Uplift Trees/Forests or S-Learner with a single decision tree.

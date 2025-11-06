@@ -1,0 +1,145 @@
+{
+    "Science Fields": {
+      "Natural Sciences": {
+        "Physics": [
+          "Classical Mechanics",
+          "Electromagnetism",
+          "Thermodynamics and Statistical Mechanics",
+          "Quantum Mechanics",
+          "Relativity (Special and General)",
+          "Particle and High-Energy Physics",
+          "Nuclear Physics",
+          "Condensed Matter Physics",
+          "Astrophysics and Cosmology",
+          "Plasma Physics",
+          "Optics and Photonics"
+        ],
+        "Chemistry": [
+          "Organic Chemistry",
+          "Inorganic Chemistry",
+          "Physical Chemistry",
+          "Analytical Chemistry",
+          "Biochemistry",
+          "Theoretical and Computational Chemistry",
+          "Polymer Chemistry",
+          "Materials Chemistry",
+          "Environmental and Green Chemistry",
+          "Medicinal Chemistry"
+        ],
+        "Earth and Environmental Sciences": [
+          "Geology and Mineralogy",
+          "Geophysics",
+          "Meteorology and Climatology",
+          "Oceanography",
+          "Hydrology and Water Resources",
+          "Soil Science",
+          "Paleontology",
+          "Environmental Science and Ecology",
+          "Atmospheric Science",
+          "Environmental Geochemistry"
+        ],
+        "Biology and Life Sciences": [
+          "Molecular and Cellular Biology",
+          "Genetics and Genomics",
+          "Evolutionary Biology",
+          "Ecology and Environmental Biology",
+          "Botany (Plant Sciences)",
+          "Zoology (Animal Sciences)",
+          "Microbiology and Virology",
+          "Biotechnology and Bioengineering",
+          "Immunology",
+          "Neuroscience and Neurobiology",
+          "Physiology",
+          "Developmental Biology"
+        ]
+      },
+      "Formal Sciences": {
+        "Mathematics": [
+          "Algebra and Number Theory",
+          "Geometry and Topology",
+          "Calculus and Analysis",
+          "Differential Equations",
+          "Probability and Statistics",
+          "Mathematical Logic and Foundations",
+          "Combinatorics",
+          "Applied Mathematics",
+          "Numerical Analysis"
+        ],
+        "Computer Science": [
+          "Algorithms and Data Structures",
+          "Artificial Intelligence and Machine Learning",
+          "Software Engineering and Development",
+          "Computer Architecture and Systems",
+          "Operating Systems",
+          "Databases and Information Systems",
+          "Cybersecurity",
+          "Networking and Communications",
+          "Human-Computer Interaction",
+          "Theoretical Computer Science",
+          "Computer Graphics and Visualization",
+          "Robotics and Automation"
+        ]
+      },
+      "Social Sciences": {
+        "Psychology": [
+          "Cognitive Psychology",
+          "Behavioral and Experimental Psychology",
+          "Developmental Psychology",
+          "Clinical and Counseling Psychology",
+          "Social Psychology",
+          "Neuropsychology",
+          "Industrial-Organizational Psychology"
+        ],
+        "Sociology": [
+          "Social Theory and Social Structures",
+          "Criminology and Deviance Studies",
+          "Cultural and Urban Sociology",
+          "Demography and Population Studies",
+          "Social Work and Public Policy"
+        ]
+      }
+    },
+    "Engineering Fields": {
+      "Civil Engineering": [
+        "Structural Engineering",
+        "Transportation Engineering",
+        "Geotechnical Engineering",
+        "Water Resources and Hydraulic Engineering",
+        "Environmental Engineering (civil aspect)",
+        "Construction Engineering and Project Management",
+        "Urban Planning and Infrastructure Development"
+      ],
+      "Mechanical Engineering": [
+        "Mechanics and Dynamics",
+        "Thermodynamics and Heat Transfer",
+        "Fluid Mechanics",
+        "Manufacturing and Production Engineering",
+        "Robotics and Mechatronics",
+        "Automotive Engineering",
+        "Aerospace (Mechanical) Engineering",
+        "Energy Systems Engineering"
+      ]
+    },
+    "Industry Fields": {
+      "Manufacturing and Production": [
+        "Automotive Manufacturing",
+        "Aerospace and Defense Manufacturing",
+        "Electronics and Semiconductor Manufacturing",
+        "Textile and Apparel Production",
+        "Food and Beverage Processing",
+        "Pharmaceutical and Biotechnology Manufacturing",
+        "Industrial Machinery and Equipment Production",
+        "Additive Manufacturing (3D Printing)",
+        "Robotics and Automation in Production"
+      ],
+      "Energy and Utilities": [
+        "Oil and Gas",
+        "Renewable Energy",
+        "Nuclear Energy",
+        "Power Generation and Distribution",
+        "Energy Storage Technologies",
+        "Smart Grid and Energy Management Systems"
+      ]
+    }
+}
+  

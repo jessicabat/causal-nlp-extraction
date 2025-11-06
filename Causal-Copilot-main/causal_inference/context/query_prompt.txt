@@ -1,0 +1,90 @@
+You are a helpful assistant, please do the following tasks:
+**Tasks*
+Firstly please identify what tasks the user want to do and save them as a list in tasks.
+Please choose among the following causal tasks.
+You can only choose from the following tasks: 
+1. Treatment Effect Estimation; 2. Anormaly Attribution; 3. Feature Importance 4. Counterfactual Estimation
+
+Secondly, explain why you choose these tasks. Give your reason as a structual proposal, and save it as a string in reason.
+Thirdly, save user's description for their tasks as a list in descriptions, repeat the description to make the length of description list must be the same with task list
+Fourthly, save the key result variable user care about as a list, each task must have a key result variable and they can be the same, the length of result variable list must be the same with task list
+key result variable must be among this list!
+[COLUMNS]
+
+[BINARY]
+**Question Examples**
+1. Treatment Effect Estimation:
+What is the causal effect of introducing coding classes in schools on students' future career prospects?
+What is the average treatment effect of a minimum wage increase on employment rates?
+How much does the availability of free internet in rural areas improve educational outcomes?
+How does access to affordable childcare affect women’s labor force participation?
+What is the impact of reforestation programs on air quality in urban areas?
+2. Anormaly Attribution
+How can we attribute a sudden increase in stock market volatility to specific economic events or market sectors?
+Which variables (e.g., transaction amount, location, time) explain anomalies in loan repayment behavior?
+What factors explain unexpected delays in surgery schedules or patient discharge times?
+What are the root causes of deviations in supply chain delivery times?
+What factors contribute most to unexpected drops in product sales during a specific period?
+3. Feature Importance
+What are the most influential factors driving credit score predictions?
+What are the key factors influencing the effectiveness of a specific treatment or medication?
+Which product attributes (e.g., price, brand, reviews) are the most influential in predicting online sales?
+Which environmental variables (e.g., humidity, temperature, CO2 levels) are most important for predicting weather patterns?
+What customer behaviors (e.g., browsing time, cart size) contribute most to predicting cart abandonment?
+4. Counterfactual Estimation
+What would have happened to the revenue of a company if a promotional campaign had not been launched?
+How would customer churn change if the subscription price was reduced by 10%?
+How would a patient's health outcome have changed if they had received a different treatment?
+How would the sales of a product have been affected if it had been launched in a different season?
+
+**Proposal Template**
+Question: Does requiring a deposit reduce the likelihood of cancellation?
+Step 1: Treatment Effect Estimation
+Reasons: 
+This function directly estimates the causal impact of requiring a deposit on cancellation probability. 
+It helps answer “What is the average effect of requiring a deposit on cancellation rates?”
+We can also group by heterogeneous variables like is_repeated_guest, hotel, etc. to check the CATE
+Step 2: Counterfactual Simulation
+Reasons:
+This function simulates what would happen if deposits were required for all bookings.
+It helps to answer “For those bookings who don’t require a deposit, how much could cancellations be reduced if they require a deposit?”
+
+Question: The profit dropped significantly in 2022 compared to 2021. What is the root cause?
+Step 1: Anomaly Attribution
+Reasons: This function helps detect unexpected changes in key variables (e.g., ad spend, unit price, sold units) that could explain the profit drop. It finds outliers and structural shifts in the data, helping pinpoint which factor(s) changed abnormally at the beginning of 2022.
+Step 2: Counterfactual Simulation
+Reasons: This function helps answer “What if” questions to estimate how much profit would have been retained if the root cause we found in step 1 is normal.
+
+Question: What is the most important feature that increases the risk of heart disease?
+Step 1: Feature Importance
+Objective: Rank key features (e.g., demographics, medical history, lifestyle choices) to identify which one most strongly associates with increased heart disease risk.
+Reason: This analysis will highlight the top contributing factor among the varied predictors.
+Step 2: Counterfactual Estimation
+Objective: Simulate interventions by “altering” the top feature to assess its causal impact on heart disease risk.
+Reason: This helps quantify potential benefits if the risk factor were mitigated or improved.
+
+Question: How much does smoking contribute to lung cancer?
+Step 1: Treatment Effect Estimation
+Objective: Estimate the average causal effect of smoking (binary treatment) on lung cancer incidence using the dataset’s ground truth causal model.
+Reason: Directly quantifies smoking’s contribution by comparing outcomes between smokers and non-smokers.
+Step 2: Counterfactual Estimation
+Objective: Simulate a scenario where smoking is eliminated to determine the reduction in lung cancer risk.
+Reason: This “what-if” analysis reinforces the treatment effect estimation and highlights the potential impact of smoking cessation.
+
+Query: What is the effect of having a higher overall quality (OverallQual) on the sale price of a house?
+Step 1: Treatment Effect Estimation
+Method: Use propensity score matching or regression analysis to estimate the average treatment effect (ATE) of having a higher overall quality on sale prices.
+Expected Results: We expect to find that houses with higher overall quality (e.g., better materials and finishes) have significantly higher sale prices.
+Step 2: Counterfactual Estimation
+Counterfactual Scenario: What would the sale price of a house with OverallQual < 8 be if its OverallQual were increased to ≥ 8?
+Method: Use causal inference models (e.g., causal forests or Bayesian networks) to estimate the counterfactual sale price for houses with lower overall quality.
+Expected Results: We expect to see a significant increase in sale prices for houses that hypothetically improve their overall quality.
+Step 3: Feature Importance
+Method: Use feature importance techniques (e.g., SHAP values or random forest importance) to identify which features (e.g., GrLivArea, Neighborhood) contribute most to the treatment effect of OverallQual on SalePrice.
+Expected Results: We expect features like GrLivArea and Neighborhood to have high importance in explaining the treatment effect.
+Step 4: Anomaly Attribution
+Query: Why do some houses in the same neighborhood have significantly higher sale prices than others?
+ Anomaly Detection -Identify outliers in SalePrice within the same neighborhood using statistical 
+Method: Analyze the features (e.g., OverallQual, GrLivArea, TotalBsmtSF) of these outlier houses to determine what drives the higher or lower sale prices.
+Expected Results: We expect to find that outlier houses with high sale prices have significantly better features (e.g., larger living area, higher quality).
+

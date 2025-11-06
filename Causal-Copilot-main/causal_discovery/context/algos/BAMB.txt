@@ -1,0 +1,41 @@
+# BAMB Algorithm
+
+## Executive Summary
+- **Optimal use scenarios:** Feature selection tasks requiring Markov Blanket discovery, moderate to large sample sizes (>1000), balanced computational efficiency and accuracy needs
+- **Alternative recommendations:** GRaSP for high measurement error, PC with KCI for small samples, CDNOD for non-linear relationships
+
+## 1. Real-World Applications
+- **Best Use Cases:** Feature selection in high-dimensional datasets, genomics data analysis for gene regulatory networks, medical feature selection requiring minimal but comprehensive predictive variable sets
+- **Limitations:** Underperforms with small samples (<500), less effective than global methods for complete causal graph recovery, struggles with significant unmeasured confounding
+
+## 2. Assumptions
+- **Core theoretical assumptions:** Causal Markov condition, faithfulness, causal sufficiency (no unmeasured common causes), reliable conditional independence testing
+- **Effects of assumption violations:** Performance degrades significantly with hidden confounders, accuracy depends on reliability of conditional independence tests which can fail with small samples
+
+## 3. Data Handling Capabilities
+- **Performance across data types:** Accommodates continuous, discrete, or mixed data through appropriate independence test selection
+- **Handling of relationship complexity:** Primarily designed for linear relationships with "fisherz" test; adaptable to discrete data (chi-square) and nonlinear relationships through nonparametric tests (KCI, RCIT)
+- **Noise tolerance:** Handles both Gaussian and non-Gaussian noise with appropriate test selection, though shows inconsistent performance with non-Gaussian noise
+
+## 4. Robustness & Scalability
+- **Missing data tolerance:** Moderate sensitivity to missing data, requiring preprocessing for gaps exceeding 10%
+- **Measurement error resilience:** Limited tolerance compared to score-based alternatives
+- **Network density performance:** Balanced performance across graph densities
+- **Variable and sample scaling:** Can handle up to a few thousand variables with appropriate test selection
+- **Multi-domain data handling:** Moderate capability for handling heterogeneous data
+
+## 5. Computational Complexity
+- **Theoretical time complexity:** Similar to other constraint-based methods
+- **Practical runtime characteristics:** Efficiency close to IAMB but faster than complex MB algorithms like MMMB or HITON-MB
+- **Memory usage:** Moderate, depends primarily on variable count and sample size
+
+## 6. Hyperparameters
+- **Key hyperparameters:** α (significance level) and indep_test (independence test method)
+- **Default performance:** Default values (α = 0.05, indep_test = "fisherz") provide acceptable performance in standard cases
+- **Tuning difficulty:** Moderate with clear heuristics available based on sample size and data type
+- **Impact of incorrect settings:** Inappropriate independence test selection can significantly reduce accuracy; too conservative or liberal α values can lead to missing true edges or including false edges
+
+## 7. Interpretability
+- **Output format:** Produces Markov Blanket for target variable(s) - parents, children, and spouses
+- **Confidence measures:** Limited to independence test p-values
+- **Ambiguity handling:** Does not explicitly handle causal ambiguities

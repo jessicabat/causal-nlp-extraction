@@ -1,0 +1,171 @@
+# Causal Discovery Algorithm Tagging for Time Series
+
+## CRITICAL: Performance Ratings Are Conditional
+⚠️ **All performance ratings assume appropriate data property matching**
+⚠️ **An algorithm with "Strong" rating will perform POORLY on mismatched data**
+⚠️ **Data property alignment MUST take precedence over performance ratings**
+
+## Selection Priority (VARIES BY PROBLEM SCALE)
+
+### For Small to Medium-Scale Problems (< 50 variables)
+1. Graph density match (Sparse/Dense)
+2. Functional form match (Linear/Nonlinear)
+3. Noise assumptions match (Gaussian/NonGaussian)
+4. Empirical performance (only after matches verified)
+5. Efficiency/Scalability
+
+### For Large-Scale Problems (≥ 50 variables)
+1. Scalability/Efficiency (must be able to complete in reasonable time)
+2. Graph density match (Sparse/Dense)
+3. Functional form match (Linear/Nonlinear)
+4. Noise assumptions match (Gaussian/NonGaussian)
+5. Empirical performance (only after all above verified)
+
+### For Very Large-Scale Problems (≥ 100 variables)
+1. Scalability (must support target variable count)
+2. Efficiency (runtime must be feasible with available resources)
+3. Graph density match (if algorithm can handle the scale)
+4. Other compatibility factors (as feasible)
+
+## Performance Categories
+- **Robust**: ≥80% accuracy with matched data properties
+- **Strong**: 60-80% accuracy with matched data properties
+- **Moderate**: 40-60% accuracy with matched data properties
+- **Limited**: <40% accuracy even with matched data properties
+- **Poor**: Unreliable even with matched data properties
+
+## Algorithm Tag Categories
+
+1. **Availability**: Available, Unavailable
+
+2. **Method Type**: Constraint-based, Score-based, Functional Model-based, Hybrid, MB-based, Continuous-optimization
+
+3. **Functional Form**: 
+   - Linear: Optimized for linear relationships
+   - Nonlinear: Optimized for non-linear relationships
+   - Flexible: Handles both linear and non-linear relationships effectively
+
+4. **Noise**: 
+   - Gaussian: Performance drops with non-Gaussian noise
+   - NonGaussian: Performance improves with non-Gaussian noise
+   - Flexible: Similar performance between Gaussian and non-Gaussian noise
+
+5. **Latent Variable Tolerance**: 
+   - Robust: Maintains high performance with latent variables
+   - Moderate: Maintains moderate performance with latent variables
+
+6. **Distribution Shift**: 
+   - Heterogenous: Maintains high performance under heterogeneity
+   - Homogenous: Performance drops under heterogeneity
+
+7. **Scalability**: 
+   - Large-scale: Handles >100 variables efficiently
+   - Medium-to-large-scale: Handles 50-100 variables efficiently
+   - Medium-scale: Handles 20-50 variables efficiently
+   - Small-to-medium-scale: Handles 10-20 variables efficiently
+   - Small-scale: Limited to <10 variables
+
+8. **Efficiency**: 
+   - Extreme Fast (GPU): Very short runtime (<1 min) per 1000 samples with 50 variables
+   - Fast (GPU): Short runtime (1-5 min) per 1000 samples with 50 variables
+   - Fast (CPU): Reasonable runtime (5-15 min) per 1000 samples with 50 variables
+   - Moderate: Medium runtime (15-60 min) per 1000 samples with 50 variables
+   - Slow: Long runtime (1-4 hours) per 1000 samples with 50 variables
+   - Extreme Slow: Very long runtime (>4 hours) per 1000 samples with 50 variables
+
+9. **Empirical Performance**: Based on overall benchmark score
+   - Robust: High overall score (requires matched data properties)
+   - Strong: Good overall score (requires matched data properties)
+   - Moderate: Average overall score (requires matched data properties)
+   - Limited: Below average overall score
+   - Poor: Low overall score
+
+10. **Output Format**: DAG, CPDAG, PAG
+
+11. **Graph Density Preference**:
+   - Sparse-Preferring: Algorithm performs significantly better on sparse graphs
+   - Dense-Preferring: Algorithm performs significantly better on dense graphs
+   - Density-Robust: Algorithm maintains consistent performance across different graph densities
+
+## Time Series Algorithm Listings
+
+PCMCI: {
+    Full Name: "Peter and Clark algorithm with Momentary Conditional Independence",
+    Availability: Available,
+    Method Type: Constraint-based,
+    Functional Form: Flexible,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability: Medium-to-large-scale,
+    Efficiency: Fast,
+    Empirical Performance: Strong,
+    Output Format: DAG,
+    Data Type: Time-series,
+    Graph Density Preference: Sparse-Preferring
+    Critical Notes: "This algorithm is rare algorithm that can support domain knowledge/expertise injection"
+}
+
+VARLiNGAM: {
+    Full Name: "Vector Autoregressive Linear Non-Gaussian Acyclic Model",
+    Availability: Available,
+    Method Type: Functional Model-based,
+    Functional Form: Linear,
+    Noise: NonGaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability: Medium-to-large-scale with default settings, can scale to large datasets with GPU acceleration,
+    Efficiency: Fast with CPU, Faster with GPU acceleration,
+    Empirical Performance: Strong,
+    Output Format: DAG,
+    Data Type: Time-series,
+    Graph Density Preference: Density-Robust
+}
+
+DYNOTEARS: {
+    Full Name: "Dynamic Nonlinear Optimization with Trace Exponential and Augmented lagRangian for Structure learning",
+    Availability: Available,
+    Method Type: Continuous-optimization,
+    Functional Form: Linear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability: Medium-scale,
+    Efficiency: Moderate,
+    Empirical Performance: Strong,
+    Output Format: DAG,
+    Data Type: Time-series,
+    Graph Density Preference: Density-Robust
+}
+
+GrangerCausality: {
+    Full Name: "Granger Causality",
+    Availability: Available,
+    Method Type: Hybrid,
+    Functional Form: Linear,
+    Noise: Gaussian,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability: Medium-scale,
+    Efficiency: Fast,
+    Empirical Performance: Moderate,
+    Output Format: DAG,
+    Data Type: Time-series,
+    Graph Density Preference: Density-Robust
+}
+
+NTSNOTEARS: {
+    Full Name: "Non-linear Time Series Nonlinear Optimization with Trace Exponential and Augmented lagRangian for Structure learning",
+    Availability: Available,
+    Method Type: Continuous-optimization,
+    Functional Form: Nonlinear,
+    Noise: Flexible,
+    Latent Variable Tolerance: Moderate,
+    Distribution Shift: Homogenous,
+    Scalability: Medium-scale,
+    Efficiency: Moderate,
+    Empirical Performance: Strong,
+    Output Format: DAG,
+    Data Type: Time-series,
+    Graph Density Preference: Density-Robust
+} 

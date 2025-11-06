@@ -1,0 +1,83 @@
+Dynamic Simulation Prompt for Causal Inquiry:
+
+Imagine you're interacting with a state-of-the-art causal analysis platform. Whether you're a beginner or a seasoned expert from another field, craft a query that truly captures your investigative intent.
+
+I provide a list of application fields. You can choose one of them as the field of your work or choose/create one from your own knowledge:
+
+[application_fields]
+
+Your response should be highly diverse, covering a broad range of tones (formal, informal, technical, exploratory), styles, and content that reflect varied user roles and investigation requirements.
+
+Consider the points below to guide your simulation for each user:
+
+I. User Profile:
+- Who are you? (e.g., academic researcher, data scientist, system engineer, etc.)
+- What field do you represent? (e.g., healthcare, economics, sociology, etc.)
+- How familiar are you with causal inference methods?
+- What are the common causal questions or challenges in your area?
+
+II. Investigation Details:
+- Which causal links or effects are you aiming to explore?
+- Why is uncovering these relationships crucial for your work?
+- Do you have any initial hypotheses or theories regarding potential causal mechanisms?
+
+III. Dataset Characteristics:
+- What kind of data are you working with?
+- Specify the sample size and the number of variables.
+- How was the data obtained or measured?
+- Are there any known biases, confounders, or selection issues?
+
+IV. Analytical Objectives:
+- What specific aspects of causality are you interested in (e.g., direct effects, indirect effects, or both)?
+- Is there a need to account for latent variables?
+- What assumptions are you making about the data generation process?
+- What domain knowledge do you have about the data generation process? Please let the agent know for better causal discovery, e.g. how the variables are related to each other in previous studies, what would usually be the experiments or data collection methods, what statistical properties you assume or you know about the system similar to the one you are working on, etc.
+
+Additional Instructions for Diversity and Balanced Statistics:
+- Ensure your generated response is diverse in tone, style, and content.
+- Simulate varied user expertise ranging from novices to experts.
+- The dataset statistics (e.g., 'linearity', 'gaussian_error', 'heterogeneous', sample size, feature number, and data type) should be balanced and diversified; avoid generating overly similar configurations.
+- Introduce variations in your inquiry regarding data type, scale, and methodological requirements.
+
+Your answer should reflect [num_users] varied and realistic user perspectives in terms of language, user background, and dataset nuances. Please generate a JSON array where each element is a user simulation object conforming to the structure below, and enclose the JSON array within <json>[json]</json> tags with no additional commentary.
+
+**Note: Please generate [num_users] user simulations.**
+
+Ensure your return in JSON object conforms to the structure below:
+
+<json>
+[
+  {
+  "user_description": "<a detailed description of the user's role, background, and expertise>",
+  "dataset_description": "<a detailed description of the dataset, including the sample size, number of variables, and how the data was obtained or measured>",
+  "analytical_objectives": "<a detailed description of the specific aspects of causality the user is interested in, including whether they are interested in direct effects, indirect effects, or both, and whether they are interested in accounting for latent variables>",
+  "initial_query": "<a detailed user query string describing the need for causal discovery and the specific aspects of causality the user is interested in>",
+  "statistics": {
+      "linearity": <boolean, true if you assume linear relationships>,
+      "gaussian_error": <boolean, true if you assume Gaussian error terms>,
+      "heterogeneous": <boolean, true if the dataset is considered heterogeneous>,
+      "domain_index": "<a string or null, representing the domain index column if heterogeneous is True, otherwise null>",
+      "sample_size": <integer specifying the number of samples>,
+      "feature_number": <integer specifying the number of features>,
+      "data_type": "<string: 'Continuous', 'Mixed'>",
+      "domain_knowledge": "<a string or null, the knowledge and information the user has and want to let the agent know for better causal discovery>"
+    }
+  },
+  {
+    "user_description": "<a detailed description of the user's role, background, and expertise>",
+    "dataset_description": "<a detailed description of the dataset, including the sample size, number of variables, and how the data was obtained or measured>",
+    "analytical_objectives": "<a detailed description of the specific aspects of causality the user is interested in, including whether they are interested in direct effects, indirect effects, or both, and whether they are interested in accounting for latent variables>",
+    "initial_query": "<a detailed user query string describing the need for causal discovery and the specific aspects of causality the user is interested in>",
+    "statistics": {
+      "linearity": <boolean, true if you assume linear relationships>,
+      "gaussian_error": <boolean, true if you assume Gaussian error terms>,
+      "heterogeneous": <boolean, true if the dataset is considered heterogeneous>,
+      "domain_index": "<a string or null, representing the domain index column if applicable>",
+      "sample_size": <integer specifying the number of samples>,
+      "feature_number": <integer specifying the number of features>,
+      "data_type": "<string: 'Continuous', 'Mixed'>",
+      "domain_knowledge": "<a string or null, the knowledge and information the user has and want to let the agent know for better causal discovery>"
+    }
+  }
+]
+</json>

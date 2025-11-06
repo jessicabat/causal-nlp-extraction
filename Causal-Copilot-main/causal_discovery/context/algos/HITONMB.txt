@@ -1,0 +1,162 @@
+Below is a comprehensive profile of the HITONMB algorithm following the seven core dimensions. The information is drawn from the provided hyperparameter details, benchmark results, external sources, and general knowledge of causal discovery and Markov Blanket methods.
+
+────────────────────────────────────────────────────────────────
+1. Hyper-Parameters Sensitivity
+────────────────────────────────────────────────────────────────
+
+• Number of Key Hyperparameters  
+  HITONMB has two principal hyperparameters that most strongly affect its performance and runtime:  
+  1) α (alpha): the significance threshold for independence tests.  
+  2) indep_test: the type of conditional independence test (e.g., Fisher’s Z, chi-square, G-test, or kernel-based tests).
+
+• Tuning Difficulty  
+  – The α parameter has recommended defaults (e.g., 0.1 for small samples < 500, 0.05 for medium samples up to ~10,000, and 0.01 for very large samples), which generally work well; these guidelines can be straightforward to apply.  
+  – The choice of indep_test is dictated by data type (continuous vs. discrete vs. mixed vs. nonlinear), making selection relatively systematic rather than guesswork.  
+  – Domain experts or an LLM can typically tune these parameters with guidance from the algorithm’s documentation.
+
+• Sensitivity  
+  – Small changes in α can significantly influence the number of selected variables in the Markov Blanket. Lower α yields a more conservative selection (fewer variables) but can miss some true dependencies.  
+  – The choice between Fisher’s Z, chi-square, or kernel-based tests can alter runtime and accuracy when confronted with highly nonlinear or mixed data.  
+  – Benchmarks (File #2) indicate that more conservative α values can modestly increase runtime due to additional tests while potentially improving precision under larger sample sizes.
+
+• Critique/Extension  
+  – α (the significance threshold) mainly influences statistical test outcomes.  
+  – The independence test choice impacts the complexity of the search and how the data’s distributional assumptions are handled. For linear continuous data, a simpler test (e.g., Fisher’s Z) is efficient; for more complex/nonlinear distributions, a kernel-based test can increase robustness but also computational cost.
+
+────────────────────────────────────────────────────────────────
+2. Robustness & Scalability
+────────────────────────────────────────────────────────────────
+
+• Tolerance to Bad Data Quality  
+  – Missing Data: HITONMB can adapt to partial missingness by omitting incomplete cases or using test-specific treatments. However, benchmarks (File #2) suggest performance begins to degrade more substantially at higher missing-data rates.  
+  – Measurement/Observation Error: Where moderate noise or measurement error exists, HITONMB remains relatively stable. Under severe distortion, benchmarks show that performance can drop, especially in accurately identifying weaker dependencies.
+
+• Tolerance to Sparse/Dense Systems  
+  – Sparse Networks: HITONMB often excels, as smaller Markov Blankets are identified quickly.  
+  – Moderately Dense Networks: Performance remains robust, but extra dependencies can increase the number of conditional independence tests.  
+  – Extremely Dense Networks: Because of repeated independence tests on many potential neighbors, runtime can grow quickly, although the algorithm’s Markov Blanket focus helps manage complexity.
+
+• Scalability  
+  – Benchmarks (File #2) show that HITONMB scales reasonably well, even among a larger set of tested methods, particularly for high-dimensional datasets (thousands of variables).  
+  – Memory usage generally stays within practical limits for many real-world datasets. Very large sample sizes with thousands of variables may require careful tuning of α and test choice to keep runtime manageable.
+
+• Critique/Extension  
+  – HITONMB’s approach (focusing on a local Markov Blanket) inherently aids scalability.  
+  – Parallelization or certain implementation optimizations (mentioned in File #3 and community resources) can further alleviate computational burdens for extremely large datasets.
+
+────────────────────────────────────────────────────────────────
+3. Mixed Data & Complex Functions
+────────────────────────────────────────────────────────────────
+
+• Noise Type  
+  – HITONMB is not strictly tied to Gaussian errors; users can select an appropriate independence test for non-Gaussian data (e.g., kernel-based methods).  
+  – This flexibility contrasts with algorithms that assume strictly linear/Gaussian conditions, making HITONMB more versatile.
+
+• Mixed Data (Continuous & Discrete)  
+  – The provided hyperparameter guidelines (File #1) explicitly mention “chisq” or “gsq” tests for discrete data and “fisherz” or kernel-based methods for continuous/mixed data.  
+  – Hence, HITONMB can handle mixed variable types without requiring a major reconfiguration.
+
+• Heterogeneous Data  
+  – According to File #2 and external sources, HITONMB maintains stable performance across data sets from multiple sources or data distributions, indicating it adapts reasonably to distribution shifts, provided the independence tests remain valid.
+
+• Complex Functional Forms  
+  – By employing kernel-based tests (such as “kci” or “fastkci”), HITONMB can uncover certain non-linear relationships.  
+  – However, if extremely intricate or high-order non-linearities are present, specialized methods or domain knowledge might improve detection further.
+
+• Critique/Extension  
+  – Extensions of HITONMB sometimes replace classical independence tests with advanced non-parametric measures (File #3).  
+  – In highly complex domains (e.g., gene regulatory networks with nonlinear interactions), practitioners may overlay expert knowledge or combine HITONMB with alternative feature selection strategies.
+
+────────────────────────────────────────────────────────────────
+4. Computational Complexity
+────────────────────────────────────────────────────────────────
+
+• Theoretical Time Complexity  
+  <temp>[O(n^2 * log(n))]</temp> in the general sense, where n is the number of variables. This complexity can vary somewhat based on the specifics of the independence tests and dataset characteristics.
+
+• Variability in Practical Usage  
+  – Increasing the maximum conditioning set or lowering α typically raises the number of independence tests, thus increasing runtime.  
+  – Benchmarks (File #2) imply that HITONMB often remains in a competitive efficiency range, particularly for moderate to large sample sizes.
+
+• Critique/Extension  
+  – Worst-case complexity can appear high in dense networks or large conditioning sets, but typical real-world data often results in fewer expansions.  
+  – Parallel versions (File #3) exploit multi-core systems to handle the independence tests concurrently, mitigating slowdowns for huge datasets.
+
+────────────────────────────────────────────────────────────────
+5. Interpretability
+────────────────────────────────────────────────────────────────
+
+• Output Format  
+  – HITONMB is specifically a Markov Blanket discovery algorithm, so it provides a set of immediate parents, immediate children, and “spouses” (co-parents) of a target variable.  
+  – Some implementations further supply a list of edges with confidence scores or p-values.
+
+• Strength of the Output Format  
+  – Focusing on the Markov Blanket offers a highly interpretable set of variables most directly associated with the target. This is particularly useful for feature selection or further causal analyses.  
+  – Where confidence intervals or scores are provided, they help prioritize the most reliable dependencies.
+
+• Limitations of the Output Format  
+  – It does not produce a full DAG or CPDAG for the entire dataset, limiting global causal structure insights.  
+  – Some edges within the Markov Blanket may remain ambiguous in direction (parent → child vs. child → parent).
+
+• Critique/Extension  
+  – Many users employ HITONMB to identify candidate manifolds of variables and then use additional causal discovery techniques for orientation or global structure.  
+  – Domain experts often refine or validate variable sets identified by HITONMB, especially when subtle causal directions are critical.
+
+────────────────────────────────────────────────────────────────
+6. Assumptions
+────────────────────────────────────────────────────────────────
+
+• Critical Assumptions  
+  – Markov and Faithfulness: The data’s conditional independencies faithfully represent the underlying causal structure.  
+  – Causal Sufficiency: No unmeasured confounders that might create spurious associations in the data.
+
+• Violation Impact  
+  – If hidden confounders exist, the identified Markov Blanket can be incomplete or can contain false positives.  
+  – Unfaithful data (where observed independencies do not match actual d-separation) can lead to missed connections or unexpected extra dependencies.
+
+• Critique/Extension  
+  – Some variants of HITONMB attempt to relax the faithfulness assumption via more robust tests but become computationally more demanding.  
+  – In practice, moderate assumption violations often lead to partial but still useful Markov Blankets; severe violations, however, can degrade reliability significantly.
+
+────────────────────────────────────────────────────────────────
+7. Real-World Benchmarks
+────────────────────────────────────────────────────────────────
+
+• Performance on Real Datasets  
+  – Studies (File #3) report HITONMB among the stronger Markov Blanket methods for applications in bioinformatics (gene expression analysis), neuroscience, and clinical data.  
+  – In many domains, it demonstrates a good balance of accuracy and efficiency, often placing it comparably or favorably relative to other specialized MB or feature selection approaches.
+
+• Practical Tips  
+  – When dealing with very large datasets, employing default or slightly stricter α (e.g., 0.01) can improve precision without overly inflating the set of candidates.  
+  – Combining HITONMB with domain knowledge frequently sharpens interpretations, as it clarifies ambiguous directions or subtle dependencies.  
+  – Parallelization can substantially shorten runtime when testing thousands of variables.
+
+Overall, HITONMB is a solid and versatile algorithm for discovering the Markov Blanket around a target variable. Its advantages include relatively straightforward hyperparameter tuning, robust handling of different data types, and decent scalability even in large, noisy, or heterogeneous environments. The major caveats relate to its local (rather than global graph) focus and the usual causal discovery assumptions (faithfulness, causal sufficiency). In practice, many researchers leverage HITONMB as a stepping stone to more comprehensive causal or feature-focused analyses.
+
+────────────────────────────────────────────────────────
+Benchmarking Results
+────────────────────────────────────────────────────────
+
+• Comparative Performance
+  – The benchmarking compared 19 different causal discovery algorithms across multiple scenarios.
+  – Each algorithm was evaluated on performance (accuracy), efficiency (runtime), and composite metrics, which are represented as level scores from 1-5, with 5 being the best.
+  – Levels scores of composite metrics combine performance and efficiency (weights: 0.8 and 0.2 respectively).
+[NOTE] The ranking is smaller, the better. The level score is higher, the better.
+
+• Algorithm Rankings
+
+| Scenario | Rank (Mean) | Rank (Std Dev) | Performance (Level) | Efficiency (Level) | Composite (Level) |
+|----------|-----------|---------|-------------|------------|------------|
+| Scalability | 15.4 | 2.74 | 1.0 | 1.0 | 1.0 |
+| Heterogeneity | 16.5 | 0.50 | 1.0 | 1.0 | 1.0 |
+| Measurement Error | 16.8 | 0.43 | 1.0 | 1.0 | 1.0 |
+| Noise Type | 16.5 | 0.50 | 1.0 | 1.0 | 1.0 |
+| Missing Data | 16.2 | 0.43 | 1.0 | 1.0 | 1.0 |
+| Edge Probability | 16.3 | 0.47 | 1.0 | 1.0 | 1.0 |
+| Discrete Ratio | 16.3 | 0.47 | 1.0 | 1.0 | 1.0 |
+
+• Analysis
+
+  – Overall mean ranking across 7 scenarios: 16.29
+  – Average standard deviation: 0.79
+

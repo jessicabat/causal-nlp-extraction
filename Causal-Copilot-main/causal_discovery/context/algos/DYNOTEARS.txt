@@ -1,0 +1,31 @@
+# DYNOTEARS
+
+## Real-World Applications
+- **Successful Domains**: Neuroscience (fMRI data analysis), sports analytics (NHL event analysis)
+- **Performance Limitations**: Less effective for highly nonlinear systems or data with many hidden confounders
+- **Scientific Evidence**: Validated on resting-state human fMRI data from the Human Connectome Project
+
+## Hyperparameters Sensitivity
+- **Number of Hyperparameters**: Moderate (5-7 key parameters)
+- **Default Performance**: Decent with default settings, regularization parameters require tuning
+- **Tuning Difficulty**: Medium - regularization parameters (λ_w, λ_a) require careful adjustment
+
+## Robustness & Scalability
+- **Data Quality Tolerance**: Handles moderate noise well, sensitive to outliers
+- **Scalability**: Good for medium-sized graphs (up to 50-100 variables)
+- **Computational Cost**: O(n²) complexity; highly dependent on lookback window length
+
+## Mixed Data & Complex Functions
+- **Functional Assumptions**: Assumes linear causal relationships
+- **Noise Assumptions**: Assumes Gaussian noise, but somewhat robust to violations
+- **Data Type Handling**: Primarily for continuous variables, extensions exist for discrete data
+
+## Interpretability
+- **Output Format**: Time-lagged directed acyclic graph (DAG)
+- **Edge Meanings**: Edge weights directly represent causal effect strengths
+- **Uncertainty Metrics**: Limited support for uncertainty quantification
+
+## Assumptions
+- **Critical Assumptions**: Acyclicity within time slices, causal sufficiency, stationarity
+- **Robustness to Violations**: Moderate sensitivity to non-stationarity and hidden confounders
+- **Requirement Level**: Core acyclicity assumption cannot be relaxed

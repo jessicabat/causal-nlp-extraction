@@ -1,0 +1,31 @@
+# PCMCI
+
+## Hyperparameters Sensitivity
+- **Number of Hyperparameters**: Higher (7-10 key parameters)
+- **Default Performance**: Good with default settings for most datasets
+- **Tuning Difficulty**: Lower - significance levels can be set conservatively and still work well
+
+## Robustness & Scalability
+- **Data Quality Tolerance**: Robust to autocorrelation; handles moderate noise well
+- **Scalability**: Excellent for high-dimensional data (hundreds of variables)
+- **Computational Cost**: O(n² × τ_max) complexity, but with efficient pruning strategies
+
+## Mixed Data & Complex Functions
+- **Functional Assumptions**: Flexible - can detect linear and nonlinear relationships with appropriate tests
+- **Noise Assumptions**: Accommodates various noise distributions through different independence tests
+- **Data Type Handling**: Supports mixed data types with appropriate conditional independence tests
+
+## Interpretability
+- **Output Format**: Time-lagged directed graph with p-values and effect sizes
+- **Edge Meanings**: Edges represent causal links with statistical significance metrics
+- **Uncertainty Metrics**: Provides p-values and confidence intervals for causal effects
+
+## Assumptions
+- **Critical Assumptions**: Causal Markov condition, faithfulness, stationarity
+- **Robustness to Violations**: More robust to violations than parametric methods
+- **Requirement Level**: Some assumptions can be relaxed with extensions (PCMCI+)
+
+## Real-World Applications
+- **Successful Domains**: Climate science (Arctic-midlatitude interactions), ecology (biosphere-climate relationships), physiology (sleep data analysis)
+- **Performance Limitations**: Computationally intensive for very long time lags or complex independence tests
+- **Scientific Evidence**: Extensive validation on climate datasets, including analysis of Arctic drivers of midlatitude winter circulation

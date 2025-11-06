@@ -1,0 +1,28 @@
+{
+    "algorithm_name": "DYNOTEARS",
+    "p": {
+        "meaning": "Lookback window length for the time-lagged causal relations",
+        "available_values": [2, 10],
+        "expert_suggestion": "Use 2 as default. Chosen value can be dtermined by preprocessing steps"
+    },
+    "lambda_w": {
+      "meaning": "parameter for l1 regularisation of intra-slice edges",
+      "available_values": [0.01, 0.1, 0.001],
+      "expert_suggestion": "Use 0.01 as default. Higher values promote sparser graphs, lower values allow more connections."
+    },
+    "lambda_a": {
+      "meaning": "parameter for l1 regularisation of inter-slice edges",
+      "available_values": [0.01, 0.1, 0.001],
+      "expert_suggestion": "Use 0.01 as default. Higher values promote sparser graphs, lower values allow more connections."
+    },
+    "max_iter": {
+      "meaning": "Maximum number of dual ascent steps during optimization",
+      "available_values": [100, 50, 200],
+      "expert_suggestion": "Use 100 as default. Increase for more complex graphs or if convergence is slow."
+    },
+    "w_threshold": {
+      "meaning": "Threshold for edge weights in adjacency matrix",
+      "available_values": [0.05, 0.1, 0.01],
+      "expert_suggestion": "Use 0.05 as default. Higher values lead to sparser graphs by pruning weak connections - higher value for less no of nodes and short lag"
+    }
+} 

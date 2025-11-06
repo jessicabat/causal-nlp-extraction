@@ -1,0 +1,45 @@
+# GRaSP Algorithm Profile
+
+## Executive Summary
+- **Optimal Use Scenarios**: Sparse to moderately dense graphs; mixed continuous and discrete variables (up to 20% discrete); datasets with measurement errors or missing values; moderate sample sizes (1000+)
+- **Alternative Recommendations**: CDNOD for highly non-linear data; FGES for data with significant missing values; PC for very small sample sizes
+
+## 1. Data Handling Capabilities
+- **Performance Across Data Types**: Excellent with continuous, discrete, and mixed data; superior for datasets with up to 20% discrete variables
+- **Handling of Relationship Complexity**: Primarily designed for linear relationships; accommodates mild non-linearities
+- **Noise Tolerance**: Strong performance with both Gaussian and non-Gaussian noise distributions
+
+## 2. Robustness & Scalability
+- **Missing Data Tolerance**: High resilience to missing values (up to 15%)
+- **Measurement Error Resilience**: Exceptional tolerance for measurement errors
+- **Network Density Performance**: Consistently outperforms for sparse to moderately dense graphs
+- **Variable and Sample Scaling**: Successfully handles networks with 100+ variables; performs well with 1000+ samples
+- **Multi-Domain Data Handling**: Effectively processes heterogeneous data from multiple sources
+
+## 3. Assumptions
+- **Core Theoretical Assumptions**: Markov property, faithfulness, causal sufficiency
+- **Effects of Assumption Violations**: More robust to faithfulness violations than many constraint-based methods; moderate sensitivity to unobserved confounders
+
+## 4. Computational Complexity
+- **Theoretical Time Complexity**: O(n^d) where n=variables and d=depth parameter
+- **Practical Runtime Characteristics**: Computational demands increase significantly with depth parameter and network size
+- **Memory Usage**: Moderate; scales primarily with variable count
+- **Parallelization Potential**: Available in some implementations but not required for medium-sized networks
+- **Hardware Requirements**: Standard CPU sufficient; no special hardware needed
+
+## 5. Hyperparameters
+- **Key Hyperparameters**: Score function (BIC/BDeu) and depth
+- **Default Performance**: Excellent results with default settings (BIC scoring function and automatically scaled depth)
+- **Tuning Difficulty**: Low to moderate; clear heuristics exist based on network size
+- **Impact of Incorrect Settings**: Suboptimal depth settings primarily impact computational efficiency rather than result quality
+
+## 6. Interpretability
+- **Output Format**: Standard directed acyclic graph (DAG)
+- **Confidence Measures**: Not intrinsic to the algorithm but available through stability analysis
+- **Ambiguity Handling**: May leave some edges undirected when causal direction cannot be determined
+- **User Accessibility**: Straightforward output interpretation for those familiar with DAGs
+- **Validation Methods**: Cross-validation and stability selection available
+
+## 7. Real-World Applications
+- **Best Use Cases**: Gene regulatory networks (Lam et al., 2022); social science data with mixed variables; economic data with measurement error; healthcare data with missing values
+- **Limitations**: Suboptimal for highly non-linear systems; datasets with significant unobserved confounding; very small sample sizes (<500)

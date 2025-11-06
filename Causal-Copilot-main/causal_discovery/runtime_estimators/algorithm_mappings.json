@@ -1,0 +1,26 @@
+{
+    "AcceleratedPC": ["[root_dir]/externals/causal-learn/causallearn/search/ConstraintBased/PC.py", "[root_dir]/externals/causal-learn/causallearn/utils/PCUtils/SkeletonDiscovery.py"],
+    "PCParallel": ["https://github.com/huawei-noah/trustworthyAI/blob/master/gcastle/castle/algorithms/pc/pc.py#L255"],
+    "BAMB": "[root_dir]/externals/pyCausalFS/CBD/MBs/BAMB.py",
+    "GOLEM": "[root_dir]/externals/trustworthyAI/gcastle/castle/algorithms/gradient/notears/torch/golem.py",
+    "GRaSP": "[root_dir]/externals/causal-learn/causallearn/search/PermutationBased/GRaSP.py",
+    "IAMBnPC": "[root_dir]/externals/pyCausalFS/CBD/MBs/IAMBnPC.py",
+    "InterIAMB": "[root_dir]/externals/pyCausalFS/CBD/MBs/inter_IAMB.py",
+    "MBOR": "[root_dir]/externals/pyCausalFS/CBD/MBs/MBOR.py",
+
+    "NOTEARSLinear": "[root_dir]/externals/trustworthyAI/gcastle/castle/algorithms/gradient/notears/linear.py",
+    "DirectLiNGAM": "[root_dir]/directlingam.py",
+    "AcceleratedLiNGAM": "[root_dir]/acceleratedlingam.py",
+    "PC": ["[root_dir]/externals/causal-learn/causallearn/search/ConstraintBased/PC.py", "[root_dir]/externals/causal-learn/causallearn/utils/PCUtils/SkeletonDiscovery.py"],
+    "GES": "[root_dir]/externals/causal-learn/causallearn/search/ScoreBased/GES.py",
+    "FGES": "[root_dir]/externals/acceleration/fges/fges.py",
+    "XGES": "[root_dir]/externals/causal-learn/causallearn/search/ScoreBased/XGES.py",
+    "FCI": ["[root_dir]/externals/causal-learn/causallearn/search/ConstraintBased/FCI.py", "[root_dir]/externals/causal-learn/causallearn/utils/PCUtils/SkeletonDiscovery.py"],
+    "CDNOD": ["[root_dir]/externals/causal-learn/causallearn/search/ConstraintBased/CDNOD.py", "[root_dir]/externals/causal-learn/causallearn/utils/PCUtils/SkeletonDiscovery.py"],
+
+    "PCMCI": ["https://github.com/jakobrunge/tigramite/blob/master/tigramite/pcmci_base.py"],
+    "VARLiNGAM": "[root_dir]/externals/causal-learn/causallearn/search/FCMBased/lingam/var_lingam.py",
+    "DYNOTEARS": ["https://github.com/mckinsey/causalnex/blob/develop/causalnex/structure/dynotears.py"],
+    "NTSNOTEARS": ["[root_dir]/externals/nts/notears/nts_model.py", "[root_dir]externals/nts/notears/lbfgsb_scipy.py"],
+    "GrangerCausality": "[root_dir]/algorithm/wrappers/granger_causality.py"
+} 

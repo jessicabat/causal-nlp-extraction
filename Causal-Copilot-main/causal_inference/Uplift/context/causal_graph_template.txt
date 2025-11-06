@@ -1,0 +1,4 @@
+Directed edges represent causal relationships. The treatment is [TREATMENT], and the outcome is [OUTCOME]. Other variables are potential confounders, mediators, or covariates.
+
+Treatment → Outcome: The causal effect we want to estimate
+[Additional edges based on domain knowledge or discovery algorithms]

@@ -1,0 +1,13 @@
+{
+  "algorithm_name": "GRaSP",
+  "score_func": {
+    "meaning": "Score function to be used",
+    "available_values": ["local_score_BIC_from_cov", "local_score_BDeu"],
+    "expert_suggestion": "Use local_score_BIC_from_cov as default. Use 'local_score_BIC_from_cov' for a good balance of fit and complexity for linear data. 'local_score_BDeu' for discrete data."
+  },
+  "depth": {
+    "meaning": "Maximum depth for searching permutations in the graph space",
+    "available_values": [-1, 3, 5, 7],
+    "expert_suggestion": "Use 3 as default. For graphs with <10 nodes, use -1 (no limit) to explore all possibilities. For 10-25 nodes, limit depth to 3. For 25-50 nodes, use depth=5. For >50 nodes, use depth=7 to reduce computational complexity. Each additional parent can increase runtime exponentially."
+  }
+} 

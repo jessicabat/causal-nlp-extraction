@@ -1,0 +1,165 @@
+## Available Algorithms
+
+Current available algorithms implemented for usage:
+
+- DRL
+- LinearDRL
+- SparseLinearDRL
+- ForestDRL
+- metalearners
+
+## Domain Knowledge about Algorithm Selection
+
+Based on the characteristics of your data and requirements, consider the following priority order for selecting causal discovery algorithms:
+
+1. If your data is nonstationary or heterogeneous across domains/time:
+   - Use CDNOD as the first choice
+   - Note that DO NOT use it if your data is not heterogeneous or nonstationary
+   
+2. If your data is linear or you prefer a score-based approach and assume no hidden confounders:
+   - Consider GES (Greedy Equivalence Search)
+   
+3. If the noise is non-Gaussian and you believe the relationships are linear:
+   - Try DirectLiNGAM first
+   - If computational resources allow, also consider ICALiNGAM
+   - Note that DO NOT use them if there are non-linear relations in your data.
+
+4. If you have a large dataset with all relevant variables observed:
+   - Start with PC algorithm
+   
+5. If your data is high-dimensional and you prefer a continuous optimization approach:
+   - Experiment with NOTEARS
+   
+6. If you suspect the presence of hidden confounders:
+   - Try FCI as the primary algorithm
+
+Additional considerations:
+
+- For large datasets where efficiency is crucial, prioritize PC or GES
+- If you need a fully directed graph rather than a Markov equivalence class, prefer LiNGAM variants or NOTEARS
+- When dealing with non-linear relationships, consider extensions of these algorithms designed for non-linear data
+
+Default algorithm ranking for general cases (when data doesn't favor any specific characteristics):
+
+1. PC: Good balance between generality and computational efficiency
+2. GES: Efficient for larger datasets and provides a good general approach
+3. FCI: More general than PC but computationally more intensive
+4. NOTEARS: Efficient for high-dimensional data but assumes linear relationships
+5. DirectLiNGAM: Efficient but assumes linear relationships and non-Gaussian noise
+6. ICALiNGAM: More computationally intensive than DirectLiNGAM
+7. CDNOD: Specialized for nonstationary/heterogeneous data, may be overkill for stationary data
+
+---
+
+## Algorithms Description 
+
+### DRL
+
+- **Description**:  
+  Doubly Robust Learning (DRL) is a framework for estimating treatment effects that combines outcome modeling and propensity modeling in a way that remains consistent if either model is correctly specified. DRL typically involves separate estimators for the outcome and treatment assignments, then uses a doubly robust formula to combine them.
+
+- **Assumptions**:  
+  1. At least one of the nuisance models (outcome or propensity) is correctly specified.  
+  2. Treatments can be binary, multi-valued, or continuous, depending on the specific DRL variant.  
+
+- **Advantages**:  
+  1. Offers extra robustness to misspecification: if either the outcome model or the propensity model is correct, estimates remain consistent.  
+  2. Can leverage a variety of scikit-learn-compatible estimators in each stage.  
+
+- **Limitations**:  
+  1. More complex setup than simpler approaches (e.g., pure outcome regression).  
+  2. Cross-fitting can be computationally intensive, especially with large datasets.  
+
+- **Suitable Cases**:  
+  1. When you want a safety net against model misspecification in either outcome or treatment models.  
+  2. Medium or large datasets where cross-fitting is feasible.  
+  3. Scenarios with potential partial misalignment or partial misspecification of nuisance models.
+
+### LinearDRL
+
+- **Description**:  
+  A specific Doubly Robust Learner that uses a linear parametric model in the final stage (or combined stage) of the doubly robust formula. It explicitly assumes that the conditional average treatment effect (CATE) is a linear function of features.
+
+- **Assumptions**:  
+  1. The final-stage CATE is linear in observed features.  
+  2. Either the outcome model or the propensity model is correct (doubly robust condition).  
+
+- **Advantages**:  
+  1. Simple and computationally efficient.  
+  2. Can provide interpretable coefficients for the treatment effect as a function of features.  
+  3. Maintains the doubly robust property.  
+
+- **Limitations**:  
+  1. Underperforms if the true CATE has strong nonlinearities.  
+  2. Relies on correct specification of at least one nuisance model.  
+
+- **Suitable Cases**:  
+  1. Low-dimensional final-stage features where a linear effect is plausible.  
+  2. Situations requiring interpretability and confidence intervals in a DRL framework.
+
+### SparseLinearDRL
+
+- **Description**:  
+  A variant of LinearDRL that accommodates high-dimensional or sparse settings by imposing regularization (e.g., Lasso) on the linear coefficients in the final stage.  
+
+- **Assumptions**:  
+  1. The CATE is linear but only depends on a sparse subset of high-dimensional features.  
+  2. At least one nuisance model is correctly specified for doubly robust consistency.  
+
+- **Advantages**:  
+  1. Handles many features effectively by shrinking irrelevant coefficients to zero.  
+  2. Provides interpretable results highlighting only the key features that matter for treatment effect.  
+
+- **Limitations**:  
+  1. Assumes sparsity in the final stage.  
+  2. Requires careful tuning of regularization parameters (like L1 alpha).  
+
+- **Suitable Cases**:  
+  1. High-dimensional data where the final-stage relationship is mostly linear but sparse.  
+  2. DRL contexts needing interpretability in a large feature space.
+
+### ForestDRL
+
+- **Description**:  
+  A doubly robust learner that uses forest-based algorithms (causal forest) integrated with DR residualization. It flexibly models heterogeneous treatment effects in a non-parametric fashion.
+
+- **Assumptions**:   
+  1. Either the forest-based outcome model or the propensity model is correct, guaranteeing doubly robust consistency.  
+  2. Generally requires a sufficient sample size to handle nonparametric splitting.  
+
+- **Advantages**:  
+  1. Captures highly nonlinear and complex heterogeneity in treatment effects.  
+  2. Adapts naturally to high-dimensional feature spaces.  
+  3. Offers valid confidence intervals for heterogeneous effects.  
+
+- **Limitations**:  
+  1. Computationally intensive, especially with large datasets.  
+  2. Requires large sample sizes for stable splitting and robust effect estimation.  
+
+- **Suitable Cases**:  
+  1. High-dimensional or complex data where you suspect strongly nonlinear relationships.  
+  2. DRL scenarios needing flexible, non-parametric estimation of CATE with valid inference.
+
+### metalearners
+
+- **Description**:  
+  A flexible approach for estimating CATE under a DRL framework by specifying any machine learning model for the nuisance components and final stage, often employing cross-validation for model selection and hyperparameter tuning.
+
+- **Assumptions**:  
+  1. No strict parametric assumption on the CATE form; it’s determined by the chosen ML models.  
+  2. Doubly robust property holds if at least one nuisance model is correct, depending on the meta-learner variant.  
+
+- **Advantages**:  
+  1. Full flexibility to use any ML method in each stage.  
+  2. Potential for minimal bias if the correct ML models are chosen.  
+  3. Automatic model selection can reduce overfitting risk.  
+
+- **Limitations**:  
+  1. Typically no closed-form confidence intervals due to heavy adaptivity.  
+  2. Performance depends highly on the chosen combination of nuisance models and final-stage learners.  
+  3. Can be computationally expensive in large-scale cross-validation scenarios.  
+
+- **Suitable Cases**:  
+  1. When you want to minimize MSE of the CATE estimate in a DRL approach and have the computational resources.  
+  2. When the user demands full flexibility over each stage’s model choice.  
+  3. When you’re less concerned about providing strict confidence intervals but want the best possible predictive performance.

@@ -1,0 +1,28 @@
+Based on the following information, select the most appropriate tree-based machine learning model to use as the base estimator for uplift modeling.
+
+Dataset Columns:
+[COLUMNS]
+
+Dataset Statistics:
+[STATISTICS_DESC]
+
+Algorithm Context:
+[ALGO_CONTEXT]
+
+Selected Uplift Algorithm: [ALGORITHM_NAME]
+
+Choose the most appropriate tree-based model considering:
+1. The nature of the dataset (size, dimensionality, etc.)
+2. The requirements of the selected uplift algorithm
+3. The potential for overfitting
+4. The need for interpretability vs performance
+
+Provide your response in JSON format:
+{
+  "name": "Name of the scikit-learn model class (e.g., 'RandomForestRegressor')",
+  "hyperparameters": {
+    "param1": value1,
+    "param2": value2
+  },
+  "justification": "Detailed explanation of why this model was selected"
+}

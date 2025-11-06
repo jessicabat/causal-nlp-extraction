@@ -1,0 +1,45 @@
+# MBOR Algorithm Profile
+
+## Executive Summary
+- **Optimal use scenarios**: Feature selection in high-dimensional data (up to thousands of variables); local causal discovery around specific target variables; scenarios requiring efficient identification of direct causes without needing the full causal graph.
+- **Alternative recommendations**: Use PC/FCI for full causal graph discovery; FCI for data with latent confounders; GES for very small samples; CDNOD with specialized independence tests for heavily mixed data types.
+
+## 1. Real-World Applications
+- **Best Use Cases**: Gene regulatory network discovery in genomics; feature selection for healthcare predictive models; biomedical research with thousands of potential causal factors; any domain requiring identification of minimal predictive variable sets.
+- **Limitations**: Not suitable for complete causal graph discovery; poor performance with latent confounders; ineffective for very small samples (<500 observations); struggles with heavily mixed data types.
+
+## 2. Assumptions
+- **Core theoretical assumptions**: Causal Markov condition; faithfulness (independencies in data correspond to graph d-separations); causal sufficiency (no unmeasured common causes).
+- **Effects of assumption violations**: Moderately robust to mild faithfulness violations; performance degrades significantly with hidden confounders; requires sufficient sample size for reliable independence testing.
+
+## 3. Data Handling Capabilities
+- **Performance across data types**: Handles continuous data well; can process discrete data using 'chisq' test; limited capacity for mixed data types within a single independence test.
+- **Handling of relationship complexity**: Can detect non-linear relationships when using kernel-based tests (kci, fastkci, rcit), though at increased computational cost.
+- **Noise tolerance**: Moderate tolerance to Gaussian and non-Gaussian noise when appropriate independence tests are selected.
+
+## 4. Robustness & Scalability
+- **Missing data tolerance**: Fair performance with low to moderate missing data rates (≤10%).
+- **Measurement error resilience**: Moderately robust to measurement errors compared to score-based methods.
+- **Network density performance**: Functions best with sparse to moderately dense networks; computational cost increases substantially in highly dense networks.
+- **Variable and sample scaling**: Scales efficiently with variables (O(|MB(T)| × N) complexity); requires moderate sample sizes (1,000+) for reliable performance.
+- **Multi-domain data handling**: Shows moderate robustness to heterogeneous data domains compared to other constraint-based algorithms.
+
+## 5. Computational Complexity
+- **Theoretical time complexity**: O(|MB(T)| × N) conditional independence tests, significantly more efficient than algorithms with exponential complexity.
+- **Practical runtime characteristics**: Runtime increases with Markov boundary size and network density; independence test choice dramatically affects performance.
+- **Memory requirements**: Moderate; primarily stores conditional independence test results and intermediate Markov boundaries.
+- **Parallelization potential**: Highly parallelizable, especially for independence tests; shows significant performance gains with multi-core processing.
+- **Hardware requirements**: Standard CPU sufficient; benefits substantially from multiple cores; no specialized hardware needed.
+
+## 6. Hyperparameters
+- **Key hyperparameters**: `alpha` (significance level: 0.01-0.1); `indep_test` (independence test type: fisherz, chisq, kci, fastkci, rcit).
+- **Default performance**: Default settings (`alpha`=0.05, `indep_test`='fisherz') perform well for moderate sample sizes and linear relationships.
+- **Tuning difficulty**: Low to moderate with clear guidelines - `alpha` based on sample size (0.1 for <500 samples, 0.05 for 500-10,000, 0.01 for >10,000); `indep_test` based on data characteristics.
+- **Impact of incorrect settings**: Overly strict `alpha` causes missed relationships; inappropriate independence test may miss non-linear relationships or introduce false positives.
+
+## 7. Interpretability
+- **Output format**: Produces Markov Boundaries for each target variable, converted to a CPDAG representation.
+- **Confidence measures**: Limited; relies on significance levels from independence tests without explicit edge confidence scores.
+- **Ambiguity handling**: May leave some edge directions ambiguous in the final CPDAG output.
+- **User accessibility**: Results directly applicable to feature selection tasks; requires additional interpretation for full causal analysis.
+- **Validation methods**: Can be validated through prediction tasks using identified Markov boundaries; cross-validation on independent test sets recommended.

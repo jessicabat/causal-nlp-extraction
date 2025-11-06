@@ -1,0 +1,31 @@
+# VARLiNGAM
+
+## Hyperparameters Sensitivity
+- **Number of Hyperparameters**: Moderate (3-5 key parameters)
+- **Default Performance**: Good on datasets with non-Gaussian noise, but requires lag selection
+- **Tuning Difficulty**: Moderate - lag selection is crucial but can be guided by domain knowledge
+
+## Robustness & Scalability
+- **Data Quality Tolerance**: Sensitive to noise and outliers; requires complete data
+- **Scalability**: Scales well for moderate dimensions (10-30 variables), struggles with high dimensions
+- **Computational Cost**: O(n² × lags) complexity, where n is number of variables
+
+## Mixed Data & Complex Functions
+- **Functional Assumptions**: Assumes linear causal relationships between variables
+- **Noise Assumptions**: Specifically designed for non-Gaussian noise distributions
+- **Data Type Handling**: Primarily for continuous data; requires preprocessing for discrete variables
+
+## Interpretability
+- **Output Format**: Fully directed graph showing both contemporaneous and time-lagged causal effects
+- **Edge Meanings**: Edge weights represent direct causal effect strengths
+- **Uncertainty Metrics**: Limited support for confidence intervals on causal effects
+
+## Assumptions
+- **Critical Assumptions**: Non-Gaussian noise, linear relationships, stationarity, causal sufficiency
+- **Robustness to Violations**: Sensitive to Gaussian noise, non-stationarity, and hidden confounders
+- **Requirement Level**: Core assumptions (non-Gaussianity) cannot be relaxed
+
+## Real-World Applications
+- **Successful Domains**: Economics (firm growth analysis), finance (monetary policy effects), neuroimaging with non-Gaussian signals
+- **Performance Limitations**: Underperforms in systems with nonlinear interactions or high dimensions
+- **Scientific Evidence**: Successfully applied in macroeconomic studies and financial time series analysis

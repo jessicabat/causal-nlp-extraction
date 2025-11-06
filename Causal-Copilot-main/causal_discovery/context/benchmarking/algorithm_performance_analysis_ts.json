@@ -1,0 +1,713 @@
+{
+  "Variable Scaling": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.8,
+        "std": 1.1661903789690602
+      },
+      "levels": {
+        "performance": 5.896319046005734,
+        "efficiency": 3.1355820022368697,
+        "composite": 5.6
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 2.4,
+        "std": 0.4898979485566356
+      },
+      "levels": {
+        "performance": 5.0609272343151295,
+        "efficiency": 2.5918445257477827,
+        "composite": 5.0
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 4.2,
+        "std": 1.469693845669907
+      },
+      "levels": {
+        "performance": 4.875864289022057,
+        "efficiency": 3.1512664271790585,
+        "composite": 4.8
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 3.8,
+        "std": 1.9390719429665317
+      },
+      "levels": {
+        "performance": 5.187932007206904,
+        "efficiency": 3.0943336977792577,
+        "composite": 4.8
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 4.2,
+        "std": 1.8330302779823362
+      },
+      "levels": {
+        "performance": 4.175119334135384,
+        "efficiency": 3.2357495835565415,
+        "composite": 3.8
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 1.0954451150103321
+      },
+      "levels": {
+        "performance": 2.537333129180557,
+        "efficiency": 3.6028983892735282,
+        "composite": 2.4
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.6,
+        "std": 0.7999999999999999
+      },
+      "levels": {
+        "performance": 2.5121141484509915,
+        "efficiency": 3.711583026294464,
+        "composite": 2.4
+      }
+    }
+  },
+  "Lag Scaling": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 9.74851513449957,
+        "efficiency": 4.776696740148471,
+        "composite": 8.8
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 3.2,
+        "std": 0.9797958971132712
+      },
+      "levels": {
+        "performance": 9.29673786796712,
+        "efficiency": 1.5198791457341834,
+        "composite": 8.4
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 2.6,
+        "std": 0.8
+      },
+      "levels": {
+        "performance": 8.334310109116336,
+        "efficiency": 4.765465151539858,
+        "composite": 7.8
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 3.6,
+        "std": 0.8
+      },
+      "levels": {
+        "performance": 8.334310109116336,
+        "efficiency": 4.792595439668829,
+        "composite": 7.8
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 4.6,
+        "std": 0.7999999999999999
+      },
+      "levels": {
+        "performance": 8.501296597405107,
+        "efficiency": 2.2209095414751827,
+        "composite": 7.8
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.2,
+        "std": 0.39999999999999997
+      },
+      "levels": {
+        "performance": 2.239513195757559,
+        "efficiency": 3.547076723620034,
+        "composite": 2.4
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 6.8,
+        "std": 0.39999999999999997
+      },
+      "levels": {
+        "performance": 1.0,
+        "efficiency": 4.938162837405377,
+        "composite": 1.0
+      }
+    }
+  },
+  "Sample Size Scaling": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.5,
+        "std": 0.5
+      },
+      "levels": {
+        "performance": 8.09306483243219,
+        "efficiency": 4.403178110994705,
+        "composite": 7.5
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 2.25,
+        "std": 1.6393596310755
+      },
+      "levels": {
+        "performance": 8.111942804863448,
+        "efficiency": 2.075778543626991,
+        "composite": 7.25
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 3.25,
+        "std": 0.4330127018922193
+      },
+      "levels": {
+        "performance": 7.0801545808626365,
+        "efficiency": 1.0,
+        "composite": 6.25
+      }
+    },
+    "PCMCI_indep_test=regression": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.830752394193858,
+        "efficiency": 1.0,
+        "composite": 6.0
+      }
+    },
+    "PCMCI_indep_test=robustparcorr": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.814425728725169,
+        "efficiency": 1.0,
+        "composite": 6.0
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 1.4142135623730951
+      },
+      "levels": {
+        "performance": 4.925504337766129,
+        "efficiency": 3.742171242602587,
+        "composite": 4.75
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 1.4142135623730951
+      },
+      "levels": {
+        "performance": 4.925504337766129,
+        "efficiency": 3.1059214156431714,
+        "composite": 4.75
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.5,
+        "std": 0.8660254037844386
+      },
+      "levels": {
+        "performance": 2.1052770201375646,
+        "efficiency": 1.0,
+        "composite": 2.25
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 7.5,
+        "std": 0.8660254037844386
+      },
+      "levels": {
+        "performance": 1.0,
+        "efficiency": 4.9162967351810565,
+        "composite": 1.0
+      }
+    }
+  },
+  "Lagged Edge Density": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 8.91369381473229,
+        "composite": 8.91369381473229
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 3.2,
+        "std": 0.9797958971132712
+      },
+      "levels": {
+        "performance": 8.707570319497497,
+        "composite": 8.707570319497497
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 4.2,
+        "std": 0.9797958971132712
+      },
+      "levels": {
+        "performance": 7.789126903616895,
+        "composite": 7.789126903616895
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 3.2,
+        "std": 1.6
+      },
+      "levels": {
+        "performance": 7.599878657186823,
+        "composite": 7.599878657186823
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 4.2,
+        "std": 1.6
+      },
+      "levels": {
+        "performance": 7.599878657186823,
+        "composite": 7.599878657186823
+      }
+    },
+    "PCMCI_indep_test=regression": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.830752394193858,
+        "composite": 6.830752394193858
+      }
+    },
+    "PCMCI_indep_test=robustparcorr": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.814425728725169,
+        "composite": 6.814425728725169
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 8.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 1.8236336345570447,
+        "composite": 1.8236336345570447
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 6.6,
+        "std": 1.2
+      },
+      "levels": {
+        "performance": 1.0,
+        "composite": 1.0
+      }
+    }
+  },
+  "w Instantaneous Edges": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.1666666666666667,
+        "std": 0.37267799624996495
+      },
+      "levels": {
+        "performance": 7.296652730217482,
+        "composite": 7.296652730217482
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 2.5,
+        "std": 1.2583057392117916
+      },
+      "levels": {
+        "performance": 7.042244419304276,
+        "composite": 7.042244419304276
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 3.1666666666666665,
+        "std": 0.6871842709362768
+      },
+      "levels": {
+        "performance": 5.596701807321985,
+        "composite": 5.596701807321985
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 4.166666666666667,
+        "std": 0.6871842709362768
+      },
+      "levels": {
+        "performance": 5.596701807321985,
+        "composite": 5.596701807321985
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 4.333333333333333,
+        "std": 1.4907119849998596
+      },
+      "levels": {
+        "performance": 5.565413665685699,
+        "composite": 5.565413665685699
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 5.666666666666667,
+        "std": 0.4714045207910317
+      },
+      "levels": {
+        "performance": 1.0,
+        "composite": 1.0
+      }
+    }
+  },
+  "w/o Instantaneous Edges": {
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 2.0,
+        "std": 0.5773502691896257
+      },
+      "levels": {
+        "performance": 6.700475231511018,
+        "composite": 6.700475231511018
+      }
+    },
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.1666666666666667,
+        "std": 0.3726779962499649
+      },
+      "levels": {
+        "performance": 6.638305173867022,
+        "composite": 6.638305173867022
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 2.8333333333333335,
+        "std": 0.3726779962499649
+      },
+      "levels": {
+        "performance": 6.507065298224357,
+        "composite": 6.507065298224357
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 3.7767544658040992,
+        "composite": 3.7767544658040992
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 3.7767544658040992,
+        "composite": 3.7767544658040992
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.5,
+        "std": 0.5
+      },
+      "levels": {
+        "performance": 1.8018829355917758,
+        "composite": 1.8018829355917758
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 6.5,
+        "std": 0.5
+      },
+      "levels": {
+        "performance": 1.097959832124826,
+        "composite": 1.097959832124826
+      }
+    }
+  },
+  "Dense Graph": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 10.0,
+        "efficiency": 4.0,
+        "composite": 9.0
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 10.0,
+        "efficiency": 4.0,
+        "composite": 9.0
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 10.0,
+        "efficiency": 4.0,
+        "composite": 9.0
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 10.0,
+        "efficiency": 4.0,
+        "composite": 9.0
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 7.751891205119144,
+        "efficiency": 4.0,
+        "composite": 7.0
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 1.0,
+        "efficiency": 5.0,
+        "composite": 1.0
+      }
+    }
+  },
+  "Long Time Lag": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 10.0,
+        "efficiency": 5.0,
+        "composite": 10.0
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 9.898801599647893,
+        "efficiency": 4.0,
+        "composite": 9.0
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 8.729055953597161,
+        "efficiency": 4.0,
+        "composite": 8.0
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.507837756947026,
+        "efficiency": 5.0,
+        "composite": 6.0
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 6.507837756947026,
+        "efficiency": 5.0,
+        "composite": 6.0
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 2.457432663774397,
+        "efficiency": 5.0,
+        "composite": 3.0
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 7.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 1.0,
+        "efficiency": 5.0,
+        "composite": 1.0
+      }
+    }
+  },
+  "Large Sample Size": {
+    "GrangerCausality_gc_type=pw": {
+      "ranking": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 8.889226123426303,
+        "efficiency": 4.0,
+        "composite": 8.0
+      }
+    },
+    "VARLiNGAM": {
+      "ranking": {
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 7.732689829813151,
+        "efficiency": 5.0,
+        "composite": 7.0
+      }
+    },
+    "VARLiNGAM_gpu=True": {
+      "ranking": {
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 7.732689829813151,
+        "efficiency": 4.0,
+        "composite": 7.0
+      }
+    },
+    "PCMCI_indep_test=parcorr": {
+      "ranking": {
+        "mean": 4.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 7.826422163290873,
+        "efficiency": 4.0,
+        "composite": 7.0
+      }
+    },
+    "DYNOTEARS": {
+      "ranking": {
+        "mean": 5.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 7.833299515557629,
+        "efficiency": 4.0,
+        "composite": 7.0
+      }
+    },
+    "NTSNOTEARS": {
+      "ranking": {
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 1.8386582710634563,
+        "efficiency": 4.0,
+        "composite": 2.0
+      }
+    },
+    "GrangerCausality_gc_type=mv": {
+      "ranking": {
+        "mean": 7.0,
+        "std": 0.0
+      },
+      "levels": {
+        "performance": 1.0,
+        "efficiency": 5.0,
+        "composite": 1.0
+      }
+    }
+  }
+}

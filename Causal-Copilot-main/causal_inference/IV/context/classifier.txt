@@ -1,0 +1,48 @@
+# Available Classifiers for IV Nuisance Modeling
+
+These classifiers are used to model the relationship between covariates and outcomes or treatments in the IV (DRIV) framework.
+
+- **LogisticRegression**  
+- **RandomForestClassifier**  
+- **HistGradientBoostingClassifier**  
+- **SVC**  
+- **SGDClassifier**  
+
+---
+
+## Classifiers Description
+
+### **LogisticRegression**
+- **Description**: A linear classifier modeling the log-odds of outcomes as a linear function of covariates.
+- **Assumptions**: Linear relationship between covariates and log-odds; minimal multicollinearity.
+- **Advantages**: Simple, interpretable, computationally efficient, supports regularization.
+- **Limitations**: Poor performance with nonlinear relationships; sensitive to outliers.
+- **Suitable Cases**: Low- to medium-dimensional data with a linear decision boundary.
+
+### **RandomForestClassifier**
+- **Description**: An ensemble method building multiple decision trees to capture nonlinear relationships.
+- **Assumptions**: No strict functional form (nonparametric).
+- **Advantages**: Captures complex interactions; provides feature importance.
+- **Limitations**: Computationally heavy for very large datasets; may struggle with extremely high-dimensional data.
+- **Suitable Cases**: Medium-sized datasets with complex, nonlinear relationships.
+
+### **HistGradientBoostingClassifier**
+- **Description**: A gradient boosting classifier using histogram-based binning, optimized for large datasets and high-dimensional features.
+- **Assumptions**: No specific functional form required.
+- **Advantages**: Scalable; automatically handles missing values and categorical data.
+- **Limitations**: Requires careful hyperparameter tuning; can be less interpretable.
+- **Suitable Cases**: Large-scale datasets with complex interactions.
+
+### **SVC**
+- **Description**: A support vector classifier using hyperplanes and kernel functions for nonlinear decision boundaries.
+- **Assumptions**: Data is separable (either linearly or via kernel transformation).
+- **Advantages**: Effective for small to medium datasets; flexible with kernels.
+- **Limitations**: Computationally expensive for large datasets; sensitive to hyperparameter tuning.
+- **Suitable Cases**: Datasets with clear class margins and nonlinear separability.
+
+### **SGDClassifier**
+- **Description**: A scalable linear classifier optimized via Stochastic Gradient Descent, supporting various loss functions.
+- **Assumptions**: Approximately linear relationship; suitable for large datasets.
+- **Advantages**: Highly scalable; supports multiple regularization options.
+- **Limitations**: Requires careful tuning; may converge slowly.
+- **Suitable Cases**: Very large, high-dimensional datasets with linear tendencies.

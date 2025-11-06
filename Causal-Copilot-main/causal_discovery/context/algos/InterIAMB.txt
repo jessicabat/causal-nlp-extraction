@@ -1,0 +1,51 @@
+# InterIAMB Algorithm Profile
+
+## Executive Summary
+- **Optimal use scenarios**: Moderate-sized datasets (≤30 variables, 500-10,000 samples) with primarily linear relationships and minimal missing data; feature selection tasks where identifying minimal predictive variable sets is the goal.
+- **Alternative recommendations**: For non-linear data, prefer CDNOD with RCIT; for high-dimensional data, consider GRaSP or PC with Fisher Z; for data with latent confounders, use FCI variants.
+
+## 1. Data Handling Capabilities
+- **Performance across data types**: Moderate performance with continuous data using "fisherz" test; handles pure discrete data with "chisq" test; struggles with mixed data types without specialized tests.
+- **Handling of relationship complexity**: Poor performance with non-linear relationships using default settings; can handle non-linearity when using appropriate tests (kci/fastkci/rcit) but with significant runtime cost.
+- **Noise tolerance**: Moderate tolerance to Gaussian noise; less robust to non-Gaussian noise distributions.
+
+## 2. Assumptions
+- **Core theoretical assumptions**: Causal sufficiency (no significant unobserved confounders); Markov condition (variable independent of non-descendants given parents); faithfulness (observed independencies reflect true causal structure).
+- **Effects of assumption violations**: Performance deteriorates significantly when causal sufficiency is violated; sensitive to faithfulness violations resulting in spurious or missing edges.
+
+## 3. Robustness & Scalability
+- **Missing data tolerance**: Low-to-moderate robustness to missing data; performance rank for missing data: 9.6 (±0.49).
+- **Measurement error resilience**: Moderate resilience to low levels of measurement error; degrades with error rates >0.3.
+- **Network density performance**: Better with moderately dense networks (edge probability ~0.2); less effective for very sparse networks.
+- **Variable and sample scaling**: Handles up to 25-30 variables efficiently; requires larger samples for reliable results; variable scaling rank: 6.6 (±2.15).
+- **Multi-domain data handling**: Limited capability for multi-domain data without modifications.
+
+## 4. Computational Complexity
+- **Theoretical time complexity**: O(n²) in best case, potentially higher in complex networks.
+- **Practical runtime characteristics**: Fast for small datasets (<15 variables, <1000 samples); significant slowdown with non-linear independence tests.
+- **Memory usage**: Moderate; scales with sample size and variable count.
+- **Parallelization potential**: Independence tests can be parallelized in some implementations.
+- **Hardware requirements**: Standard CPU sufficient for small-medium datasets; no specialized hardware needed unless using advanced tests.
+
+## 5. Real-World Applications
+- **Best Use Cases**: 
+  - Feature selection for classification tasks in high-dimensional biomedical data [Tsamardinos et al., 2003]
+  - Variable selection in NIR spectroscopic analysis [Cui et al., 2017]
+  - Structural learning of moderately-sized Bayesian networks [Aliferis et al., 2010]
+- **Limitations**: 
+  - Poor performance with very high-dimensional data (>50 variables)
+  - Ineffective for data with significant hidden confounders
+  - Not suitable for precise causal direction inference without additional processing
+  - Inefficient for time-critical applications with large datasets
+
+## 6. Hyperparameters
+- **Key hyperparameters**: alpha (significance level); indep_test (independence test method)
+- **Default performance**: Adequate in standard scenarios with default settings (α=0.05, indep_test="fisherz")
+- **Tuning difficulty**: Moderate; clear heuristics exist for parameter selection based on sample size and data type
+- **Impact of incorrect settings**: Inappropriate independence test can miss critical relationships; overly strict/lenient alpha values lead to missing edges or false positives
+
+## 7. Interpretability
+- **Output format**: Returns Markov blanket (MB) for each target variable (parents, children, and spouses)
+- **Confidence measures**: No native confidence metrics for discovered relationships
+- **Ambiguity handling**: Does not inherently resolve causal direction ambiguities
+- **User accessibility**: Output format is intuitive for feature selection but requires additional steps for causal inference

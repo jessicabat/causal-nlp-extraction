@@ -1,0 +1,65 @@
+# Available IV HTE Estimation Algorithms
+
+These are the Instrumental Variable (IV) estimation algorithms implemented for estimating Heterogeneous Treatment Effects (HTE) under a Doubly Robust IV (DRIV) framework:
+
+- **DRIV**  
+- **LinearDRIV**  
+- **SparseLinearDRIV**  
+- **ForestDRIV**  
+- **metalearners** (if applicable in the IV context)
+
+---
+
+## Algorithms Description
+
+### **DRIV**
+
+- **Description**:  
+  The general Doubly Robust Instrumental Variable (DRIV) estimator for estimating Conditional Average Treatment Effects (CATE). It leverages a valid instrument along with outcome and treatment nuisance models to correct for endogeneity.
+
+- **Key Characteristics**:  
+  - Combines modeling of outcomes and treatment assignments with IV correction.
+  - Robust if at least one nuisance model is correctly specified.
+
+---
+
+### **LinearDRIV**
+
+- **Description**:  
+  A variant of DRIV that uses linear regression in the final stage to estimate the CATE, assuming a linear relationship between covariates and the treatment effect.
+
+- **Key Characteristics**:  
+  - Simple and interpretable.
+  - Best for low-dimensional settings with a presumed linear effect.
+
+---
+
+### **SparseLinearDRIV**
+
+- **Description**:  
+  An extension of LinearDRIV that applies regularization (e.g., Debiased Lasso) to handle high-dimensional or sparse data, selecting only the most relevant covariates.
+
+- **Key Characteristics**:  
+  - Automatically performs feature selection.
+  - Ideal for high-dimensional scenarios with sparse true effects.
+
+---
+
+### **ForestDRIV**
+
+- **Description**:  
+  A nonparametric variant of DRIV that uses a regression forest in the final stage to flexibly capture complex and nonlinear heterogeneous treatment effects.
+
+- **Key Characteristics**:  
+  - Captures highly nonlinear relationships.
+  - Requires larger sample sizes and is more computationally intensive.
+
+---
+
+### **metalearners**
+
+- **Description**:  
+  A flexible approach that allows for the use of various machine learning models in both the nuisance and final stages of IV estimation.  
+- **Key Characteristics**:  
+  - Offers the highest flexibility by combining multiple models.
+  - Often used when model selection is automated through cross-validation.
