@@ -1,0 +1,24 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: EE
+  text: The optimized portfolio allocates 40% to Nvidia, 35% to Apple, and 25% to Microsoft, maximizing return with a Sharpe ratio of 1.45 and a risk factor of 0.32.
+  constraint:
+    portfolio_optimization:
+      - "portfolio"
+      - "asset"
+      - "allocation_weight"
+      - "expected_return"
+      - "volatility"
+      - "sharpe_ratio"
+      - "risk_factor"
+      - "optimization_method"
+      - "investment_horizon"
+  use_file: false
+  mode: detailed
+  update_case: false
+  show_trajectory: false

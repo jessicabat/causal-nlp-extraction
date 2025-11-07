@@ -1,0 +1,23 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: EE
+  text: Goldman Sachs raised its 2025 GDP forecast after strong U.S. consumer spending data, linking it to improved employment figures and robust retail earnings.
+  constraint:
+    financial_news_relation:
+      - "source_entity"
+      - "forecast_subject"
+      - "indicator"
+      - "evidence"
+      - "causal_link"
+      - "sector"
+      - "impact_direction"
+      - "time"
+  use_file: false
+  mode: customized
+  update_case: false
+  show_trajectory: false

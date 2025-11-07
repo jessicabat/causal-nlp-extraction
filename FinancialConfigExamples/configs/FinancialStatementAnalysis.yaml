@@ -1,0 +1,25 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: EE
+  text: Tesla’s 2025 income statement reported $26.7B in total revenue and $1.9B in net income, with declining gross margins driven by higher manufacturing costs and factory downtime.
+  constraint:
+    financial_statement_analysis:
+      - "company"
+      - "period"
+      - "revenue"
+      - "net_income"
+      - "gross_margin"
+      - "expense_driver"
+      - "liquidity_ratio"
+      - "profitability_ratio"
+      - "earnings_trend"
+      - "risk_factor"
+  use_file: false
+  mode: detailed
+  update_case: false
+  show_trajectory: false
