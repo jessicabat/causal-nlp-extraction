@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this preliminary portion of our codebase, we aim to use **OneKE** to extract knowledge from a paper of our choice. We selected a paper on **financial statement analysis using LLMs** as our test case. The paper is located in the `FinancialPapers` folder.
+In this preliminary portion of our codebase, we aim to use **OneKE** to extract knowledge from a paper of our choice. We selected the paper **Financial Statement Analysis with Large Language Models** as our test case, which can be found in the `FinancialPapers` folder.
 
 To get started, run the **`CheckpointTest.py`** file in the main folder. The baseline model we chose is **`meta-llama/Llama-3.1-8B-Instruct`** from the Hugging Face API, selected because it is open source and easy to access.  
 

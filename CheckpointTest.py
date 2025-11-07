@@ -40,7 +40,7 @@ pipeline = Pipeline(model)
 
 # extraction configuration
 Text = ""
-with open("Financial Statement Analysis with Large Language Models.pdf", "rb") as f:
+with open("FinancialPapers/Financial Statement Analysis with Large Language Models.pdf", "rb") as f:
     reader = PyPDF2.PdfReader(f)
     for page in reader.pages:
         Text += page.extract_text() + "\n"
