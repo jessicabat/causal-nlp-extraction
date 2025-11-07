@@ -1,9 +1,9 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex Triple task.
-  category: ChatGPT # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
-  model_name_or_path: gpt-4o-mini # # model name, chosen from the model list of the selected category.
-  api_key: your_api_key # your API key for the model with API service. No need for open-source models.
-  base_url: https://api.openai.com/v1 # # base URL for the API service. No need for open-source models.
+  category: LLaMA # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
+  model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct # # model name, chosen from the model list of the selected category.
+  # api_key: your_api_key # your API key for the model with API service. No need for open-source models.
+  # base_url: https://api.openai.com/v1 # # base URL for the API service. No need for open-source models.
 
 extraction:
   mode: quick # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
