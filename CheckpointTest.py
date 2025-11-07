@@ -40,7 +40,7 @@ pipeline = Pipeline(model)
 
 # extraction configuration
 Text = ""
-with open("Financial Statement Analysis with Large Language Models.pdf", "rb") as f:
+with open("FinancialPapers/Financial Statement Analysis with Large Language Models.pdf", "rb") as f:
     reader = PyPDF2.PdfReader(f)
     for page in reader.pages:
         Text += page.extract_text() + "\n"
@@ -70,7 +70,7 @@ all_data = {
 }
 
 # write data from extraction to json
-output_file = "FinancialPapers/Financial Statement Analysis Extraction.json"
+output_file = "Financial Statement Analysis Extraction.json"
 with open(output_file, "w", encoding="utf-8") as f:
     json.dump(all_data, f, ensure_ascii=False, indent=2)
 
