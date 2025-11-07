@@ -1,0 +1,23 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: EE
+  text: The European Central Bank increased interest rates by 25 basis points to combat rising inflation, resulting in a 1.5% drop in European equity indices.
+  constraint:
+    macroeconomic_event:
+      - "authority"
+      - "event_type"
+      - "rate_change"
+      - "inflation_level"
+      - "market_reaction"
+      - "currency_effect"
+      - "sector_impact"
+      - "time"
+  use_file: false
+  mode: standard
+  update_case: false
+  show_trajectory: false

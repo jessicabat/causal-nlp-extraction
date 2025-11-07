@@ -1,0 +1,22 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: NER
+  text: JPMorgan Chase announced a partnership with Mastercard to expand digital payment infrastructure across Europe, with a $500 million investment plan.
+  constraint:
+    financial_entities:
+      - "organization"
+      - "entity_type"
+      - "financial_metric"
+      - "monetary_value"
+      - "region"
+      - "partnership_target"
+      - "sector"
+  use_file: false
+  mode: standard
+  update_case: false
+  show_trajectory: false
