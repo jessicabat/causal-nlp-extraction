@@ -70,7 +70,7 @@ all_data = {
 }
 
 # write data from extraction to json
-output_file = "onke_extraction_output.json"
+output_file = "Financial Statement Analysis Extraction.json"
 with open(output_file, "w", encoding="utf-8") as f:
     json.dump(all_data, f, ensure_ascii=False, indent=2)
 
