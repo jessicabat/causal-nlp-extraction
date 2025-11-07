@@ -1,0 +1,35 @@
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  api_key: ""
+  base_url: ""
+  vllm_serve: false
+# model:
+#   category: Qwen
+#   model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct
+#   api_key: ""
+#   base_url: ""
+#   vllm_serve: false
+
+extraction:
+  task: Triple
+  instruction: ""
+  use_file: true
+  file_path: data/input_files/Quantitative_Asset_Management.pdf
+  mode: quick
+  output_schema: ""
+  constraint:
+    - ["Person", "Place", "Method", "Dataset", "Metric", "Model", "Task", "Paper", "Organization", "Concept", "Experiment"]
+    - ["Uses", "Improves", "EvaluatesOn", "ReportedMetric", "MemberOf", "Located", "Proposes", "Compares", "Extends", "BasedOn", "Introduces", "Achieves"]
+  update_case: false
+  show_trajectory: false
+
+# construct:
+#   database: Neo4j
+#   url: neo4j://localhost:7687
+#   username: neo4j
+#   password: "letmein123"
+
+output:
+  save_result: true
+  save_path: examples/results/Triple2KG_output.json
