@@ -1,19 +1,29 @@
 # FinancialConfigExamples/kgtest/CFA_Qwen_Triple2KG.yaml
 model:
   category: Qwen
-  model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
   vllm_serve: false
 
 extraction:
   task: Triple
-  instruction: ""
   use_file: true
   file_path: FinancialPapers/CFA PQ The Past and Future of Quantitative Asset Management.pdf
   mode: quick
+  instruction: |
+    Extract concrete, named triples (head, relation, tail) from the text. 
+    - Use specific names that appear in the PDF (e.g., "CFA Institute", "Value", "Momentum", "Fama-French 3-factor", "index funds"), not generic placeholders like "A dataset", "A model", or "A metric".
+    - If a node would be generic, SKIP it.
+    - Prefer relationships about methods, factors, datasets, time periods, and metrics actually reported.
+    - Avoid definition-style relations ("DefinedBy"). Use domain relations below.
+
+    Output only triples grounded in the text; do not invent entities.
+
   output_schema: ""
   constraint:
-    - ["Company", "Executive", "Method", "Dataset", "Metric", "Model", "Task", "Paper", "Organization", "Concept", "Experiment", "Market"]
-    - ["Uses", "Improves", "EvaluatesOn", "ReportedMetric", "MemberOf", "Located", "Proposes", "Compares", "Extends", "BasedOn", "Introduces", "Achieves", "Impacts"]
+    - ["Organization", "Paper", "Factor", "Strategy", "Dataset", "Metric", "Model", "Regulation", "Market", "Index", "Author", "Period"]
+    - ["Introduces", "Uses", "EvaluatesOn", "ReportsMetric", "Proposes", "Compares", "Extends", "BasedOn", "Influences", "Regulates", "Tracks", "OccursInPeriod"]
+  update_case: false
+  show_trajectory: false
 
 construct:
   database: Neo4j
