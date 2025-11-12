@@ -1,0 +1,92 @@
+{
+  "triple_list": [
+    {
+      "$ref": "#/definitions/Company",
+      "head": "Quantitative Asset Management",
+      "head_type": "Organization",
+      "relation": "IsPartOf",
+      "relation_type": "Organization",
+      "tail": "CFA Institute"
+    },
+    {
+      "$ref": "#/definitions/Method",
+      "head": "Quantitative Asset Management",
+      "head_type": "Method",
+      "relation": "IsPartOf",
+      "relation_type": "Organization",
+      "tail": "CFA Institute"
+    },
+    {
+      "$ref": "#/definitions/Dataset",
+      "head": "A dataset",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A dataset"
+    },
+    {
+      "$ref": "#/definitions/Metric",
+      "head": "A metric",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A metric"
+    },
+    {
+      "$ref": "#/definitions/Model",
+      "head": "A model",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A model"
+    },
+    {
+      "$ref": "#/definitions/Task",
+      "head": "A task",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A task"
+    },
+    {
+      "$ref": "#/definitions/Paper",
+      "head": "A paper",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A paper"
+    },
+    {
+      "$ref": "#/definitions/Organization",
+      "head": "An organization",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "An organization"
+    },
+    {
+      "$ref": "#/definitions/Concept",
+      "head": "A concept",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A concept"
+    },
+    {
+      "$ref": "#/definitions/Experiment",
+      "head": "An experiment",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "An experiment"
+    },
+    {
+      "$ref": "#/definitions/Market",
+      "head": "A market",
+      "head_type": "Definition",
+      "relation": "DefinedBy",
+      "relation_type": "Type",
+      "tail": "A market"
+    }
+  ]
+}

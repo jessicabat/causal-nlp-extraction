@@ -1,0 +1,26 @@
+# FinancialConfigExamples/kgtest/CFA_Qwen_Triple2KG.yaml
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct
+  vllm_serve: false
+
+extraction:
+  task: Triple
+  instruction: ""
+  use_file: true
+  file_path: FinancialPapers/CFA PQ The Past and Future of Quantitative Asset Management.pdf
+  mode: quick
+  output_schema: ""
+  constraint:
+    - ["Company", "Executive", "Method", "Dataset", "Metric", "Model", "Task", "Paper", "Organization", "Concept", "Experiment", "Market"]
+    - ["Uses", "Improves", "EvaluatesOn", "ReportedMetric", "MemberOf", "Located", "Proposes", "Compares", "Extends", "BasedOn", "Introduces", "Achieves", "Impacts"]
+
+construct:
+  database: Neo4j
+  url: neo4j://localhost:7687
+  username: neo4j
+  password: "letmein123"
+
+output:
+  save_result: true
+  save_path: FinancialConfigExamples/kgtest/CFA_triples.json
