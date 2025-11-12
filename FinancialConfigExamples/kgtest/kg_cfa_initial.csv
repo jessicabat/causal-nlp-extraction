@@ -1,0 +1,12 @@
+﻿n,r,m
+(:Organization {name: Quantitative Asset Management}),[:IsPartOf {relation_type: Organization}],(:Entity {name: CFA Institute})
+(:Method {name: Quantitative Asset Management}),[:IsPartOf {relation_type: Organization}],(:Entity {name: CFA Institute})
+(:Definition {name: A dataset}),[:DefinedBy {relation_type: Type}],(:Entity {name: A dataset})
+(:Definition {name: A metric}),[:DefinedBy {relation_type: Type}],(:Entity {name: A metric})
+(:Definition {name: A model}),[:DefinedBy {relation_type: Type}],(:Entity {name: A model})
+(:Definition {name: A task}),[:DefinedBy {relation_type: Type}],(:Entity {name: A task})
+(:Definition {name: A paper}),[:DefinedBy {relation_type: Type}],(:Entity {name: A paper})
+(:Definition {name: An organization}),[:DefinedBy {relation_type: Type}],(:Entity {name: An organization})
+(:Definition {name: A concept}),[:DefinedBy {relation_type: Type}],(:Entity {name: A concept})
+(:Definition {name: An experiment}),[:DefinedBy {relation_type: Type}],(:Entity {name: An experiment})
+(:Definition {name: A market}),[:DefinedBy {relation_type: Type}],(:Entity {name: A market})

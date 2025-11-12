@@ -1,0 +1,28 @@
+{
+  "triple_list": [
+    {
+      "$ref": "#/definitions/Paper",
+      "head": "Asness",
+      "head_type": "Paper",
+      "relation": "Introduces",
+      "relation_type": "paper",
+      "tail": "Asness"
+    },
+    {
+      "$ref": "#/definitions/Strategy",
+      "head": "value",
+      "head_type": "Strategy",
+      "relation": "Proposes",
+      "relation_type": "strategy",
+      "tail": "value"
+    },
+    {
+      "$ref": "#/definitions/Strategy",
+      "head": "momentum",
+      "head_type": "Strategy",
+      "relation": "Proposes",
+      "relation_type": "strategy",
+      "tail": "momentum"
+    }
+  ]
+}

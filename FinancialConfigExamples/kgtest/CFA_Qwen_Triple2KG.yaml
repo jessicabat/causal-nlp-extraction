@@ -1,22 +1,63 @@
 # FinancialConfigExamples/kgtest/CFA_Qwen_Triple2KG.yaml
 model:
   category: Qwen
-  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct
   vllm_serve: false
 
 extraction:
   task: Triple
   use_file: true
   file_path: FinancialPapers/CFA PQ The Past and Future of Quantitative Asset Management.pdf
-  mode: quick
-  instruction: |
-    Extract concrete, named triples (head, relation, tail) from the text. 
-    - Use specific names that appear in the PDF (e.g., "CFA Institute", "Value", "Momentum", "Fama-French 3-factor", "index funds"), not generic placeholders like "A dataset", "A model", or "A metric".
-    - If a node would be generic, SKIP it.
-    - Prefer relationships about methods, factors, datasets, time periods, and metrics actually reported.
-    - Avoid definition-style relations ("DefinedBy"). Use domain relations below.
+  # triples_1 & triples_2
+  # mode: quick
+  #triples_3
+  mode: robust
+  # triples_1
+  #instruction: ""
+  #triples_2
+  # instruction: |
+  #   Extract concrete, named triples (head, relation, tail) from the text. 
+  #   - Use specific names that appear in the PDF (e.g., "CFA Institute", "Value", "Momentum", "Fama-French 3-factor", "index funds"), not generic placeholders like "A dataset", "A model", or "A metric".
+  #   - If a node would be generic, SKIP it.
+  #   - Prefer relationships about methods, factors, datasets, time periods, and metrics actually reported.
+  #   - Avoid definition-style relations ("DefinedBy"). Use domain relations below.
 
-    Output only triples grounded in the text; do not invent entities.
+  #   Output only triples grounded in the text; do not invent entities.
+  #triples_3
+  instruction: |
+    Extract concrete triples (head, relation, tail) ONLY when head ≠ tail.
+    - Use specific entities from the PDF (e.g., "CFA Institute", "Fama-French 3-factor", "value", "momentum", "index funds", author names, datasets, periods).
+    - SKIP generic placeholders like “A dataset”, “A model”, etc.
+    - Prefer relations about factors/strategies, datasets, time periods, and reported metrics.
+    - Output should be faithful to the text; do not invent entities.
+
+    Rules:
+    1) head and tail MUST be different strings.
+    2) head_type/tail_type must be one of: Organization, Paper, Factor, Strategy, Dataset, Metric, Model, Regulation, Market, Index, Author, Period.
+    3) relation must be one of: Introduces, Uses, EvaluatesOn, ReportsMetric, Proposes, Compares, Extends, BasedOn, Influences, Regulates, Tracks, OccursInPeriod.
+    4) Avoid definition-style relations like "DefinedBy".
+
+    Example:
+    Text: "The Fama-French three-factor model adds value and size factors to CAPM."
+    Triples:
+      - head: Fama-French 3-factor
+        head_type: Model
+        relation: Extends
+        relation_type: model
+        tail: CAPM
+        tail_type: Model
+      - head: Fama-French 3-factor
+        head_type: Model
+        relation: Uses
+        relation_type: factor
+        tail: value
+        tail_type: Factor
+      - head: Fama-French 3-factor
+        head_type: Model
+        relation: Uses
+        relation_type: factor
+        tail: size
+        tail_type: Factor
 
   output_schema: ""
   constraint:
