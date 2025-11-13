@@ -15,12 +15,13 @@ extraction:
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
 
-construct: # (Optional) If you want to construct a Knowledge Graph, you need to set the construct field, or you must delete this field.
-  database: Neo4j # database type, now only support Neo4j.
-  url: http://localhost:7474/browser/ # your database URL，Neo4j's default port is 7687.
-  username: neo4j # your database username.
-  password: "ilikecheese" # your database password.
-
 output:
   save_result: true
   save_path: ECE228_Project_Report.json # path to save the extraction result.
+
+# construct: # (Optional) If you want to construct a Knowledge Graph, you need to set the construct field, or you must delete this field.
+#   database: Neo4j # database type, now only support Neo4j.
+#   url: bolt://localhost:7687 # your database URL，Neo4j's default port is 7687.
+#   username: neo4j # your database username.
+#   password: "ilikecheese" # your database password.
+
