@@ -9,7 +9,7 @@ extraction:
   task: Triple2KG # task type, chosen from Base, NER, RE, EE.
   instruction: Extract all factual statements as (subject, relation, object) triples. # description for the task. No need for NER, RE, EE task.
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: quick # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -22,4 +22,4 @@ construct: # (Optional) If you want to construct a Knowledge Graph, you need to 
 
 output:
   save_result: true
-  save_path: Financial Statement Analysis Extraction.json # path to save the extraction result.
+  save_path: ECE228_Project_Report.json # path to save the extraction result.
