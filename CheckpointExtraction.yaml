@@ -6,7 +6,7 @@ model:
   base_url: "" # # base URL for the API service. No need for open-source models.
 
 extraction:
-  task: Triple2KG # task type, chosen from Base, NER, RE, EE.
+  task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: Extract all factual statements as (subject, relation, object) triples. # description for the task. No need for NER, RE, EE task.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
