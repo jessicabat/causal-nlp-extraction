@@ -8,17 +8,18 @@ model:
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: Extract all factual statements as (subject, relation, object) triples. # description for the task. No need for NER, RE, EE task.
+  constraint: ["Person", "Place", "Event", "Organization", "Date", "Quantity", "Title", "Role", "Location"] # Specified entity types for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: quick # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
 
-construct: # (Optional) If you want to construct a Knowledge Graph, you need to set the construct field, or you must delete this field.
-  database: Neo4j # database type, now only support Neo4j.
-  url: neo4j://localhost:7687 # your database URL，Neo4j's default port is 7687.
-  username: neo4j # your database username.
-  password: "ilikecheese" # your database password.
+# construct: # (Optional) If you want to construct a Knowledge Graph, you need to set the construct field, or you must delete this field.
+#   database: Neo4j # database type, now only support Neo4j.
+#   url: neo4j://localhost:7687 # your database URL，Neo4j's default port is 7687.
+#   username: neo4j # your database username.
+#   password: "ilikecheese" # your database password.
 
 output:
   save_result: true
