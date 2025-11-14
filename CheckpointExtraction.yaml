@@ -1,14 +1,14 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex IE task.
-  category: Qwen # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
-  model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct # # model name, chosen from the model list of the selected category.
+  category: OneKE # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
+  model_name_or_path: zjunlp/OneKE # # model name, chosen from the model list of the selected category.
   api_key: "" # your API key for the model with API service. No need for open-source models.
   base_url: "" # # base URL for the API service. No need for open-source models.
 
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: Extract all factual triples (subject, relation, object) from the text. Do not include empty values. Ensure head and tail are not the same. # description for the task. No need for NER, RE, EE task.
-  constraint: ["Person", "Place", "Event", "Organization", "Date", "Quantity", "Title", "Role", "Location"] # Specified entity types for the named entity recognition task. Default set to empty.
+  constraint: [] # Specified entity types for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: quick # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
