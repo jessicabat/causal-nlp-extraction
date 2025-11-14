@@ -13,7 +13,7 @@ extraction:
   #   specifically for knowledge graph construction. Ensure the triples are 
   #   relevant for building a structured knowledge graph. Do not include 
   #   empty values. Ensure head and tail are not the same. 
-  constraint: ["Event", "Person", "Place", "Time", "Company", "Website", "Dataset", "Model"] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
+  constraint: ["Event", "Person", "Place", "Time", "Company", "Model"] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
@@ -23,7 +23,7 @@ extraction:
 
 construct: # (Optional) If you want to construct a Knowledge Graph, you need to set the construct field, or you must delete this field.
   database: Neo4j # database type, now only support Neo4j.
-  url: bolt://localhost:7687 # your database URL，Neo4j's default port is 7687.
+  url: bolt://192.168.1.208:7687 # your database URL，Neo4j's default port is 7687.
   username: neo4j # your database username.
   password: "ilikecheese" # your database password.
 
