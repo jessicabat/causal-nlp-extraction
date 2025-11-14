@@ -22,9 +22,9 @@ extraction:
   chunk_token_limit: 1024 # token limit for each text chunk. Default set to 1024.
 
 process_method:
-    schema_agent: get_retrieved_schema
-    extraction_agent: extract_information_direct
-    construct: false
+  schema_agent: get_retrieved_schema
+  extraction_agent: extract_information_direct
+  construct: false
 
 output:
   save_result: true # keep True to save the extraction
