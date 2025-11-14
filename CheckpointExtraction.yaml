@@ -16,7 +16,7 @@ extraction:
   constraint: ["Event", "Person", "Place", "Time"] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
-  mode: standard # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
+  mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
   output_file: ECE228_Project_Report.json # path to the output file for saving the extraction result.
