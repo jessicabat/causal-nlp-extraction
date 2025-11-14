@@ -13,15 +13,18 @@ extraction:
     specifically for knowledge graph construction. Ensure the triples are 
     relevant for building a structured knowledge graph. Do not include 
     empty values. Ensure head and tail are not the same. 
-  constraint:
-    - ["Entity", "Organization", "Person", "Location", "Event", "Object"]
-    - ["related_to", "associated_with", "impacts", "reports_on", "owns", "interacts_with"] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
+  constraint: [] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
   chunk_token_limit: 1024 # token limit for each text chunk. Default set to 1024.
+
+process_method:
+    schema_agent: get_retrieved_schema
+    extraction_agent: extract_information_direct
+    construct: false
 
 output:
   save_result: true # keep True to save the extraction
