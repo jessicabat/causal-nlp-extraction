@@ -1,0 +1,7 @@
+name: dsc180 
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - ipykernel
+prefix: /Users/matthewwong/miniforge3/envs/oneke
