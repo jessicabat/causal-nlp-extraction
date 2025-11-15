@@ -1,0 +1,99 @@
+model:
+  # We reuse the Qwen wrapper, which ultimately calls
+  # AutoModelForCausalLM.from_pretrained(model_name_or_path)
+  category: Qwen
+  model_name_or_path: TinyLlama/TinyLlama-1.1B-Chat-v1.0
+  vllm_serve: false
+
+extraction:
+  task: Triple
+  use_file: true
+  max_pages: 3
+  max_chars: 8000
+
+  # Resolved relative to repo root by kg_runner_direct.py
+  file_path: FinancialConfigExamples/kgtest/SAMPLE_EarningsCall_triples.pdf
+
+  mode: quick
+
+  instruction: |
+    You are an information extraction model for **earnings call transcripts**.
+    Convert the transcript into a list of factual triples:
+      (head, relation, tail, head_type, relation_type, tail_type).
+
+    Focus ONLY on **concrete, financially meaningful facts**, for example:
+      - Company performance:
+          • revenue, EPS, operating income, TM dollars, margins, TPV, FCF
+          • growth rates (%, YoY, QoQ), dollar amounts
+      - Guidance / outlook:
+          • future targets, ranges, growth expectations, buyback / FCF guidance
+      - Business segments, products, or geographies and their performance
+      - Important events:
+          • launches, partnerships, expansions, disruptions, divestitures
+      - Capital allocation:
+          • dividends, buybacks, debt, cash balances
+      - Executives and roles:
+          • who is CEO / CFO and which company they belong to
+
+    IMPORTANT – how to write triples:
+      1. Use **specific names** from the transcript:
+           - Company: "PayPal Holdings, Inc.", "Venmo", "BNPL"
+           - Segments: "Branded experiences", "PSP", "Omni", "Value-added services"
+           - Metrics: "Q3 2025 transaction margin dollars ex-interest: +7%",
+                      "TPV: $458B, +8% at spot, +7% FX-neutral",
+                      "Non-GAAP EPS: +12%"
+           - Periods: "Q3 2025", "full year 2025"
+      2. When possible, include **VALUE + PERIOD** inside the tail:
+           - (PayPal Holdings, Inc., ReportsMetric,
+              "Q3 2025 transaction margin dollars ex-interest grew 7%", Metric)
+           - (PayPal Holdings, Inc., Guides,
+              "FY 2025 non-GAAP EPS $5.35–$5.39, +15–16% YoY", Guidance)
+      3. Normalize obvious synonyms:
+           - Use "PayPal Holdings, Inc." for the company (even if text says "PayPal").
+           - Use "Buy Now, Pay Later (BNPL)" for BNPL.
+           - Use "Transaction margin dollars ex-interest" for TM dollars excluding interest.
+      4. DO NOT create generic placeholders like:
+           "A metric", "A model", "The company", "The segment".
+         If you cannot assign a specific, named entity, **skip that triple**.
+      5. Skip small talk, greetings, thanks, boilerplate, or vague comments
+         without numbers (e.g., "macro is uncertain").
+      6. Prefer **one fact per triple**. Example patterns:
+           - (Company, ReportsMetric, Metric+Value+Period)
+           - (Company, Guides, Metric+Value+Period)
+           - (Segment, ReportsMetric, Metric+Value+Period)
+           - (Company, HasSegment, Segment)
+           - (Executive, Leads, Company)
+           - (Company, MentionsRisk, Risk/Event)
+           - (Event, OccursInPeriod, Period)
+      7. relation_type should be a **short category label**, like:
+           "report", "guidance", "performance", "capital_allocation",
+           "strategy", "risk", "segment", "product".
+
+    Output rules:
+      - Follow the Triple / TripleList schema given by the system.
+      - Only output triples grounded in the transcript text.
+      - Do NOT invent companies, metrics, or values that are not clearly in the text.
+
+  output_schema: ""   # Let OneKE use the default Triple schema
+
+  # Entity types (head_type / tail_type) and allowed relation names.
+  constraint:
+    - ["Company", "Segment", "Product", "Metric", "Guidance", "Event",
+       "Risk", "Customer", "Geography", "Period", "Executive", "Index"]
+    - ["ReportsMetric", "Guides", "MentionsRisk", "LaunchesProduct",
+       "Impacts", "OccursInPeriod", "TargetsMetric", "HasSegment",
+       "Leads", "ServesCustomer", "OperatesIn", "PartnersWith",
+       "AllocatesCapitalTo"]
+
+  update_case: false
+  show_trajectory: false
+
+construct:
+  database: Neo4j
+  url: neo4j://localhost:7687
+  username: neo4j
+  password: "letmein123"
+
+output:
+  save_result: true
+  save_path: FinancialConfigExamples/kgtest/extractions/SAMPLE_EarningsCall_triples.json
