@@ -15,7 +15,7 @@ extraction:
   #   empty values. Ensure head and tail are not the same. 
   constraint: ["Event", "Person", "Place", "Time"] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -25,4 +25,3 @@ construct: # (Optional) If you want to construct a Knowledge Graph, you need to 
   url: neo4j+s://008d5478.databases.neo4j.io # your database URL，Neo4j's default port is 7687.
   username: neo4j # your database username.
   password: "DYNQX25dcZR3iEMujubW0QWIIEgJ8u9BrHtMX5wM3cs" # your database password.
-
