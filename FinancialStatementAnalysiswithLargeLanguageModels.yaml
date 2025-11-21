@@ -13,13 +13,8 @@ extraction:
     specifically for knowledge graph construction. Ensure the triples are 
     relevant for building a structured knowledge graph. Do not include 
     empty values. Ensure head and tail are not the same. Only output the triples in the format of
-    (subject, relation, object). For example:
-    [
-      {"subject": "Apple", "relation": "acquired", "object": "Beats"},
-      {"subject": "acquisition", "relation": "occurred_in", "object": "2014"},
-      {"subject": "acquisition", "relation": "purpose", "object": "strengthen its music ecosystem"}
-    ]
-  constraint: [["Subjects"], ["Relations"], ["Objects"]] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
+    (subject, relation, object).
+  constraint: []
     # - entity_types=[Event, Action, Condition, Factor, Intervention, Outcome, Effect, Variable]
     # - relation_types=[causes, leads_to, results_in, triggers, affects, influences, contributes_to, increases, decreases] 
   use_file: true # whether to use a file for the input text. Default set to false.
