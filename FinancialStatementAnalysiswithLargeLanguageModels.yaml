@@ -11,39 +11,29 @@ model:
   max_new_tokens: 128
   max_length: 1024
 
-  # Quantization (optional but helps the most)
-  load_in_4bit: true
-  bnb_4bit_compute_dtype: float16
-  bnb_4bit_use_double_quant: true
-
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
   instruction: >
-    Extract all factual triples (subject, relation, object) from the text specifically for knowledge graph construction.
+    Extract only causal factual triples directly supported by the text. 
+    A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
 
-    Only include triples that describe explicit causal relationships, such as those stated with terms like “causes,” “leads to,” “results in,” “because,” “increases,” “reduces,” or other clear causal connectors.
-    Do not infer causality that is not directly supported by the text.
+    Do not generate triples that are not grounded in the text. 
+    Do not infer, imagine, or hallucinate causal links.
+    Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
+    Do not include analysis of GPT, LLMs, or the extraction system itself.
 
-    Use the exact wording from the text for the head, relation, and tail when possible.
-    Do not paraphrase unless required for grammatical completeness.
+    Use the exact wording from the input text for head, relation, and tail whenever possible.
+    Output each causal statement as a separate triple. 
+    Ensure head and tail are not identical and contain no empty values.
 
-    Ensure the head and tail refer to concrete entities, measurable factors, or events, not interpretations or opinions.
-    Do not include empty values.
-    Ensure the head and tail are not the same.
-    Each triple must represent a standalone factual relationship suitable for a structured knowledge graph.
-    Do not merge multiple causal relationships into one triple; output each causal link separately.
-
-    Set head_type and tail_type to reflect the grammatical category (e.g., Noun, Event, Process).
-    Set relation_type to a verb or relation phrase.
-
-    Only output triples in the following JSON format:
+    Only output triples in the JSON format required by the schema:
     {
-      "head": "string",
-      "head_type": "string",
-      "relation": "string",
-      "relation_type": "string",
-      "tail": "string",
-      "tail_type": "string"
+      "head": "",
+      "head_type": "",
+      "relation": "",
+      "relation_type": "",
+      "tail": "",
+      "tail_type": ""
     }
     For example:
     {
