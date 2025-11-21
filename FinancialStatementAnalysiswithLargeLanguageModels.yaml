@@ -1,7 +1,7 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex IE task.
-  category: Qwen # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
-  model_name_or_path: Qwen/Qwen2.5-0.5B-Instruct # # model name, chosen from the model list of the selected category.
+  category: DeepSeek # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
+  model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B # # model name, chosen from the model list of the selected category.
   api_key: "" # your API key for the model with API service. No need for open-source models.
   base_url: "" # # base URL for the API service. No need for open-source models.
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
@@ -13,7 +13,9 @@ extraction:
   #   specifically for knowledge graph construction. Ensure the triples are 
   #   relevant for building a structured knowledge graph. Do not include 
   #   empty values. Ensure head and tail are not the same. 
-  constraint: [] # Generalized entity types and relations for the named entity recognition task. Default set to empty.
+  constraint:
+    - entity_types=[Event, Action, Condition, Factor, Intervention, Outcome, Effect, Variable]
+    - relation_types=[causes, leads_to, results_in, triggers, affects, influences, contributes_to, increases, decreases] 
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
