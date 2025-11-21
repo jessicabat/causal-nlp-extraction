@@ -13,6 +13,7 @@ from pipeline import *
 from huggingface_hub import InferenceClient
 import json
 import PyPDF2
+import pandas as pd
 
 # create HF inference client
 client = InferenceClient(
@@ -48,11 +49,18 @@ with open("FinancialPapers/Financial Statement Analysis with Large Language Mode
 # specify schema for extraction
 Task = "Triple2KG"
 # specify subject, relation, object triples 
-Constraint = [
-    ["Company", "Executive", "Merger", "Transaction"],
-    ["reports", "discloses", "increases", "decreases", "forecasts", "impacts"],
-    ["FinancialMetric", "FiscalPeriod", "MarketSegment", "Regulation", "CashFlow", "Revenue", "NetIncome"]
+Constraint = []
+
+# instruct model to output ONLY structured triples
+instruction = """
+Extract all factual statements as (subject, relation, object) triples.
+Return output strictly as a JSON list in the form:
+[
+  {"subject": "...", "relation": "...", "object": "..."},
+  ...
 ]
+Do not include any explanation, reasoning, or text outside the JSON list.
+"""
 
 # perform knowledge extraction
 result, trajectory, frontend_schema, frontend_res = pipeline.get_extract_result(
