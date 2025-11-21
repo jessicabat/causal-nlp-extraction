@@ -8,17 +8,17 @@ model:
 
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
-  # instruction: >
-  #   Extract all factual triples (subject, relation, object) from the text 
-  #   specifically for knowledge graph construction. Ensure the triples are 
-  #   relevant for building a structured knowledge graph. Do not include 
-  #   empty values. Ensure head and tail are not the same. 
+  instruction: >
+    Extract all factual triples (subject, relation, object) from the text 
+    specifically for knowledge graph construction. Ensure the triples are 
+    relevant for building a structured knowledge graph. Do not include 
+    empty values. Ensure head and tail are not the same. 
   constraint: 
     # - entity_types=[Event, Action, Condition, Factor, Intervention, Outcome, Effect, Variable]
     # - relation_types=[causes, leads_to, results_in, triggers, affects, influences, contributes_to, increases, decreases] 
       - entity_types=[subject]
       - relation_types=[relation]
-      - object_types=[object] # Generalized entity types and relations for the named entity recognition
+      - object_types=[object]
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
