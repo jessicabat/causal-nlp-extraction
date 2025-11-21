@@ -6,6 +6,16 @@ model:
   base_url: "" # # base URL for the API service. No need for open-source models.
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
 
+  # Reduce GPU memory usage
+  torch_dtype: float16
+  max_new_tokens: 128
+  max_length: 1024
+
+  # Quantization (optional but helps the most)
+  load_in_4bit: true
+  bnb_4bit_compute_dtype: float16
+  bnb_4bit_use_double_quant: true
+
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
   instruction: >
