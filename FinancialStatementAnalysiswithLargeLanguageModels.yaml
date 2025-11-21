@@ -1,6 +1,6 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex IE task.
-  category: DeepSeek # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
+  category: Qwen # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
   model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B # # model name, chosen from the model list of the selected category.
   api_key: "" # your API key for the model with API service. No need for open-source models.
   base_url: "" # # base URL for the API service. No need for open-source models.
