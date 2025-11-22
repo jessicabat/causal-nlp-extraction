@@ -13,39 +13,39 @@ model:
 
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
-  instruction: >
-    Extract only causal factual triples directly supported by the text. 
-    A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
+  # instruction: >
+  #   Extract only causal factual triples directly supported by the text. 
+  #   A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
 
-    Do not generate triples that are not grounded in the text. 
-    Do not infer, imagine, or hallucinate causal links.
-    Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
-    Do not include analysis of GPT, LLMs, or the extraction system itself.
+  #   Do not generate triples that are not grounded in the text. 
+  #   Do not infer, imagine, or hallucinate causal links.
+  #   Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
+  #   Do not include analysis of GPT, LLMs, or the extraction system itself.
 
-    Use the exact wording from the input text for head, relation, and tail whenever possible.
-    Output each causal statement as a separate triple. 
-    Ensure head and tail are not identical and contain no empty values.
+  #   Use the exact wording from the input text for head, relation, and tail whenever possible.
+  #   Output each causal statement as a separate triple. 
+  #   Ensure head and tail are not identical and contain no empty values.
 
-    Only output triples in the JSON format required by the schema:
-    {
-      "head": "",
-      "head_type": "",
-      "relation": "",
-      "relation_type": "",
-      "tail": "",
-      "tail_type": ""
-    }
-    For example:
-    {
-      "head": "Poor sleep",
-      "head_type": "Noun",
-      "relation": "Reduces",
-      "relation_type": "Verb",
-      "tail": "cognitive performance",
-      "tail_type": "Noun"
-    }
+  #   Only output triples in the JSON format required by the schema:
+  #   {
+  #     "head": "",
+  #     "head_type": "",
+  #     "relation": "",
+  #     "relation_type": "",
+  #     "tail": "",
+  #     "tail_type": ""
+  #   }
+  #   For example:
+  #   {
+  #     "head": "Poor sleep",
+  #     "head_type": "Noun",
+  #     "relation": "Reduces",
+  #     "relation_type": "Verb",
+  #     "tail": "cognitive performance",
+  #     "tail_type": "Noun"
+  #   }
     
-  constraint: []
+  constraint: [["Person", "Place", "Event", "Property"], ["Interpersonal", "Located", "Ownership", "Action"]]
     # - entity_types=[Event, Action, Condition, Factor, Intervention, Outcome, Effect, Variable]
     # - relation_types=[causes, leads_to, results_in, triggers, affects, influences, contributes_to, increases, decreases] 
   use_file: true # whether to use a file for the input text. Default set to false.
