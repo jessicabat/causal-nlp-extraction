@@ -1,0 +1,23 @@
+{
+  "triples": [],
+  "raw_result": {
+    "triple_list": {
+      "description": "The collection of triples and their types presented in the text.",
+      "items": {
+        "$ref": "#/$defs/Triple"
+      },
+      "title": "Triple List",
+      "type": "array"
+    }
+  },
+  "frontend_res": {
+    "triple_list": {
+      "description": "The collection of triples and their types presented in the text.",
+      "items": {
+        "$ref": "#/$defs/Triple"
+      },
+      "title": "Triple List",
+      "type": "array"
+    }
+  }
+}

@@ -1,0 +1,107 @@
+# ============================
+# Earnings Call Triple → KG YAML
+# ============================
+
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  api_key: ""          # local HF model, no API key needed
+  base_url: ""         # not used for local HF models
+  device: auto         # DSMLP GPU if available, else CPU
+
+  # If you ever want to switch back to DeepSeek via API or vLLM, you’d do:
+  # category: DeepSeek
+  # model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  # api_key: "<YOUR_DEEPSEEK_API_KEY>"
+  # base_url: "<DEEPSEEK_ENDPOINT>"
+  # device: auto
+
+extraction:
+  task: Triple
+  use_file: true
+
+  # 👇 Path is relative to repo root
+  file_path: FinancialConfigExamples/kgtest/SAMPLE_EarningsCall_triples.pdf
+
+  # Use the lightest mode for now; you can try "standard" later
+  mode: quick
+
+  instruction: |
+    You are an expert financial information extraction model working on an earnings call transcript.
+    Your job is to extract high-quality factual triples that are explicitly supported by the transcript.
+
+    GOAL:
+      - Extract between 5 and 20 of the most important triples from the transcript.
+      - Focus on *financially and strategically meaningful* facts.
+
+    ENTITY RULES:
+      - Use *exact* entity names from the transcript:
+          • Company names (e.g., "NVIDIA", "Microsoft Cloud", "Azure", "Consumer segment")
+          • Business segments
+          • Products / platforms / services
+          • Metrics (e.g., "Q3 revenue", "EPS", "gross margin", "ARR")
+          • Periods (e.g., "Q3 2024", "full year 2025 guidance")
+          • Executives (e.g., "CFO", "CEO", person names)
+          • Risks (e.g., "macroeconomic headwinds", "FX headwinds", "supply constraints")
+      - DO NOT use vague placeholders such as "the company", "this segment", "the product"
+        if a more precise name is available in the text.
+
+    TRIPLE PREFERENCE:
+      - Prefer triples that capture:
+          • (Company, ReportsMetric, Metric)
+          • (Segment, ReportsMetric, Metric)
+          • (Company, Guides, Metric)
+          • (Company, TargetsMetric, Metric)
+          • (Event, OccursInPeriod, Period)
+          • (Executive, Leads, Company)
+          • (Company, MentionsRisk, Risk)
+          • (Product, Impacts, Metric)
+          • (Company, OperatesIn, Geography)
+      - relation_type should be a high-level domain category such as:
+          "metric", "guidance", "performance", "event", "risk",
+          "segment", "executive", "geography", "product_impact".
+
+    QUALITY RULES:
+      - Every triple MUST be directly traceable to a concrete statement in the transcript.
+      - Do NOT hallucinate numbers, dates, or guidance.
+      - If a metric has a value and a period, encode them in the Metric string
+        (e.g., "Q3 2024 revenue grew 18% year-over-year to $4.2B").
+      - If the transcript is long, prioritize:
+          • Headline financials (revenue, EPS, margins, FCF, ARR)
+          • Segment performance
+          • Key guidance and targets
+          • Major product / platform updates that impact metrics
+          • Material risks or headwinds called out by management.
+
+    OUTPUT FORMAT (VERY IMPORTANT):
+      - Always output a JSON object with a field "triple_list".
+      - "triple_list" MUST be an array (list) of triples.
+      - Each triple MUST have the fields:
+          • head
+          • head_type
+          • relation
+          • relation_type
+          • tail
+          • tail_type
+      - Even if there is only ONE triple, still wrap it in a list under "triple_list".
+
+  constraint:
+    - ["Company", "Segment", "Product", "Metric", "Guidance",
+       "Event", "Risk", "Customer", "Geography",
+       "Period", "Executive"]
+    - ["ReportsMetric", "Guides", "MentionsRisk", "LaunchesProduct",
+       "Impacts", "OccursInPeriod", "TargetsMetric",
+       "HasSegment", "Leads", "OperatesIn"]
+
+  update_case: false
+  show_trajectory: false
+
+construct:
+  database: neo4j
+  url: "neo4j+s://b03f928e.databases.neo4j.io"
+  username: "neo4j"
+  password: "xzW4Zp4YB6FX3FxMznjxwhGaDN718UI-NjEC_faF3ek"
+
+output:
+  save_result: true
+  save_path: FinancialConfigExamples/kgtest/extractions/EarningsCall_triples.json

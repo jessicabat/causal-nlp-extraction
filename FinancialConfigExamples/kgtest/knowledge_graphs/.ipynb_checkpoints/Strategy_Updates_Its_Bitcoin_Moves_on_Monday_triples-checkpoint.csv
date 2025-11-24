@@ -1,0 +1,2 @@
+c,r,x
+(:Company {name: Strategy}),[:BuysAsset {relation_type: Buying Asset}],"(:Holding {name: 8,178 Bitcoins})"

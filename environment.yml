@@ -1,0 +1,19 @@
+name: causal-nlp
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10
+  - pip
+  - pytorch
+  - torchvision
+  - torchaudio
+  - cudatoolkit
+  - pyyaml
+  - pip:
+      - transformers
+      - accelerate
+      - pydantic
+      - sentencepiece
+      - datasets
+      - huggingface_hub

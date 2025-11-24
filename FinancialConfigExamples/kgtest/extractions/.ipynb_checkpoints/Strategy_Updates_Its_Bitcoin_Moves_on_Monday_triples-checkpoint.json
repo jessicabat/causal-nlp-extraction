@@ -1,0 +1,28 @@
+{
+  "triples": [
+    {
+      "head": "Strategy",
+      "head_type": "Company",
+      "relation": "BuysAsset",
+      "relation_type": "Buying Asset",
+      "tail": "8,178 Bitcoins",
+      "tail_type": "Holding"
+    }
+  ],
+  "raw_result": {
+    "head": "Strategy",
+    "head_type": "Company",
+    "relation": "BuysAsset",
+    "relation_type": "Buying Asset",
+    "tail": "8,178 Bitcoins",
+    "tail_type": "Holding"
+  },
+  "frontend_res": {
+    "head": "Strategy",
+    "head_type": "Company",
+    "relation": "BuysAsset",
+    "relation_type": "Buying Asset",
+    "tail": "8,178 Bitcoins",
+    "tail_type": "Holding"
+  }
+}

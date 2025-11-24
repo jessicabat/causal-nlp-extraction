@@ -1,0 +1,88 @@
+# ============================
+# Financial News Triple → KG YAML
+# ============================
+
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  api_key: ""      # local HF model, no API key
+  base_url: ""     # not used for local models
+  device: auto     # will be CPU in Docker
+
+  # If you ever want to switch to DeepSeek via API instead:
+  # category: DeepSeek
+  # model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  # api_key: "<YOUR_DEEPSEEK_API_KEY>"
+  # base_url: "<DEEPSEEK_ENDPOINT_URL>"
+  # device: auto
+
+extraction:
+  task: Triple
+  use_file: true
+
+  file_path: FinancialConfigExamples/kgtest/Strategy_Updates_Its_Bitcoin_Moves_on_Monday.pdf
+
+  # Use the lightest mode for CPU
+  mode: quick
+
+  instruction: |
+    You are an expert financial information extraction model focused on financial news.
+    Extract ONLY factual triples that are explicitly supported by the article text.
+
+    Rules:
+      - Every triple must be directly grounded in a specific sentence.
+      - Do NOT hallucinate numbers, dates, holdings, or events.
+      - Use concrete entity names (e.g., "Strategy", "Bitcoin", "Michael Saylor"),
+        not vague labels ("the company", "the crypto").
+      - Prefer financially meaningful facts, such as:
+          • (Company, HoldsAsset, CryptoAsset)
+          • (Company, BuysAsset, CryptoAsset)
+          • (Company, HasHoldingValue, Metric)
+          • (CryptoAsset, ExperiencesPriceChange, Metric)
+          • (CryptoAsset, HasPriceOnDate, Metric)
+          • (Executive, IsExecutiveOf, Company)
+          • (Company, Announces, Event)
+          • (Company, MentionsRisk, Risk)
+          • (InvestorSentiment, RelatedTo, CryptoAsset or Event)
+          • (Event, OccursInPeriod, Period)
+
+      - relation_type should be a high-level semantic category, e.g.:
+          "holding", "trade", "price_move", "valuation",
+          "event", "risk", "sentiment", "governance".
+      - Return ONLY valid JSON of the form:
+        {
+          "triple_list": [
+            {
+              "head": "...",
+              "head_type": "...",
+              "relation": "...",
+              "relation_type": "...",
+              "tail": "...",
+              "tail_type": "..."
+            },
+            ...
+          ]
+        }
+
+  constraint:
+    - ["Company", "CryptoAsset", "Metric", "Period", "Event",
+       "Executive", "Holding", "TradingAction", "Risk",
+       "InvestorSentiment", "Geography"]
+    - ["HoldsAsset", "BuysAsset", "SellsAsset", "HasHoldingValue",
+       "ExperiencesPriceChange", "HasPriceOnDate", "IsExecutiveOf",
+       "Announces", "MentionsRisk", "RelatedTo", "OccursInPeriod"]
+
+  update_case: false
+  show_trajectory: false
+
+construct:
+  database: neo4j
+  url: "neo4j+s://b03f928e.databases.neo4j.io"
+  username: "neo4j"
+  password: "xzW4Zp4YB6FX3FxMznjxwhGaDN718UI-NjEC_faF3ek"
+
+output:
+  save_result: true
+
+  # 👇 For THIS article; change filename per article in the future
+  save_path: FinancialConfigExamples/kgtest/extractions/Strategy_Updates_Its_Bitcoin_Moves_on_Monday_triples.json

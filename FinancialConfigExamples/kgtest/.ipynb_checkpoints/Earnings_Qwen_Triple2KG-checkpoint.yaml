@@ -1,0 +1,86 @@
+# ============================
+# Earnings Call Triple → KG YAML
+# ============================
+
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  api_key: ""
+  base_url: ""
+  device: auto
+
+extraction:
+  task: Triple
+  use_file: true
+  file_path: FinancialConfigExamples/kgtest/SAMPLE_EarningsCall_triples.pdf
+  mode: quick
+
+  instruction: |
+    You are an expert financial information extraction model.
+    Extract ONLY true, concrete triples from the earnings call transcript.
+
+    Rules:
+      - Use exact entities from the transcript: company names, business segments,
+        products, metrics, periods, guidance, executives, regions, major customers.
+      - No placeholders (no “the company”, “a metric”, “a segment”).
+      - Each triple must be grounded in a specific passage in the transcript.
+      - Skip generic or qualitative fluff that does not encode a clear fact.
+      - Prefer financial facts such as:
+          • (Company, ReportsMetric, Metric)
+          • (Segment, ReportsMetric, Metric)
+          • (Company, Guides, Metric)
+          • (Event, OccursInPeriod, Period)
+          • (Executive, Leads, Company)
+          • (Company, MentionsRisk, Risk)
+          • (Product, Impacts, Metric)
+          • (Company, OperatesIn, Geography)
+          • (Company, HasCustomer, Customer)
+
+      - relation_type should be a domain category like:
+          "metric", "guidance", "performance", "event", "risk",
+          "segment", "executive", "customer", "geography".
+
+    OUTPUT FORMAT (IMPORTANT):
+      - Return ONLY a JSON object with the key "triple_list".
+      - "triple_list" MUST be an array of objects.
+      - Each object MUST have EXACTLY these keys:
+          "head", "head_type", "relation", "relation_type", "tail", "tail_type".
+      - DO NOT output JSON schema. 
+        That means:
+          • NO "type" fields with values like "array" or "object".
+          • NO "items", "properties", "$defs", "$ref", or "description" fields.
+          • NO Pydantic or class definitions.
+      - Example of the **shape** (format only, not actual content):
+          {
+            "triple_list": [
+              {
+                "head": "Example Corp",
+                "head_type": "Company",
+                "relation": "ReportsMetric",
+                "relation_type": "metric",
+                "tail": "Q4 2024 revenue of $10B",
+                "tail_type": "Metric"
+              }
+            ]
+          }
+
+  constraint:
+    - ["Company", "Segment", "Product", "Metric", "Guidance",
+       "Event", "Risk", "Customer", "Geography",
+       "Period", "Executive"]
+    - ["ReportsMetric", "Guides", "MentionsRisk", "LaunchesProduct",
+       "Impacts", "OccursInPeriod", "TargetsMetric",
+       "HasSegment", "Leads", "OperatesIn", "HasCustomer"]
+
+  update_case: false
+  show_trajectory: false
+
+construct:
+  database: neo4j
+  url: "neo4j+s://b03f928e.databases.neo4j.io"
+  username: "neo4j"
+  password: "xzW4Zp4YB6FX3FxMznjxwhGaDN718UI-NjEC_faF3ek"
+
+output:
+  save_result: true
+  save_path: FinancialConfigExamples/kgtest/extractions/EarningsCall_triples.json
