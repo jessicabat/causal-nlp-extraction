@@ -45,9 +45,25 @@ extraction:
   #     "tail_type": "Noun"
   #   }
     
-  constraint: [["Person", "Place", "Event", "Property"], ["Interpersonal", "Located", "Ownership", "Action"]]
-    # - entity_types=[Event, Action, Condition, Factor, Intervention, Outcome, Effect, Variable]
-    # - relation_types=[causes, leads_to, results_in, triggers, affects, influences, contributes_to, increases, decreases] 
+  constraint:
+  entity_types: [
+    FinancialStatement, FinancialItem, FinancialMetric, Company, Segment,
+    Event, Outcome, Model, Method, Task, DocumentSection
+  ]
+  relation_types: [
+    causes, leads_to, results_in, contributes_to, increases, reduces,
+    influences, indicates, suggests, is_associated_with, reflects,
+    corresponds_to, improves, performs_worse_than, depends_on, varies_with,
+    is_reported_in, appears_in
+  ]
+  rules:
+    - All triples must be directly grounded in the text.
+    - Extract only one causal relationship per triple.
+    - Head and tail must be different.
+    - Use the exact words from the text for head and tail.
+    - No inferred or hypothetical financial logic.
+    - No model-internal concepts (e.g., chain-of-thought).
+    - Only extract relations explicitly stated or strongly signaled (e.g., "due to", "because", "thus").
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
