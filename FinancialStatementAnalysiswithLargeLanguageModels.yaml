@@ -46,16 +46,16 @@ extraction:
   #   }
     
   constraint:
-  entity_types: [
-    FinancialStatement, FinancialItem, FinancialMetric, Company, Segment,
-    Event, Outcome, Model, Method, Task, DocumentSection
-  ]
-  relation_types: [
-    causes, leads_to, results_in, contributes_to, increases, reduces,
-    influences, indicates, suggests, is_associated_with, reflects,
-    corresponds_to, improves, performs_worse_than, depends_on, varies_with,
-    is_reported_in, appears_in
-  ]
+    - entity_types: [
+      FinancialStatement, FinancialItem, FinancialMetric, Company, Segment,
+      Event, Outcome, Model, Method, Task, DocumentSection
+    ]
+    relation_types: [
+      causes, leads_to, results_in, contributes_to, increases, reduces,
+      influences, indicates, suggests, is_associated_with, reflects,
+      corresponds_to, improves, performs_worse_than, depends_on, varies_with,
+      is_reported_in, appears_in
+    ]
   rules:
     - All triples must be directly grounded in the text.
     - Extract only one causal relationship per triple.
