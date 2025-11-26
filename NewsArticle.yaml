@@ -9,28 +9,19 @@ model:
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
   instruction: >
-    Extract only causal factual triples directly supported by the text.
+    Extract only causal factual triples directly supported by the text. 
+    A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
 
-    A valid triple must describe a clear cause → effect relationship that is 
-    explicitly stated in the text using terms such as “causes,” “leads to,” 
-    “results in,” “drives,” “because,” “due to,” “increases,” or “reduces.”
+    Do not generate triples that are not grounded in the text. 
+    Do not infer, imagine, or hallucinate causal links.
+    Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
+    Do not include analysis of GPT, LLMs, or the extraction system itself.
 
-    Exclude any triple that does NOT express causality. 
-    Do NOT extract:
-    - stock price movements (“up,” “down,” “drops,” “rises”)
-    - companies being “in talks,” “considering,” “planning”
-    - correlations without explicit causal wording
-    - market context mentions appearing together in one article
-    - non-causal events (meetings, negotiations, announcements)
-    - performance descriptors (“Alphabet is up 2%”)
-
-    Do NOT infer or imagine causal links. 
-    Only extract causal relations found verbatim in the text.
-
-    Use the exact wording from the text for head, relation, and tail.
-    Head and tail must be different and non-empty.
-
-    Output each causal statement as a separate triple in this format:
+    Use the exact wording from the input text for head, relation, and tail whenever possible.
+    Output each causal statement as a separate triple. 
+    Ensure head and tail are not identical and contain no empty values.
+    Reject any extracted triple where head, relation, or tail exceeds 15 words.
+    Only output triples in the JSON format required by the schema:
     {
       "head": "",
       "head_type": "",
@@ -39,9 +30,41 @@ extraction:
       "tail": "",
       "tail_type": ""
     }
-    Only output JSON. No explanation, no chain-of-thought, no commentary.
+    For example:
+    {
+      "head": "Higher revenue",
+      "head_type": "financial_metric",
+      "tail": "profit growth",
+      "tail_type": "financial_outcome",
+      "relation": "drives",
+      "relation_type": "causal"
+    }
     
-  constraint: []
+  constraint: [
+    [
+      "FinancialEntity",
+      "Company",
+      "Event",
+      "FinancialMetric",
+      "Cause",
+      "Effect",
+      "Outcome",
+      "Action"
+    ],
+    [
+      "causes",
+      "leads_to",
+      "results_in",
+      "due_to",
+      "drives",
+      "increases",
+      "reduces",
+      "contributes_to",
+      "produces",
+      "triggers",
+      "generates"
+    ]
+  ]
   use_file: true # whether to use a file for the input text. Default set to false.
   file_path: FinancialPapers/Nvidia stock drops after report of Meta considering multi-billion-dollar deal for Google AI chips _ Seeking Alpha.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
