@@ -8,37 +8,36 @@ model:
 
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE, Triple
-  # instruction: >
-  #   Extract only causal factual triples directly supported by the text. 
-  #   A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
+  instruction: >
+    Extract only causal factual triples directly supported by the text. 
+    A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
 
-  #   Do not generate triples that are not grounded in the text. 
-  #   Do not infer, imagine, or hallucinate causal links.
-  #   Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
-  #   Do not include analysis of GPT, LLMs, or the extraction system itself.
+    Do not generate triples that are not grounded in the text. 
+    Do not infer, imagine, or hallucinate causal links.
+    Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
+    Do not include analysis of GPT, LLMs, or the extraction system itself.
 
-  #   Use the exact wording from the input text for head, relation, and tail whenever possible.
-  #   Output each causal statement as a separate triple. 
-  #   Ensure head and tail are not identical and contain no empty values.
-
-  #   Only output triples in the JSON format required by the schema:
-  #   {
-  #     "head": "",
-  #     "head_type": "",
-  #     "relation": "",
-  #     "relation_type": "",
-  #     "tail": "",
-  #     "tail_type": ""
-  #   }
-  #   For example:
-  #   {
-  #     "head": "Poor sleep",
-  #     "head_type": "Noun",
-  #     "relation": "Reduces",
-  #     "relation_type": "Verb",
-  #     "tail": "cognitive performance",
-  #     "tail_type": "Noun"
-  #   }
+    Use the exact wording from the input text for head, relation, and tail whenever possible.
+    Output each causal statement as a separate triple. 
+    Ensure head and tail are not identical and contain no empty values.
+    Only output triples in the JSON format required by the schema:
+    {
+      "head": "",
+      "head_type": "",
+      "relation": "",
+      "relation_type": "",
+      "tail": "",
+      "tail_type": ""
+    }
+    For example:
+    {
+      "head": "Higher revenue",
+      "head_type": "financial_metric",
+      "tail": "profit growth",
+      "tail_type": "financial_outcome",
+      "relation": "drives",
+      "relation_type": "causal"
+    }
     
   constraint: []
   use_file: true # whether to use a file for the input text. Default set to false.
