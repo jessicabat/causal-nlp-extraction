@@ -1,7 +1,7 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex IE task.
   category: Qwen # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
-  model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B # # model name, chosen from the model list of the selected category.
+  model_name_or_path: Qwen/Qwen2.5-7B-Instruct # # model name, chosen from the model list of the selected category.
   api_key: "" # your API key for the model with API service. No need for open-source models.
   base_url: "" # # base URL for the API service. No need for open-source models.
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
@@ -15,10 +15,9 @@ extraction:
     Do not generate triples that are not grounded in the text. 
     Do not infer, imagine, or hallucinate causal links.
     Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
-    Do not include analysis of GPT, LLMs, or the extraction system itself.
 
-    Use the exact wording from the input text for head, relation, and tail whenever possible.
-    Output each causal statement as a separate triple. 
+    Use the exact wording from the input text for head, relation, and tail whenever possible. 
+    When possible, chain triples to form a more complete knowledge graph.
     Ensure head and tail are not identical and contain no empty values.
     Reject any extracted triple where head, relation, or tail exceeds 15 words.
     Only output triples in the JSON format required by the schema:

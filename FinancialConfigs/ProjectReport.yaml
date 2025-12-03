@@ -1,13 +1,13 @@
 model:
   # Recommend using ChatGPT or DeepSeek APIs for complex IE task.
   category: Qwen # model category, chosen from ChatGPT, DeepSeek, LLaMA, Qwen, ChatGLM, MiniCPM, OneKE.
-  model_name_or_path: Qwen/Qwen2.5-7B-Instruct # # model name, chosen from the model list of the selected category.
+  model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B # # model name, chosen from the model list of the selected category.
   api_key: "" # your API key for the model with API service. No need for open-source models.
   base_url: "" # # base URL for the API service. No need for open-source models.
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
 
 extraction:
-  task: Triple # task type, chosen from Base, NER, RE, EE, Triple
+  task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: >
     Extract only causal factual triples directly supported by the text. 
     A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
@@ -41,14 +41,14 @@ extraction:
     
   constraint: [
     [
-      'Model', 'Metric', 'Dataset', 'Methodology', 'Research_Question', 'Author'
+      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric'
     ],
     [
-      'outperforms', 'achieves_score', 'trained_on', 'utilizes_method', 'analyzed_dataset', 'authored_by'
+      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in'
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: ../FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -58,3 +58,4 @@ construct: # (Optional) If you want to construct a Knowledge Graph, you need to 
   url: neo4j+s://008d5478.databases.neo4j.io # your database URL，Neo4j's default port is 7687.
   username: neo4j # your database username.
   password: "DYNQX25dcZR3iEMujubW0QWIIEgJ8u9BrHtMX5wM3cs" # your database password.
+
