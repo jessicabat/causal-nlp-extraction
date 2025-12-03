@@ -7,7 +7,7 @@ model:
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
 
 extraction:
-  task: Triple # task type, chosen from Base, NER, RE, EE, Triple
+  task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: >
     Extract only causal factual triples directly supported by the text. 
     A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
@@ -42,14 +42,14 @@ extraction:
     
   constraint: [
     [
-      'Company', 'Person', 'Product', 'Financial_Metric', 'Date', 'Event_Type', 'Competitor'
+      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric'
     ],
     [
-      'considering_purchase_of', 'competes_with', 'manufactures', 'stock_movement', 'partnered_with', 'announced'
+      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in'
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: FinancialPapers/Nvidia stock drops after report of Meta considering multi-billion-dollar deal for Google AI chips _ Seeking Alpha.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -59,3 +59,4 @@ construct: # (Optional) If you want to construct a Knowledge Graph, you need to 
   url: neo4j+s://008d5478.databases.neo4j.io # your database URL，Neo4j's default port is 7687.
   username: neo4j # your database username.
   password: "DYNQX25dcZR3iEMujubW0QWIIEgJ8u9BrHtMX5wM3cs" # your database password.
+

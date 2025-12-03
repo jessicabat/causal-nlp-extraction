@@ -42,27 +42,10 @@ extraction:
     
   constraint: [
     [
-      "FinancialEntity",
-      "Company",
-      "Event",
-      "FinancialMetric",
-      "Cause",
-      "Effect",
-      "Outcome",
-      "Action"
+      'Model', 'Metric', 'Dataset', 'Methodology', 'Research_Question', 'Author'
     ],
     [
-      "causes",
-      "leads_to",
-      "results_in",
-      "due_to",
-      "drives",
-      "increases",
-      "reduces",
-      "contributes_to",
-      "produces",
-      "triggers",
-      "generates"
+      'outperforms', 'achieves_score', 'trained_on', 'utilizes_method', 'analyzed_dataset', 'authored_by'
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
