@@ -16,6 +16,7 @@ extraction:
     Do not infer, imagine, or hallucinate causal links.
     Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
 
+    Convert all extracted knowledge to lowercase to prevent case sensitivity.
     Use the exact wording from the input text for head, relation, and tail whenever possible. 
     When possible, chain triples to form a more complete knowledge graph.
     Ensure head and tail are not identical and contain no empty values.
@@ -41,10 +42,10 @@ extraction:
     
   constraint: [
     [
-      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric'
+      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric', 'Algorithm_Architecture', 'Loss_Function' , 'Optimizer' , 'Dataset_Source', 'Hyperparameter', 'Baseline_Index', 'Software_Library'
     ],
     [
-      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in'
+      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in', 'trained_on_data', 'validated_on_split', 'optimized_by', 'compared_against_baseline', 'outperformed_by', 'implemented_in', 'function_of'
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
