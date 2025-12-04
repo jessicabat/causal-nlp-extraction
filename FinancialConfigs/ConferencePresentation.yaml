@@ -9,7 +9,7 @@ model:
 extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: >
-    Extract only causal factual triples directly supported by the text. 
+    Extract all factual triples directly supported by the text. 
     A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
 
     Do not generate triples that are not grounded in the text. 
@@ -17,8 +17,9 @@ extraction:
     Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
 
     Convert all extracted knowledge to lowercase to prevent case sensitivity.
-    Use the exact wording from the input text for head, relation, and tail whenever possible. 
-    When possible, chain triples to form a more complete knowledge graph.
+    Use the exact wording from the input text for head, relation, and tail whenever possible.
+    Always extract all triples that meet the criteria — do not stop after one.
+    Look to chain triples together to form a more complete knowledge graph.
     Ensure head and tail are not identical and contain no empty values.
     Reject any extracted triple where head, relation, or tail exceeds 15 words.
     Only output triples in the JSON format required by the schema:
@@ -31,21 +32,31 @@ extraction:
       "tail_type": ""
     }
     For example:
-    {
-      "head": "Higher revenue",
-      "head_type": "financial_metric",
-      "tail": "profit growth",
-      "tail_type": "financial_outcome",
-      "relation": "drives",
-      "relation_type": "causal"
-    }
+    [
+      {
+        "head": "higher revenue",
+        "head_type": "financial_metric",
+        "relation": "drives",
+        "relation_type": "causal",
+        "tail": "profit growth",
+        "tail_type": "financial_outcome"
+      },
+      {
+        "head": "investment in marketing",
+        "head_type": "financial_action",
+        "relation": "leads to",
+        "relation_type": "causal",
+        "tail": "increased sales",
+        "tail_type": "financial_metric"
+      }
+    ]
     
   constraint: [
     [
-      'Investment_Strategy', 'Asset_Class' , 'Time_Period', 'Market', 'Correlation_Type', 'Speaker'
+      'Investment_Strategy', 'Asset_Class' , 'Time_Period', 'Market', 'Correlation_Type', 'Speaker', "Affiliation_Institution", "Performance_Metric", "Evidence_Type"
     ],
     [
-      'correlated_with', 'outperformed_in', 'underperformed_in', 'applied_to', 'combined_with'
+      'correlated_with', 'outperformed_in', 'underperformed_in', 'applied_to', 'combined_with', "is_more_effective_than", "worked_since", "yields_metric", "has_characteristic"
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
