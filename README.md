@@ -24,7 +24,7 @@ PDF Paper/Text Data → OneKE Triple Extraction → Knowledge Graph → CSV Conv
 ## Introduction
 We aim to use **OneKE** to extract knowledge from a paper of our choice. Using the paper `Financial Statement Analysis with Large Language Models` as our test case, which can be found in the `FinancialPapers` folder, we perform knowledge extraction using **OneKE** to create a knowledge graph in `Neo4j`. We then convert the extracted knowledge into a structured CSV format suitable for causal analysis using **Causal Copilot**.
 
-To replicate our results, first clone our repository and ensure you have docker desktop or conda installed. Edit the `.yaml` files to set your desired model, extraction mode, and constraints (defined in `OneKE/src/config.yaml`). In the `construct` section, ensure you have your own instance of `Neo4j` running either locally or remotely through `Neo4j AuraDB`. This can be done through docker (locally) or online (remotely). Enter in the corresponding `url` and `password` for your own instance.
+To replicate our results, first clone our repository and ensure you have docker desktop or conda installed. Edit the `.yaml` files found in `FinancialConfigs` to set your desired model, extraction mode, and constraints (defined in `OneKE/src/config.yaml`). In the `construct` section, ensure you have your own instance of `Neo4j` running either locally or remotely through `Neo4j AuraDB`. This can be done through docker (locally) or online (remotely). Enter in the corresponding `url` and `password` for your own instance.
 
 ## Setup Instructions
 To set up the environment for running knowledge extraction using **OneKE**, you have three options: local setup using `pip`, conda environment setup, or Docker setup.
