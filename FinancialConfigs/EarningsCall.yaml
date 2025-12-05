@@ -10,14 +10,15 @@ extraction:
   task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: >
     Extract all factual triples directly supported by the text. 
-    A valid triple must describe a real cause → effect relationship explicitly stated in the text using terms such as "causes," "leads to," "results in," "because," "increases," "reduces," or other clear causal phrasing.
+    A valid triple must describe an explicit relationship stated in the text, such as classifications, attributes, associations, actions, part–whole links, temporal or spatial relations, or cause–effect statements, using wording that appears directly in the text.
 
     Do not generate triples that are not grounded in the text. 
     Do not infer, imagine, or hallucinate causal links.
     Do not include abstract concepts like "probability," "chain-of-thought," or model internal behavior.
 
+    Ensure the extracted triples are interpretable and make sense in natural language.
     Convert all extracted knowledge to lowercase to prevent case sensitivity.
-    Use the exact wording from the input text for head, relation, and tail whenever possible.
+    Use the exact wording (in lowercase) from the input text for head, relation, and tail whenver possible.
     Always extract all triples that meet the criteria — do not stop after one.
     Look to chain triples together to form a more complete knowledge graph.
     Ensure head and tail are not identical and contain no empty values.
@@ -53,14 +54,22 @@ extraction:
     
   constraint: [
     [
-      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric', 'Algorithm_Architecture', 'Loss_Function' , 'Optimizer' , 'Dataset_Source', 'Hyperparameter', 'Baseline_Index', 'Software_Library'
+      "Speaker_Role", "Analyst_Name", "Reported_Metric", "Guidance_Metric", "Product_Segment", "Geographic_Market", "Market_Condition", "Key_Numerical_Value", "Target_Period", "Financial_Statement_Item",
+  "Competitor_Name",
+  "Regulatory_Change",
+  "Sentiment_Indicator"
     ],
     [
-      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in', 'trained_on_data', 'validated_on_split', 'optimized_by', 'compared_against_baseline', 'outperformed_by', 'implemented_in', 'function_of'
+      "reports_actual_for", "provides_guidance_for", "inquires_about", "affirms_commitment_to", "attributes_performance_to", "constrains", "drives_growth_in", "revised_outlook_to", "responds_to_question_by",
+  "declines_by_percent",
+  "exceeds_expectations_by",
+  "affects_competitor_performance",
+  "cites_as_headwind",
+  "cites_as_tailwind"
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: FinancialPapers/ECE228_Project_Report.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/SAMPLE_EarningsCall_triples.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -70,4 +79,3 @@ construct: # (Optional) If you want to construct a Knowledge Graph, you need to 
   url: neo4j+s://008d5478.databases.neo4j.io # your database URL，Neo4j's default port is 7687.
   username: neo4j # your database username.
   password: "DYNQX25dcZR3iEMujubW0QWIIEgJ8u9BrHtMX5wM3cs" # your database password.
-
