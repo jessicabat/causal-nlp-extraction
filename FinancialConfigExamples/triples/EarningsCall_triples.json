@@ -1,0 +1,36 @@
+{
+  "triple_list": [
+    {
+      "head": "Blue Owl",
+      "head_type": "Company",
+      "relation": "had impact",
+      "relation_type": "MentionsRisk",
+      "tail": "Net neutral to operating income",
+      "tail_type": "Metric"
+    },
+    {
+      "head": "Blue Owl",
+      "head_type": "Company",
+      "relation": "will cover",
+      "relation_type": "ReportsMetric",
+      "tail": "Numbers on BNPL business",
+      "tail_type": "Metric"
+    },
+    {
+      "head": "Timothy Edward Chiodo",
+      "head_type": "Person",
+      "relation": "asks about mix of paying vs longer-term pay monthly loans",
+      "relation_type": "MentionsRisk",
+      "tail": "Loss rates",
+      "tail_type": "Metric"
+    },
+    {
+      "head": "Alex Chriss",
+      "head_type": "Person",
+      "relation": "asks about loss rates",
+      "relation_type": "MentionsRisk",
+      "tail": "Transaction margin dollar net take rate per unit of BNPL volume",
+      "tail_type": "Metric"
+    }
+  ]
+}

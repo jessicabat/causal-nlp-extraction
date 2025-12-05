@@ -1,0 +1,24 @@
+model:
+  category: DeepSeek
+  model_name_or_path: deepseek-chat
+  api_key: your_api_key
+  base_url: https://api.deepseek.com
+
+extraction:
+  task: EE
+  text: Apple’s Q4 2025 earnings report showed revenue growth of 8% year-over-year, driven by strong iPhone sales and higher services revenue, offset by weaker Mac performance.
+  constraint:
+    earnings_report:
+      - "company"
+      - "period"
+      - "revenue_growth"
+      - "revenue_driver"
+      - "declining_segment"
+      - "net_income"
+      - "eps"
+      - "guidance"
+      - "sentiment"
+  use_file: false
+  mode: detailed
+  update_case: false
+  show_trajectory: false

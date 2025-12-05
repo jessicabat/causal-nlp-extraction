@@ -1,0 +1,59 @@
+model:
+  category: Qwen
+  model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
+  api_key: ""
+  base_url: ""
+  device: auto
+
+extraction:
+  task: Triple
+  use_file: true
+
+  # MUST BE ABSOLUTE PATH
+  file_path: /home/jbatbayar/private/causal-nlp-extraction/FinancialPapers/SAMPLE_EarningsCall_triples.pdf
+
+  # MUST BE "standard" or "quick" — NOT customized
+  mode: quick
+
+  text: ""
+  output_schema: null
+  truth: ""
+
+  instruction: |
+    You are a financial triple extraction model. 
+    Extract 5–20 factual triples.
+
+    Output MUST be:
+    {"triple_list": [ ... ]}
+
+    RULES:
+    - triple_list MUST be a JSON array
+    - NEVER output schema objects, descriptions, titles, or $ref
+    - NEVER output explanations
+    - Only output triples
+
+    Each triple MUST contain:
+      head
+      head_type
+      relation
+      relation_type
+      tail
+      tail_type
+
+  constraint:
+    - ["Company", "Segment", "Product", "Metric", "Guidance",
+       "Event", "Risk", "Customer", "Geography",
+       "Period", "Executive"]
+    - ["ReportsMetric", "Guides", "MentionsRisk", "LaunchesProduct",
+       "Impacts", "OccursInPeriod", "TargetsMetric",
+       "HasSegment", "Leads", "OperatesIn"]
+
+  update_case: false
+  show_trajectory: false
+
+# REMOVE OR DISABLE construct block entirely
+construct: null
+
+output:
+  save_result: true
+  save_path: /home/jbatbayar/private/causal-nlp-extraction/FinancialConfigExamples/triples/EarningsCall_triples.json
