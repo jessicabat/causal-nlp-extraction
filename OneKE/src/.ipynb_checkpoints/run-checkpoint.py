@@ -4,7 +4,6 @@ import yaml
 from pipeline import Pipeline
 from typing import Literal
 import models
-from nltk.tokenize import sent_tokenize
 from models import *
 from utils import *
 from modules import *
