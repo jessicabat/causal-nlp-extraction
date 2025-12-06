@@ -1,5 +1,5 @@
 # causal-nlp-extraction
-Authors: Jessica Batbayer, Matthew Wong, Marija Vukic 
+Authors: Jessica Batbayar, Matthew Wong, Marija Vukic 
 
 ### Contributions
 All authors worked together through continuous pair programming. We jointly participated in planning the workflow, implementing the extraction pipeline, configuring models, debugging code, setting up Neo4j, running experiments, and writing all documentation. Every component of the project was developed collaboratively, and all authors contributed equally to its design, execution, and analysis.
