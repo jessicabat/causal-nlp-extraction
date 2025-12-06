@@ -7,7 +7,7 @@ model:
   device: auto # device to run the model, chosen from auto, cpu, cuda, cuda:0 etc. Default set to auto.
 
 extraction:
-  task: Triple # task type, chosen from Base, NER, RE, EE, Triple
+  task: Triple # task type, chosen from Base, NER, RE, EE.
   instruction: >
     Extract all factual triples directly supported by the text. 
     A valid triple must describe an explicit relationship stated in the text, such as classifications, attributes, associations, actions, part–whole links, temporal or spatial relations, or cause–effect statements, using wording that appears directly in the text.
@@ -54,14 +54,31 @@ extraction:
     
   constraint: [
     [
-      'Model', 'Metric', 'Dataset', 'Methodology', 'Research_Question', 'Author','Financial_Ratio', 'Accounting_Item', 'Prompt_Strategy', 'Firm_Characteristic', 'Statistical_Test', 'Benchmark_Model', 'Data_Split', 'Prediction_Horizon'
+      'Project_Title', 'Student/Author', 'Course', 'Algorithm', 'Tool/Library', 'Data_Source', 'Result_Metric', 'Algorithm_Architecture', 'Loss_Function' , 'Optimizer' , 'Dataset_Source', 'Hyperparameter', 'Baseline_Index', 'Software_Library',"Investment_Factor",
+  "Market_Regime",
+  "Investment_Strategy",
+  "Financial_Metric",
+  "Time_Horizon",
+  "Asset_Class",
+  "Corporate_Entity",
+  "Market_Condition",
+  "Strategic_Problem",
+  "Quantitative_Input"
     ],
     [
-      'outperforms', 'achieves_score', 'trained_on', 'utilizes_method', 'analyzed_dataset', 'authored_by', 'calculated_using', 'proxies_for', 'negatively_associated_with', 'positively_associated_with', 'robust_to', 'composed_of', 'generated_by'
+      'member_of_group', 'submitted_for_course', 'uses_algorithm', 'processes_data_from', 'compares_against', 'resulted_in', 'trained_on_data', 'validated_on_split', 'optimized_by', 'compared_against_baseline', 'outperformed_by', 'implemented_in', 'function_of', "is_more_reliable_than",
+  "rewarded_by_regime",
+  "performs_well_when",
+  "is_marked_by",
+  "exhibited_patterns_in",
+  "is_comprised_of_percentage",
+  "causes_a_problem_for",
+  "addressed_by_solution",
+  "is_an_arbitrary_classification"
     ]
   ]
   use_file: true # whether to use a file for the input text. Default set to false.
-  file_path: FinancialPapers/Financial Statement Analysis with Large Language Models.pdf #  # path to the input file. No need if use_file is set to false.
+  file_path: FinancialPapers/Quant Primer.pdf #  # path to the input file. No need if use_file is set to false.
   mode: customized # extraction mode, chosen from quick, detailed, customized. Default set to quick. See src/config.yaml for more details.
   update_case: false # whether to update the case repository. Default set to false.
   show_trajectory: false # whether to display the extracted intermediate steps
@@ -71,3 +88,4 @@ extraction:
 #   url:  # your database URL，Neo4j's default port is 7687.
 #   username:  # your database username.
 #   password:  # your database password.
+

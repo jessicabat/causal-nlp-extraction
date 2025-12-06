@@ -45,3 +45,15 @@ pytz
 PyYAML
 orjson
 typing-extensions
+openai
+tensorflow
+transformers==4.43.3
+sentence-transformers
+pydantic
+pyyaml
+huggingface_hub
+neo4j
+langchain_core==0.3.10
+langchain-text-splitters==0.3.0
+jsonpatch
+typing-extensions
